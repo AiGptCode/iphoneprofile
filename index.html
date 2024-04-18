@@ -113,6 +113,16 @@
             font-size: 0.9em;
             color: #999;
         }
+        .product-showcase {
+            background-color: #f5f5f5;
+            padding: 60px 0;
+        }
+        .product-showcase h2 {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+        }
         .product-card {
             background-color: #fff;
             border-radius: 10px;
@@ -151,48 +161,43 @@
             bottom: 20px;
             left: 20px;
         }
-        .modal-content {
-            background-color: #f5f5f5;
+        .contact-form {
+            padding: 60px 0;
         }
-        .modal-header {
-            border-bottom: none;
-        }
-        .modal-title {
-            font-size: 1.5em;
+        .contact-form h2 {
+            font-size: 2em;
             font-weight: bold;
-            color: #333;
+            text-align: center;
+            margin-bottom: 40px;
         }
-        .modal-body {
-            color: #333;
+        .contact-form form {
+            max-width: 600px;
+            margin: 0 auto;
         }
-        .modal-body img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
+        .contact-form .form-control {
             margin-bottom: 20px;
         }
-        .modal-body h5 {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .modal-body p {
-            font-size: 1em;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        .modal-footer {
-            border-top: none;
-        }
-        .modal-footer .btn {
-            color: #fff;
+        .contact-form .btn {
             background-color: #007bff;
-            border-color: #007bff;
-        }
-        .modal-footer .btn:hover {
             color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .contact-form .btn:hover {
             background-color: #0069d9;
-            border-color: #0062cc;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 30px 0;
+        }
+        .footer p {
+            font-size: 1em;
+            text-align: center;
         }
     </style>
 </head>
@@ -264,89 +269,102 @@
         </div>
     </section>
 
-    <section class="products">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="product-card text-center animate__animated animate__fadeInUp">
-                        <img src="product1.jpg" alt="Product 1">
-                        <div class="details">
-                            <h5>Product 1</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            <h6 class="price">$99</h6>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal1">
-                                Learn More
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add more product cards as needed -->
-            </div>
-        </div>
-    </section>
-
     <section class="testimonials">
         <div class="container">
             <h2>Testimonials</h2>
             <div class="row">
                 <div class="col-md-4">
                     <div class="testimonial animate__animated animate__fadeInUp">
-                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras porttitor metus justo, ut fringilla velit fermentum a."</p>
+                        <p>"AI Tools has been a game changer for our business. The AI tools they offer have helped us streamline our processes and increase efficiency."</p>
                         <h5>John Doe</h5>
                         <span>CEO, Acme Inc.</span>
                     </div>
                 </div>
-                <!-- Add more testimonials as needed -->
+                <div class="col-md-4">
+                    <div class="testimonial animate__animated animate__fadeInUp">
+                        <p>"The team at AI Tools is fantastic. They are knowledgeable, responsive, and always willing to go the extra mile to ensure our satisfaction."</p>
+                        <h5>Jane Smith</h5>
+                        <span>CTO, XYZ Corp.</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial animate__animated animate__fadeInUp">
+                        <p>"I highly recommend AI Tools to anyone looking for high-quality AI tools. Their products are top-notch and their customer service is exceptional."</p>
+                        <h5>Bob Johnson</h5>
+                        <span>CMO, ABC Co.</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-light mt-5">
+    <section class="product-showcase">
         <div class="container">
+            <h2>Our Products</h2>
             <div class="row">
                 <div class="col-md-4">
-                    <h5>About Us</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras porttitor metus justo, ut fringilla velit fermentum a.</p>
+                    <div class="product-card text-center animate__animated animate__fadeInUp">
+                        <img src="product1.jpg" alt="Product 1">
+                        <div class="details">
+                            <h5>Product 1</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras porttitor metus justo, ut fringilla velit fermentum a.</p>
+                            <h6 class="price">$99</h6>
+                            <button type="button" class="btn btn-primary">Learn More</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
-                    <h5>Contact Us</h5>
-                    <p>Email: info@example.com</p>
-                    <p>Phone: 123-456-7890</p>
-                    <p>Address: 123 Main St, Anytown, USA</p>
+                    <div class="product-card text-center animate__animated animate__fadeInUp">
+                        <img src="product2.jpg" alt="Product 2">
+                        <div class="details">
+                            <h5>Product 2</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras porttitor metus justo, ut fringilla velit fermentum a.</p>
+                            <h6 class="price">$199</h6>
+                            <button type="button" class="btn btn-primary">Learn More</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
-                    <h5>Follow Us</h5>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <div class="product-card text-center animate__animated animate__fadeInUp">
+                        <img src="product3.jpg" alt="Product 3">
+                        <div class="details">
+                            <h5>Product 3</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras porttitor metus justo, ut fringilla velit fermentum a.</p>
+                            <h6 class="price">$299</h6>
+                            <button type="button" class="btn btn-primary">Learn More</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section class="contact-form">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea class="form-control" id="message" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 AI Tools. All rights reserved.</p>
         </div>
     </footer>
-
-    <div class="modal fade" id="productModal1" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="productModalLabel">Product 1</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <img src="product1.jpg" alt="Product 1">
-                    <h5>Product 1</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras porttitor metus justo, ut fringilla velit fermentum a.</p>
-                    <h6 class="price">$99</h6>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Add to Cart</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
