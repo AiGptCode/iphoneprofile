@@ -7,102 +7,69 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.126.1/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.4.0/Tween.min.js"></script>
   <style>
+    body { margin: 0; }
     #lock-container {
-      perspective: 1000px;
-      perspective-origin: center;
-      margin: 0 auto;
-      width: 80%;
-      text-align: center;
-    }
-
-    .circle {
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background-color: white;
-      border: 1px solid gray;
-      transform-origin: center;
-      transform: rotateX(-40deg);
-      transition: transform 0.5s ease-in-out;
-      box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .active {
-      transform: rotateX(-40deg) rotateY(90deg);
+      width: 100%;
+      height: 100vh;
     }
   </style>
 </head>
 <body>
-  <h1>Combination Lock</h1>
-  <form id="lock-form">
-    <div id="lock-container">
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-    </div>
-    <div>
-      <label for="combination">Set Combination:</label>
-      <input type="text" id="combination" maxlength="4" pattern="[0-9]{4}">
-      <button type="button" id="set-btn">Set Combination</button>
-    </div>
-    <button type="submit" id="submit-btn" disabled>Login</button>
-  </form>
+  <div id="lock-container"></div>
   <script>
-    const circles = document.querySelectorAll(".circle");
-    const submitBtn = document.querySelector("#submit-btn");
-    const combinationInput = document.querySelector("#combination");
-    const setBtn = document.querySelector("#set-btn");
-    let password = "";
-    let lockState = false;
-    let currentCombination = "";
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById("lock-container").appendChild(renderer.domElement);
 
-    submitBtn.disabled = true;
+    const geometry = new THREE.CylinderGeometry(0.5, 0.5, 0.1, 32);
+    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
-    function setPassword() {
-      password = combinationInput.value;
-      if (!password) {
-        alert("Please enter a 4-digit combination.");
-        return;
-      }
-
-      localStorage.setItem("password", password);
-      location.reload();
+    const circles = [];
+    for (let i = 0; i < 4; i++) {
+      const circle = new THREE.Mesh(geometry, material);
+      circle.position.set(-3 + i * 3, 0, 0);
+      scene.add(circle);
+      circles.push(circle);
     }
+
+    camera.position.z = 10;
+
+    const password = "1234";
+    let currentCombination = "";
 
     function handleCombinationChange() {
       currentCombination = "";
-      circles.forEach((circle) => {
-        const circleIndex = Array.from(circles).indexOf(circle);
-        const rotationDegree = circle.style.transform.replace("rotate(", "").replace(")", "");
-        currentCombination += Math.round(rotationDegree / 90) +1;
+      circles.forEach((circle, index) => {
+        currentCombination += Math.round(circle.rotation.y / Math.PI * 2) + 1;
       });
 
       if (currentCombination === password) {
-        lockState = true;
-        submitBtn.disabled = false;
-        // Perform login action if combination is correct (e.g., send an AJAX request)
-        // Example: fetch('/login', {method: 'POST', body: JSON.stringify({password: password})})
-      } else {
-        submitBtn.disabled = true;
+        console.log("Unlock successful");
       }
     }
 
-    setBtn.addEventListener("click", setPassword);
+    function animate() {
+      requestAnimationFrame(animate);
 
-    window.addEventListener("DOMContentLoaded", () => {
-      const storedPassword = localStorage.getItem("password");
-      if (storedPassword) {
-        password = storedPassword;
+      for (let i = 0; i < circles.length; i++) {
+        circles[i].rotation.y += 0.01;
+
+        if (Math.round(circles[i].rotation.y / Math.PI * 2) % 4 === 0) {
+          handleCombinationChange();
+        }
       }
 
-      circles.forEach((circle) => {
-        circle.addEventListener("click", () => {
-          circle.classList.toggle("active");
-          handleCombinationChange();
-        });
-      });
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
     });
   </script>
 </body>
