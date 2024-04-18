@@ -7,26 +7,28 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.min.css">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            color: #333;
+            color: #fff;
+            background-color: #1a1a1a;
         }
         .navbar {
             padding: 15px 0;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #222;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
         .navbar-brand {
             font-weight: bold;
-            color: #333;
+            color: #fff;
         }
         .navbar-nav .nav-link {
-            color: #666;
+            color: #bbb;
             font-weight: 500;
         }
         .navbar-nav .nav-link:hover {
-            color: #007bff;
+            color: #ff6c60;
         }
         .hero-section {
             height: 100vh;
@@ -49,26 +51,26 @@
             margin-bottom: 40px;
         }
         .statistics {
-            background-color: #f5f5f5;
+            background-color: #222;
             padding: 60px 0;
         }
         .statistics .stat {
             text-align: center;
             padding: 20px;
             border-radius: 10px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
             margin: 20px;
         }
         .stat h3 {
             font-size: 2em;
             font-weight: bold;
-            color: #333;
+            color: #fff;
             margin-bottom: 10px;
         }
         .stat p {
             font-size: 1.2em;
-            color: #666;
+            color: #bbb;
         }
         .testimonials {
             background-color: #333;
@@ -111,10 +113,10 @@
         }
         .testimonial span {
             font-size: 0.9em;
-            color: #999;
+            color: #bbb;
         }
         .product-showcase {
-            background-color: #f5f5f5;
+            background-color: #222;
             padding: 60px 0;
         }
         .product-showcase h2 {
@@ -124,7 +126,7 @@
             margin-bottom: 40px;
         }
         .product-card {
-            background-color: #fff;
+            background-color: #333;
             border-radius: 10px;
             overflow: hidden;
             position: relative;
@@ -148,37 +150,38 @@
         }
         .product-card p {
             font-size: 1em;
-            color: #666;
+            color: #bbb;
             margin-bottom: 20px;
         }
         .product-card .price {
             font-size: 1.2em;
             font-weight: bold;
-            color: #007bff;
+            color: #ff6c60;
         }
         .product-card .btn {
             position: absolute;
             bottom: 20px;
             left: 20px;
         }
-        .contact-form {
+        .newsletter-form {
+            background-color: #333;
             padding: 60px 0;
         }
-        .contact-form h2 {
+        .newsletter-form h2 {
             font-size: 2em;
             font-weight: bold;
             text-align: center;
             margin-bottom: 40px;
         }
-        .contact-form form {
+        .newsletter-form form {
             max-width: 600px;
             margin: 0 auto;
         }
-        .contact-form .form-control {
+        .newsletter-form .form-control {
             margin-bottom: 20px;
         }
-        .contact-form .btn {
-            background-color: #007bff;
+        .newsletter-form .btn {
+            background-color: #ff6c60;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -187,12 +190,57 @@
             font-weight: bold;
             transition: background-color 0.3s;
         }
-        .contact-form .btn:hover {
-            background-color: #0069d9;
+        .newsletter-form .btn:hover {
+            background-color: #e95950;
+        }
+        .social-media {
+            background-color: #222;
+            padding: 30px 0;
+        }
+        .social-media h2 {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .social-media ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+        .social-media li {
+            margin: 0 10px;
+        }
+        .social-media a {
+            font-size: 2em;
+            color: #bbb;
+            transition: color 0.3s;
+        }
+        .social-media a:hover {
+            color: #ff6c60;
+        }
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff6c60;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            transition: background-color 0.3s;
+        }
+        .scroll-to-top:hover {
+            background-color: #e95950;
         }
         .footer {
-            background-color: #333;
-            color: #fff;
+            background-color: #1a1a1a;
+            color: #bbb;
             padding: 30px 0;
         }
         .footer p {
@@ -202,7 +250,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#">AI Tools</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -303,7 +351,7 @@
             <h2>Our Products</h2>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="product-card text-center animate__animated animate__fadeInUp">
+                    <div class="product-card text-center animate__animated animate__fadeInUp" data-tilt data-tilt-max-glare=".3" data-tilt-perspective="500">
                         <img src="product1.jpg" alt="Product 1">
                         <div class="details">
                             <h5>Product 1</h5>
@@ -314,7 +362,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="product-card text-center animate__animated animate__fadeInUp">
+                    <div class="product-card text-center animate__animated animate__fadeInUp" data-tilt data-tilt-max-glare=".3" data-tilt-perspective="500">
                         <img src="product2.jpg" alt="Product 2">
                         <div class="details">
                             <h5>Product 2</h5>
@@ -325,7 +373,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="product-card text-center animate__animated animate__fadeInUp">
+                    <div class="product-card text-center animate__animated animate__fadeInUp" data-tilt data-tilt-max-glare=".3" data-tilt-perspective="500">
                         <img src="product3.jpg" alt="Product 3">
                         <div class="details">
                             <h5>Product 3</h5>
@@ -339,26 +387,31 @@
         </div>
     </section>
 
-    <section class="contact-form">
+    <section class="newsletter-form">
         <div class="container">
-            <h2>Contact Us</h2>
+            <h2>Join Our Newsletter</h2>
             <form>
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" required>
+                    <input type="email" class="form-control" placeholder="Enter your email address" required>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="email" class="form-control" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea class="form-control" id="message" rows="3" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
             </form>
         </div>
     </section>
+
+    <section class="social-media">
+        <div class="container">
+            <h2>Follow Us</h2>
+            <ul>
+                <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+            </ul>
+        </div>
+    </section>
+
+    <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"><i class="fas fa-angle-up"></i></button>
 
     <footer class="footer">
         <div class="container">
@@ -368,8 +421,14 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
     <script>
-        // Add your JavaScript code here
+        $(document).ready(function() {
+            $('.product-card').tilt({
+                glare: true,
+                maxGlare: .3
+            });
+        });
     </script>
 </body>
 </html>
