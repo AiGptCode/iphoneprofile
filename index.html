@@ -1,111 +1,357 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آموزش رایگان و دائمی فعال‌سازی آنتن در آیفون ۱۴ و ۱۵</title>
-‎    <!-- استفاده از CDN برای Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-kFq2xxTOOJFhggd12jOHtr5Hcc2dIYJF3Si5T2q8T8Lbw7LNoSFwP/wzL5jPSS5n" crossorigin="anonymous">
-‎    <!-- استفاده از CDN برای Bootstrap JavaScript و Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-sI2a43BjrfJ4nUPyZfVrN2rVs/yRwvW+bvfX1waYIq2mU5pZnJoFsZfM2ZfyqF0o" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-pWCAdE4PzcRTJiJEZdnguylH0RySYm3Tvr5fUEEoc7PZ7Fr8aPKa1M5NFbXdw/jD" crossorigin="anonymous"></script>
+    <title>AI Tools - Your Private AI Marketplace</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+        }
+        .navbar {
+            padding: 15px 0;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #333;
+        }
+        .navbar-nav .nav-link {
+            color: #666;
+            font-weight: 500;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #007bff;
+        }
+        .hero-section {
+            height: 100vh;
+            background-image: url('hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+        .hero-section h1 {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .hero-section p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+        .statistics {
+            background-color: #f5f5f5;
+            padding: 60px 0;
+        }
+        .statistics .stat {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+        .stat h3 {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .stat p {
+            font-size: 1.2em;
+            color: #666;
+        }
+        .testimonials {
+            background-color: #333;
+            color: #fff;
+            padding: 60px 0;
+        }
+        .testimonials h2 {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .testimonial {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            position: relative;
+        }
+        .testimonial:before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-top: 20px solid #444;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+        }
+        .testimonial p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .testimonial h5 {
+            font-size: 1em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .testimonial span {
+            font-size: 0.9em;
+            color: #999;
+        }
+        .product-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-card .details {
+            padding: 20px;
+        }
+        .product-card h5 {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .product-card p {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .product-card .price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .product-card .btn {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
+        .modal-content {
+            background-color: #f5f5f5;
+        }
+        .modal-header {
+            border-bottom: none;
+        }
+        .modal-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+        .modal-body {
+            color: #333;
+        }
+        .modal-body img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+        .modal-body h5 {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .modal-body p {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .modal-footer {
+            border-top: none;
+        }
+        .modal-footer .btn {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .modal-footer .btn:hover {
+            color: #fff;
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>آموزش رایگان و دائمی فعال‌سازی آنتن در آیفون ۱۴ و ۱۵</h1>
-        <a href="https://ibb.co/whDY2tw"><img src="https://i.ibb.co/Ld4vsKJ/IMG-5707.jpg" alt="آموزش آنتن آیفون" class="img-fluid" border="0"></a>
-
-        <h2>آموزش ساخت پروفایل یکتا</h2>
-        <p>با استفاده از کدهای template و پوسته، می‌توانید پروفایل‌های یکتا برای تنظیمات آنتن را ایجاد کنید. با استفاده از uuid Generator که با زبان پایتون نوشته شده، می‌توانید کدهای همتا جدید بسازید و به پروفایل‌های قبلی خود اضافه کنید.</p>
-        <p>برای تبدیل فایل پایتون به فایل exe می‌توانید از دستورات زیر استفاده کنید:</p>
-        <pre>
-            <code>
-                pip install pyinstaller
-                pyinstaller --onefile --windowed uuid-genarator.py
-            </code>
-        </pre>
-        <p>در template ها برای UUID می‌توانید کد جدید را قرار دهید و به جای کد قبلی استفاده کنید:</p>
-        <pre>
-            <code>
-                &lt;key&gt;PayloadType&lt;/key&gt;
-                    &lt;string&gt;com.apple.cellular&lt;/string&gt;
-                &lt;key&gt;PayloadUUID&lt;/key&gt;
-                    &lt;string&gt;کد جدید&lt;/string&gt;
-                &lt;key&gt;PayloadVersion&lt;/key&gt;
-                    &lt;integer&gt;1&lt;/integer&gt;
-            </code>
-        </pre>
-        <p>بسته شدن کانفیگ ها به دلیل استفاده تعداد زیادی از یک UUID رخ می‌دهد. بنابراین، برای هر گوشی سعی کنید که یک UUID اختصاصی ایجاد کنید تا این مشکل رفع شود.</p>
-        <p>همچنین در کد، امکان شخصی‌سازی پروکسی یا ایپی اختصاصی برای ساخت پروفایل و دسترسی به اینترنت فراهم شده است.</p>
-        <a href="https://ibb.co/Zf3P4D7"><img src ="https://i.ibb.co/yND1vj7/IMG-5664.jpg" alt="راهنمای آموزشی" class="img-fluid" border="0"></a>
-
-        <h3>روش دوم</h3>
-        <h4>مراحل</h4>
-        <h5>دانلود Apple Configurator یا Imazing profile editor:</h5>
-        <ul>
-            <li><a href="https://apps.apple.com/us/app/apple-configurator/id1037126344?mt=12">Apple Configurator برای macOS</a></li>
-            <li><a href="https://apps.microsoft.com/detail/9PHS9QLCQ5S4?hl=en-us&gl=US">Imazing Profile Editor برای ویندوز</a></li>
-        </ul>
-        <ol>
-            <li>ایجاد پروفایل جدید:
-                <ul>
-                    <li>اجرای برنامه Apple Configurator</li>
-                    <li>رفتن به منوی "File" و انتخاب "New Profile"</li>
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">AI Tools</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
                 </ul>
-            </li>
-            <li>تنظیمات پروفایل:
-                <ul>
-                    <li>در بخش "Name" نام دلخواه خود را وارد کنید.</li>
-                    <li>در بخش "Identifier"، می‌توانید خالی بگذارید یا از فایل `uuid-genarator.py` یک کد یکتا بسازید و وارد کنید.</li>
-                </ul>
-            </li>
-            <li>تنظیمات APN:
-                <ul>
-                    <li>در منوی سمت چپ به دنبال گزینه "cellular" بگردید.</li>
-                    <li>در بخش "Configured APN Type"، مقدار "mcinet" یا "mtnirancell" را وارد کنید.</li>
-                    <li>در بخش "Data VPN Authentication Type" حتماً مقدار "CHAP" را انتخاب کنید.</li>
-                    <li>در انتهای صفحه، از IP4 استفاده کنید. اگر متوجه مشکل اینترنت شدید، می‌توانید تستی با IP6 انجام دهید.</li>
-                </ul>
-            </li>
-            <li>تست و ذخیره:
-                <ul>
-                    <li>پیکربندی را ذخیره کنید.</li>
-                    <li>اگر پیکربندی کار نکرد، می‌توانید یک پیکربندی جدید با یک UUID جدید بسازید و تست کنید.</li>
-                </ul>
-            </li>
-        </ol>
+            </div>
+        </div>
+    </nav>
 
-        <h3>قبل از آپلود پروفایل‌ها این کارها را انجام دهید:</h3>
-        <ol>
-            <li>ابتدا ریست نتورک را انجام دهید.</li>
-            <li>فایل کانفیگ ساخته شده با هر روشی را به گوشی ارسال کنید و آن را دانلود کنید و سپس بر روی آن کلیک کنید تا باز شود، سپس آن را در فایل ذخیره کنید.</li>
-            <li>سپس به فایل منیجر بروید و روی کانفیگ کلیک کنید تا یک پیام بالا بیاید و اماده نصب شود.</li>
-            <li>سپس وارد تنظیمات بخش VPN و Device Management شوید، پروفایل را انتخاب کرده و نصب کنید.</li>
-            <li>بعد از نصب، به بخش Cellular Data بروید، تیک Data Roaming و VoLTE را بر روی 5G یا LTE بزنید، سپس گوشی را روشن و خاموش کنید تا آنتن برگردد.</li>
-        </ol>
+    <section class="hero-section">
+        <div class="container">
+            <h1>Welcome to AI Tools</h1>
+            <p>Your one-stop shop for private AI tools</p>
+        </div>
+    </section>
 
-        <p>حالا بر روی <a href="https://www.icloud.com/shortcuts/9b2f6b908fb74058b2b1bf3ed4d08451">لینک شورتکات</a> کلیک کنید و آنتن خود را فعال کنید. اگر انتن شما قطع شد، با فعال کردن Shortcut می‌توانید مجدد آن را فعال کنید.</p>
+    <section class="statistics">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat text-center animate__animated animate__fadeInUp">
+                        <i class="fas fa-users fa-3x"></i>
+                        <h3>100+</h3>
+                        <p>Happy Customers</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat text-center animate__animated animate__fadeInUp">
+                        <i class="fas fa-box fa-3x"></i>
+                        <h3>50+</h3>
+                        <p>Products Sold</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat text-center animate__animated animate__fadeInUp">
+                        <i class="fas fa-star fa-3x"></i>
+                        <h3>4.8/5</h3>
+                        <p>Average Rating</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat text-center animate__animated animate__fadeInUp">
+                        <i class="fas fa-globe-americas fa-3x"></i>
+                        <h3>10+</h3>
+                        <p>Countries Served</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <h3>چند نکته مهم:</h3>
-        <ol>
-            <li>روی شبکه همراه اول تنظیم کنید تا آنتن بهتر بازگردد.</li>
-            <li>از دو سیم کارت همزمان در گوشی استفاده نکنید.</li        <li>در صورت کار نکردن پروفایل با uuid جدید بسازید و تست کنید همچنین برای دسترسی اینترنت مخصوصا برای ایرانسل می‌توانید تنظیمات ip را ip6 بذارید.</li>
-        <li>حتماً نت را روی 5G تنظیم کنید.</li>
-        <li>اگر از ساعت ۱۲ شب آنتن ندارید، نت را روی 2G تنظیم کنید، زیرا در برخی موارد آنتن به طور اتوماتیک تا صبح ۸ برگردد.</li>
-    </ol>
+    <section class="products">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="product-card text-center animate__animated animate__fadeInUp">
+                        <img src="product1.jpg" alt="Product 1">
+                        <div class="details">
+                            <h5>Product 1</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <h6 class="price">$99</h6>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal1">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more product cards as needed -->
+            </div>
+        </div>
+    </section>
 
-    <p>همچنین به یاد داشته باشید که هر پروفایل جدیدی که می‌خواهید تست کنید، قبل از آن باید پروفایل قبلی را پاک کنید.</p>
+    <section class="testimonials">
+        <div class="container">
+            <h2>Testimonials</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="testimonial animate__animated animate__fadeInUp">
+                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras porttitor metus justo, ut fringilla velit fermentum a."</p>
+                        <h5>John Doe</h5>
+                        <span>CEO, Acme Inc.</span>
+                    </div>
+                </div>
+                <!-- Add more testimonials as needed -->
+            </div>
+        </div>
+    </section>
 
-    <h3>توجه</h3>
-    <p>این راهنما برای تنظیم تلفن همراه برای دسترسی به اینترنت از طریق اتصال 4G مناسب است. به یاد داشته باشید که اطلاعات APN و دیگر تنظیمات ممکن است برای هر شبکه مختلف یا دستگاه متفاوت تغییر کند.</p>
+    <footer class="bg-light mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras porttitor metus justo, ut fringilla velit fermentum a.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>Email: info@example.com</p>
+                    <p>Phone: 123-456-7890</p>
+                    <p>Address: 123 Main St, Anytown, USA</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    <p>💞️ برای حمایت از تلاش‌های من، می‌توانید از طریق دونیشن‌های زیر کمک کنید:</p>
-    <ul>
-        <li>Ethereum: 0xc177e861fD9a9F598236C7183e105b9CCec9cb3e</li>
-        <li>Bitcoin: bc1q3230gkphdk5qzsxtj079mz5w35svwrpwq6wh8c</li>
-    </ul>
-</div>
+    <div class="modal fade" id="productModal1" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">Product 1</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="product1.jpg" alt="Product 1">
+                    <h5>Product 1</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras porttitor metus justo, ut fringilla velit fermentum a.</p>
+                    <h6 class="price">$99</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        // Add your JavaScript code here
+    </script>
 </body>
 </html>
-
