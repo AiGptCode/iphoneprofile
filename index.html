@@ -23,8 +23,11 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById("lock-container").appendChild(renderer.domElement);
 
+    const loader = new THREE.TextureLoader();
+    const texture = loader.load("path/to/your/texture.jpg");
+
     const geometry = new THREE.CylinderGeometry(0.5, 0.5, 0.1, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const material = new THREE.MeshBasicMaterial({ map: texture });
 
     const circles = [];
     for (let i = 0; i < 4; i++) {
@@ -35,6 +38,10 @@
     }
 
     camera.position.z = 10;
+
+    const light = new THREE.PointLight(0xffffff, 1, 100);
+    light.position.set(0, 0, 10);
+    scene.add(light);
 
     const password = "1234";
     let currentCombination = "";
@@ -66,11 +73,37 @@
 
     animate();
 
+    function onDocumentMouseDown(event) {
+      event.preventDefault();
+
+      const mouse = new THREE.Vector2();
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      const raycaster = new THREE.Raycaster();
+      raycaster.setFromCamera(mouse, camera);
+
+      const intersects = raycaster.intersectObjects(circles);
+
+      if (intersects.length > 0) {
+        const selectedCircle = intersects[0].object;
+        const index = circles.indexOf(selectedCircle);
+
+        new TWEEN.Tween(selectedCircle.rotation)
+          .to({ y: Math.PI * 2 * (password[index] - 1) }, 500)
+          .easing(TWEEN.Easing.Quadratic.InOut)
+          .start();
+      }
+    }
+
+    document.addEventListener("mousedown", onDocumentMouseDown, false);
     window.addEventListener("resize", () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
+
+    TWEEN.update();
   </script>
 </body>
 </html>
