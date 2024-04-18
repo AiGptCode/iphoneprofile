@@ -4,26 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Combination Lock</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.126.1/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.4.0/Tween.min.js"></script>
   <style>
     #lock-container {
-      width: 200px;
-      height: 200px;
-      position: relative;
+      perspective: 1000px;
+      perspective-origin: center;
+      margin: 0 auto;
+      width: 80%;
+      text-align: center;
     }
 
     .circle {
-      width: 50px;
-      height: 50px;
+      position: absolute;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       background-color: white;
       border: 1px solid gray;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+      transform-origin: center;
+      transform: rotateX(-40deg);
+      transition: transform 0.5s ease-in-out;
+      box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
     }
 
-    /* Add additional CSS styles for active circles, feedback messages, etc. */
+    .active {
+      transform: rotateX(-40deg) rotateY(90deg);
+    }
   </style>
 </head>
 <body>
@@ -69,7 +76,7 @@
       circles.forEach((circle) => {
         const circleIndex = Array.from(circles).indexOf(circle);
         const rotationDegree = circle.style.transform.replace("rotate(", "").replace(")", "");
-        currentCombination += Math.round(rotationDegree / 90) + 1;
+        currentCombination += Math.round(rotationDegree / 90) +1;
       });
 
       if (currentCombination === password) {
@@ -80,3 +87,23 @@
       } else {
         submitBtn.disabled = true;
       }
+    }
+
+    setBtn.addEventListener("click", setPassword);
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const storedPassword = localStorage.getItem("password");
+      if (storedPassword) {
+        password = storedPassword;
+      }
+
+      circles.forEach((circle) => {
+        circle.addEventListener("click", () => {
+          circle.classList.toggle("active");
+          handleCombinationChange();
+        });
+      });
+    });
+  </script>
+</body>
+</html>
