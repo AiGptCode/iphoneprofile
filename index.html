@@ -8,11 +8,59 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.min.css">
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video with Audio</title>
+    <style>
+    
+    <video autoplay loop id="background-video">
+        <source src="https://files.fm/f/6y4gngtzhq" type="video/mp4">
+    </video>
+
+    <script>
+        // Your JavaScript code goes here
+        const video = document.getElementById('background-video');
+
+        // Uncomment the following line if you want the video to play with audio
+        // video.muted = false;
+
+        // To ensure the video plays automatically with audio in most browsers
+        video.playbackRate = 1;
+        video.play();
+
+        // Workaround for autoplay policies in some browsers
+        const promise = video.play();
+        if (promise !== undefined) {
+            promise.catch((error) => {
+                // Handle error if autoplay is prevented
+                console.error('Autoplay prevented:', error);
+            });
+        }
+        
+        /* Your CSS styles go here */
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            background-color: #1a1a1a;
+        }
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             color: #fff;
             background-color: #1a1a1a;
+        }
+        .background-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translateX(-50%) translateY(-50%);
         }
         .navbar {
             padding: 15px 0;
