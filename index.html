@@ -10,18 +10,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.min.css">
     <style>
-        :root {
-            --background-color: #1a1a1a;
-            --text-color: #fff;
-            --secondary-color: #bbb;
-            --accent-color: #ff6c60;
-        }
-
         body {
             font-family: 'Roboto', sans-serif;
-            color: var(--text-color);
-            background-color: var(--background-color);
-            transition: background-color 0.3s ease, color 0.3s ease;
+            color: #fff;
+            background-color: #1a1a1a;
         }
 
         .navbar {
@@ -32,34 +24,29 @@
 
         .navbar-brand {
             font-weight: bold;
-            color: var(--text-color);
+            color: #fff;
         }
 
         .navbar-nav .nav-link {
-            color: var(--secondary-color);
+            color: #bbb;
             font-weight: 500;
         }
 
         .navbar-nav .nav-link:hover {
-            color: var(--accent-color);
-        }
-
-        #myVideo {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
+            color: #ff6c60;
         }
 
         .hero-section {
-            position: relative;
             height: 100vh;
+            background-image: url('hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: var(--text-color);
+            color: #fff;
+            position: relative;
         }
 
         .hero-section::before {
@@ -72,32 +59,23 @@
             background-color: rgba(0, 0, 0, 0.5);
         }
 
-        .statistics,
-        .testimonials,
-        .product-showcase,
-        .newsletter-form,
-        .social-media {
-            padding: 60px 0;
+        .hero-section h1 {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
         }
 
         .statistics {
             background-color: #222;
+            padding: 60px 0;
         }
 
-        .testimonials,
-        .product-showcase {
-            background-color: #333;
-        }
-
-        .newsletter-form {
-            background-color: #444;
-        }
-
-        .social-media {
-            background-color: #555;
-        }
-
-        .stat {
+        .statistics .stat {
             text-align: center;
             padding: 20px;
             border-radius: 10px;
@@ -109,19 +87,22 @@
         .stat h3 {
             font-size: 2em;
             font-weight: bold;
-            color: var(--text-color);
+            color: #fff;
             margin-bottom: 10px;
         }
 
         .stat p {
             font-size: 1.2em;
-            color: var(--secondary-color);
+            color: #bbb;
         }
 
-        .testimonials h2,
-        .product-showcase h2,
-        .newsletter-form h2,
-        .social-media h2 {
+        .testimonials {
+            background-color: #333;
+            color: #fff;
+            padding: 60px 0;
+        }
+
+        .testimonials h2 {
             font-size: 2em;
             font-weight: bold;
             text-align: center;
@@ -162,7 +143,19 @@
 
         .testimonial span {
             font-size: 0.9em;
-            color: var(--secondary-color);
+            color: #bbb;
+        }
+
+        .product-showcase {
+            background-color: #222;
+            padding: 60px 0;
+        }
+
+        .product-showcase h2 {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .product-card {
@@ -195,20 +188,32 @@
 
         .product-card p {
             font-size: 1em;
-            color: var(--secondary-color);
+            color: #bbb;
             margin-bottom: 20px;
         }
 
         .product-card .price {
             font-size: 1.2em;
             font-weight: bold;
-            color: var(--accent-color);
+            color: #ff6c60;
         }
 
         .product-card .btn {
             position: absolute;
             bottom: 20px;
             left: 20px;
+        }
+
+        .newsletter-form {
+            background-color: #333;
+            padding: 60px 0;
+        }
+
+        .newsletter-form h2 {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .newsletter-form form {
@@ -221,7 +226,7 @@
         }
 
         .newsletter-form .btn {
-            background-color: var(--accent-color);
+            background-color: #ff6c60;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -233,6 +238,18 @@
 
         .newsletter-form .btn:hover {
             background-color: #e95950;
+        }
+
+        .social-media {
+            background-color: #222;
+            padding: 30px 0;
+        }
+
+        .social-media h2 {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .social-media ul {
@@ -247,19 +264,19 @@
 
         .social-media a {
             font-size: 2em;
-            color: var(--secondary-color);
+            color: #bbb;
             transition: color 0.3s;
         }
 
         .social-media a:hover {
-            color: var(--accent-color);
+            color: #ff6c60;
         }
 
         .scroll-to-top {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: var(--accent-color);
+            background-color: #ff6c60;
             color: #fff;
             border: none;
             border-radius: 50%;
@@ -278,13 +295,41 @@
 
         .footer {
             background-color: #1a1a1a;
-            color: var(--secondary-color);
+            color: #bbb;
             padding: 30px 0;
         }
 
         .footer p {
             font-size: 1em;
             text-align: center;
+        }
+
+        /* Added CSS for video background */
+        #myVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+        }
+
+        .hero-section {
+            position: relative;
+        }
+
+        /* Added CSS for dark mode */
+        :root {
+            --text-color: #fff;
+            --secondary-color: #bbb;
+            --accent-color: #ff6c60;
+        }
+
+        body.dark-mode {
+            background-color: #222;
+            color: #1a1a1a;
+            --text-color: #1a1a1a;
+            --secondary-color: #bbb;
+            --accent-color: #ff6c60;
         }
     </style>
 </head>
@@ -321,7 +366,7 @@
 
     <section class="hero-section">
         <video autoplay muted loop id="myVideo">
-            <source src="your-video-file.mp4" type="video/mp4">
+            <source src="https://files.fm/f/6y4gngtzhq" type="video/mp4">
         </video>
         <div class="container">
             <h1>Welcome to AI Tools</h1>
@@ -343,15 +388,9 @@
 
             document.getElementById('darkModeSwitch').addEventListener('change', function() {
                 if (this.checked) {
-                    document.documentElement.style.setProperty('--background-color', '#222');
-                    document.documentElement.style.setProperty('--text-color', '#1a1a1a');
-                    document.documentElement.style.setProperty('--secondary-color', '#bbb');
-                    document.documentElement.style.setProperty('--accent-color', '#ff6c60');
+                    document.body.classList.add('dark-mode');
                 } else {
-                    document.documentElement.style.setProperty('--background-color', '#fff');
-                    document.documentElement.style.setProperty('--text-color', '#000');
-                    document.documentElement.style.setProperty('--secondary-color', '#6c757d');
-                    document.documentElement.style.setProperty('--accent-color', '#007bff');
+                    document.body.classList.remove('dark-mode');
                 }
             });
         });
