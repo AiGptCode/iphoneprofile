@@ -1,400 +1,280 @@
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Tools - Your Private AI Marketplace</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.min.css">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            color: #fff;
-            background-color: #1a1a1a;
-        }
-
-        .navbar {
-            padding: 15px 0;
-            background-color: #222;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .navbar-nav .nav-link {
-            color: #bbb;
-            font-weight: 500;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #ff6c60;
-        }
-
-        .hero-section {
-            height: 100vh;
-            background-image: url('hero-bg.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #fff;
-            position: relative;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .hero-section h1 {
-            font-size: 3em;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .hero-section p {
-            font-size: 1.2em;
-            margin-bottom: 40px;
-        }
-
-        .statistics {
-            background-color: #222;
-            padding: 60px 0;
-        }
-
-        .statistics .stat {
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #333;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-            margin: 20px;
-        }
-
-        .stat h3 {
-            font-size: 2em;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-
-        .stat p {
-            font-size: 1.2em;
-            color: #bbb;
-        }
-
-        .testimonials {
-            background-color: #333;
-            color: #fff;
-            padding: 60px 0;
-        }
-
-        .testimonials h2 {
-            font-size: 2em;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .testimonial {
-            background-color: #444;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px;
-            position: relative;
-        }
-
-        .testimonial:before {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-top: 20px solid #444;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-        }
-
-        .testimonial p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-
-        .testimonial h5 {
-            font-size: 1em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .testimonial span {
-            font-size: 0.9em;
-            color: #bbb;
-        }
-
-        .product-showcase {
-            background-color: #222;
-            padding: 60px 0;
-        }
-
-        .product-showcase h2 {
-            font-size: 2em;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .product-card {
-            background-color: #333;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            transition: transform 0.3s;
-        }
-
-        .product-card:hover {
-            transform: scale(1.05);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .product-card .details {
-            padding: 20px;
-        }
-
-        .product-card h5 {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .product-card p {
-            font-size: 1em;
-            color: #bbb;
-            margin-bottom: 20px;
-        }
-
-        .product-card .price {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #ff6c60;
-        }
-
-        .product-card .btn {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-        }
-
-        .newsletter-form {
-            background-color: #333;
-            padding: 60px 0;
-        }
-
-        .newsletter-form h2 {
-            font-size: 2em;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .newsletter-form form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .newsletter-form .form-control {
-            margin-bottom: 20px;
-        }
-
-        .newsletter-form .btn {
-            background-color: #ff6c60;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 1em;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-
-        .newsletter-form .btn:hover {
-            background-color: #e95950;
-        }
-
-        .social-media {
-            background-color: #222;
-            padding: 30px 0;
-        }
-
-        .social-media h2 {
-            font-size: 2em;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .social-media ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-        }
-
-        .social-media li {
-            margin: 0 10px;
-        }
-
-        .social-media a {
-            font-size: 2em;
-            color: #bbb;
-            transition: color 0.3s;
-        }
-
-        .social-media a:hover {
-            color: #ff6c60;
-        }
-
-        .scroll-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #ff6c60;
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            transition: background-color 0.3s;
-        }
-
-        .scroll-to-top:hover {
-            background-color: #e95950;
-        }
-
-        .footer {
-            background-color: #1a1a1a;
-            color: #bbb;
-            padding: 30px 0;
-        }
-
-        .footer p {
-            font-size: 1em;
-            text-align: center;
-        }
-
-        /* Added CSS for video background */
-        #myVideo {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-        }
-
-        .hero-section {
-            position: relative;
-        }
-
-        /* Added CSS for dark mode */
-        :root {
-            --text-color: #fff;
-            --secondary-color: #bbb;
-            --accent-color: #ff6c60;
-        }
-
-        body.dark-mode {
-            background-color: #222;
-            color: #1a1a1a;
-            --text-color: #1a1a1a;
-            --secondary-color: #bbb;
-            --accent-color: #ff6c60;
-        }
-    </style>
+  <title>CryptoHub - Your One-Stop Shop for Crypto Resources</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">AI Tools</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-                <div class="custom-control custom-switch ml-auto">
-                    <input type="checkbox" class="custom-control-input" id="darkModeSwitch">
-                    <label class="custom-control-label" for="darkModeSwitch">Dark mode</label>
-                </div>
-            </div>
-        </div>
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>CryptoHub</h1>
+      </div>
+      <ul>
+        <li><a href="#education">Crypto Education</a></li>
+        <li><a href="#news">Crypto News</a></li>
+        <li><a href="#tools">Crypto Tools</a></li>
+        <li><a href="#communities">Crypto Communities</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
     </nav>
-
-    <section class="hero-section">
-        <video autoplay muted loop id="myVideo">
-            <source src="https://files.fm/f/6y4gngtzhq" type="video/mp4">
-        </video>
-        <div class="container">
-            <h1>Welcome to AI Tools</h1>
-            <p>Your one-stop shop for private AI tools</p>
+  </header>
+  <main>
+    <section id="hero">
+      <div class="hero-content">
+        <h2>Welcome to CryptoHub</h2>
+        <p>Your one-stop shop for all things crypto. Explore our resources and join our community today!</p>
+        <a href="#education" class="cta-button">Get Started</a>
+      </div>
+      <div class="hero-carousel owl-carousel">
+        <div class="carousel-item">
+          <img src="https://source.unsplash.com/1600x900/?bitcoin,cryptocurrency" alt="Crypto Image 1">
         </div>
+        <div class="carousel-item">
+          <img src="https://source.unsplash.com/1600x900/?ethereum,blockchain" alt="Crypto Image 2">
+        </div>
+        <div class="carousel-item">
+          <img src="https://source.unsplash.com/1600x900/?altcoin,trading" alt="Crypto Image 3">
+        </div>
+      </div>
     </section>
+    <section id="education">
+      <div class="section-header">
+        <h2>Crypto Education</h2>
+      </div>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <div class="card-header">
+            <h3>Resource 1</h3>
+          </div>
+          <div class="card-body">
+            <p>Learn about Bitcoin and its history from this free online course.</p>
+            <a href="https://www.coursera.org/learn/bitcoin-cryptocurrency" class="card-link">Learn More <i class="fas fa-angle-right"></i></a>
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="card-header">
+            <h3>Resource 2</h3>
+          </div>
+          <div class="card-body">
+            <p>Understand the basics of blockchain technology from this free online tutorial.</p>
+            <a href="https://www.codecademy.com/learn/learn-blockchain" class="card-link">Learn More <i class="fas fa-angle-right"></i></a>
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="card-header">
+            <h3>Resource 3</h3>
+          </div>
+          <div class="card-body">
+            <p>Explore the world of Ethereum and smart contracts with this free online course.</p>
+            <a href="https://www.edx.org/course/ethereum-and-solidity-the-complete-developers-guide-2" class="card-link">Learn More <i class="fas fa-angle-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="news">
+      <div class="section-header">
+        <h2>Crypto News</h2>
+      </div>
+      <div class="news-grid">
+        <div class="news-card">
+          <div class="card-header">
+            <h3>News 1</h3>
+          </div>
+          <div class="card-body">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum, orci ac euismod semper, magna diam porttitor erat, a finibus ante velit et dui.</p>
+            <a href="#" class="card-link">Read More <i class="fas fa-angle-right"></i></a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header">
+            <h3>News 2</h3>
+          </div>
+          <div class="card-body">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum, orci ac euismod semper, magna diam porttitor erat, a finibus ante velit et dui.</p>
+            <a href="#" class="card-link">Read More <i class="fas fa-angle-right"></i></a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header">
+            <h3>News 3</h3>
+          </div>
+          <div class="card-body">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum, orci ac euismod semper, magna diam porttitor erat, a finibus ante velit et dui.</p>
+            <a href="#" class="card-link">Read More <i class="fas fa-angle-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="tools">
+      <div class="section-header">
+        <h2>Crypto Tools</h2>
+      </div>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <div class="card-header">
+            <h3>Tool 1
+```
+<i class="fas fa-chart-line"></i
+ >
 
-    <!-- Rest of your HTML code -->
+</h3>
+</div>
+<div class="card-body">
+<p>Track your favorite cryptocurrencies with our live price ticker.</p>
+<a href="#" class="card-link">Use Tool <i class="fas fa-angle-right"></i></a>
+</div>
+</div>
+<div class="tool-card">
+<div class="card-header">
+<h3>Tool 2
+<i class="fas fa-calculator"></i
+>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.product-card').tilt({
-                glare: true,
-                maxGlare: .3
-            });
+</h3>
+</div>
+<div class="card-body">
+<p>Calculate the value of your cryptocurrency holdings in different fiat currencies.</p>
+<a href="#" class="card-link">Use Tool <i class="fas fa-angle-right"></i></a>
+</div>
+</div>
+<div class="tool-card">
+<div class="card-header">
+<h3>Tool 3
+<i class="fas fa-exchange-alt"></i
+>
 
-            document.getElementById('darkModeSwitch').addEventListener('change', function() {
-                if (this.checked) {
-                    document.body.classList.add('dark-mode');
-                } else {
-                    document.body.classList.remove('dark-mode');
-                }
-            });
-        });
-    </script>
+</h3>
+</div>
+<div class="card-body">
+<p>Compare the prices of different cryptocurrencies across various exchanges.</p>
+<a href="#" class="card-link">Use Tool <i class="fas fa-angle-right"></i></a>
+</div>
+</div>
+</div>
+</section>
+<section id="statistics">
+<div class="section-header">
+<h2>Crypto Statistics</h2>
+</div>
+<div class="statistics-grid">
+<div class="statistic-card">
+<div class="card-header">
+<h3>10k+</h3>
+</div>
+<div class="card-body">
+<p>Users in our community</p>
+</div>
+</div>
+<div class="statistic-card">
+<div class="card-header">
+<h3>24/7</h3>
+</div>
+<div class="card-body">
+<p>Customer support available</p>
+</div>
+</div>
+<div class="statistic-card">
+<div class="card-header">
+<h3>100+</h3>
+</div>
+<div class="card-body">
+<p>Cryptocurrencies supported</p>
+</div>
+</div>
+<div class="statistic-card">
+<div class="card-header">
+<h3>99.9%</h3>
+</div>
+<div class="card-body">
+<p>Uptime guaranteed</p>
+</div>
+</div>
+</div>
+</section>
+<section id="communities">
+<div class="section-header">
+<h2>Crypto Communities</h2>
+</div>
+<div class="community-grid">
+<div class="community-card">
+<div class="card-header">
+<h3>Community 1
+<i class="fab fa-reddit"></i
+>
+
+</h3>
+</div>
+<div class="card-body">
+<p>Join the conversation on r/CryptoCurrency, the largest cryptocurrency community on Reddit.</p>
+<a href="https://www.reddit.com/r/CryptoCurrency/" class="card-link">Join Now <i class="fas fa-angle-right"></i></a>
+</div>
+</div>
+<div class="community-card">
+<div class="card-header">
+<h3>Community 2
+<i class="fab fa-discord"></i
+>
+
+</h3>
+</div>
+<div class="card-body">
+<p>Connect with other crypto enthusiasts and experts on our Discord server.</p>
+<a href="#" class="card-link">Join Now <i class="fas fa-angle-right"></i></a>
+</div>
+</div>
+<div class="community-card">
+<div class="card-header">
+<h3>Community 3
+<i class="fab fa-twitter"></i
+>
+
+</h3>
+</div>
+<div class="card-body">
+<p>Follow us on Twitter for the latest updates and announcements in the crypto world.</p>
+<a href="#" class="card-link">Follow Us <i class="fas fa-angle-right"></i></a>
+</div>
+</div>
+</div>
+</section>
+<section id="contact">
+<div class="section-header">
+<h2>Contact Us</h2>
+</div>
+<div class="contact-form">
+<form action="#" method="post">
+<div class="form-group">
+<label for="name">Name:</label>
+<input type="text" id="name" name="name" required>
+</div>
+<div class="form-group">
+<label for="email">Email:</label>
+<input type="email" id="email" name="email" required>
+</div>
+<div class="form-group">
+<label for="message">Message:</label>
+<textarea id="message" name="message" required></textarea>
+</div>
+<div class="form-group">
+<input type="submit" value="Send Message">
+</div>
+</form>
+</div>
+</section>
+</main>
+<footer>
+<p>Copyright © 2023 CryptoHub. All rights reserved.</p>
+</footer>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="scripts.js"></script>
 </body>
-
 </html>
