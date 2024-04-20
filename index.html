@@ -1,111 +1,361 @@
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Combination Lock</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.126.1/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.4.0/Tween.min.js"></script>
-  <style>
-    body { margin: 0; }
-    #lock-container {
-      width: 100%;
-      height: 100vh;
-    }
-  </style>
-</head>
-<body>
-  <div id="lock-container"></div>
-  <script>
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById("lock-container").appendChild(renderer.domElement);
-
-    const loader = new THREE.TextureLoader();
-    const texture = loader.load("path/to/your/texture.jpg");
-
-    const geometry = new THREE.CylinderGeometry(0.5, 0.5, 0.1, 32);
-    const material = new THREE.MeshBasicMaterial({ map: texture });
-
-    const circles = [];
-    for (let i = 0; i < 4; i++) {
-      const circle = new THREE.Mesh(geometry, material);
-      circle.position.set(-3 + i * 3, 0, 0);
-      scene.add(circle);
-      circles.push(circle);
-    }
-
-    camera.position.z = 10;
-
-    const light = new THREE.PointLight(0xffffff, 1, 100);
-    light.position.set(0, 0, 10);
-    scene.add(light);
-
-    const password = "1234";
-    let currentCombination = "";
-
-    function handleCombinationChange() {
-      currentCombination = "";
-      circles.forEach((circle, index) => {
-        currentCombination += Math.round(circle.rotation.y / Math.PI * 2) + 1;
-      });
-
-      if (currentCombination === password) {
-        console.log("Unlock successful");
-      }
-    }
-
-    function animate() {
-      requestAnimationFrame(animate);
-
-      for (let i = 0; i < circles.length; i++) {
-        circles[i].rotation.y += 0.01;
-
-        if (Math.round(circles[i].rotation.y / Math.PI * 2) % 4 === 0) {
-          handleCombinationChange();
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools - Your Private AI Marketplace</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.min.css">
+    <style>
+        :root {
+            --background-color: #1a1a1a;
+            --text-color: #fff;
+            --secondary-color: #bbb;
+            --accent-color: #ff6c60;
         }
-      }
 
-      renderer.render(scene, camera);
-    }
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-    animate();
+        .navbar {
+            padding: 15px 0;
+            background-color: #222;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
 
-    function onDocumentMouseDown(event) {
-      event.preventDefault();
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--text-color);
+        }
 
-      const mouse = new THREE.Vector2();
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        .navbar-nav .nav-link {
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
 
-      const raycaster = new THREE.Raycaster();
-      raycaster.setFromCamera(mouse, camera);
+        .navbar-nav .nav-link:hover {
+            color: var(--accent-color);
+        }
 
-      const intersects = raycaster.intersectObjects(circles);
+        #myVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+        }
 
-      if (intersects.length > 0) {
-        const selectedCircle = intersects[0].object;
-        const index = circles.indexOf(selectedCircle);
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-color);
+        }
 
-        new TWEEN.Tween(selectedCircle.rotation)
-          .to({ y: Math.PI * 2 * (password[index] - 1) }, 500)
-          .easing(TWEEN.Easing.Quadratic.InOut)
-          .start();
-      }
-    }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
 
-    document.addEventListener("mousedown", onDocumentMouseDown, false);
-    window.addEventListener("resize", () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+        .statistics,
+        .testimonials,
+        .product-showcase,
+        .newsletter-form,
+        .social-media {
+            padding: 60px 0;
+        }
 
-    TWEEN.update();
-  </script>
-  
+        .statistics {
+            background-color: #222;
+        }
+
+        .testimonials,
+        .product-showcase {
+            background-color: #333;
+        }
+
+        .newsletter-form {
+            background-color: #444;
+        }
+
+        .social-media {
+            background-color: #555;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            margin: 20px;
+        }
+
+        .stat h3 {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .stat p {
+            font-size: 1.2em;
+            color: var(--secondary-color);
+        }
+
+        .testimonials h2,
+        .product-showcase h2,
+        .newsletter-form h2,
+        .social-media h2 {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .testimonial {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            position: relative;
+        }
+
+        .testimonial:before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-top: 20px solid #444;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+        }
+
+        .testimonial p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .testimonial h5 {
+            font-size: 1em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .testimonial span {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+        }
+
+        .product-card {
+            background-color: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-card .details {
+            padding: 20px;
+        }
+
+        .product-card h5 {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-card p {
+            font-size: 1em;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .product-card .price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .product-card .btn {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .newsletter-form form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form .form-control {
+            margin-bottom: 20px;
+        }
+
+        .newsletter-form .btn {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .newsletter-form .btn:hover {
+            background-color: #e95950;
+        }
+
+        .social-media ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        .social-media li {
+            margin: 0 10px;
+        }
+
+        .social-media a {
+            font-size: 2em;
+            color: var(--secondary-color);
+            transition: color 0.3s;
+        }
+
+        .social-media a:hover {
+            color: var(--accent-color);
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            transition: background-color 0.3s;
+        }
+
+        .scroll-to-top:hover {
+            background-color: #e95950;
+        }
+
+        .footer {
+            background-color: #1a1a1a;
+            color: var(--secondary-color);
+            padding: 30px 0;
+        }
+
+        .footer p {
+            font-size: 1em;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">AI Tools</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+                <div class="custom-control custom-switch ml-auto">
+                    <input type="checkbox" class="custom-control-input" id="darkModeSwitch">
+                    <label class="custom-control-label" for="darkModeSwitch">Dark mode</label>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <video autoplay muted loop id="myVideo">
+            <source src="your-video-file.mp4" type="video/mp4">
+        </video>
+        <div class="container">
+            <h1>Welcome to AI Tools</h1>
+            <p>Your one-stop shop for private AI tools</p>
+        </div>
+    </section>
+
+    <!-- Rest of your HTML code -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.product-card').tilt({
+                glare: true,
+                maxGlare: .3
+            });
+
+            document.getElementById('darkModeSwitch').addEventListener('change', function() {
+                if (this.checked) {
+                    document.documentElement.style.setProperty('--background-color', '#222');
+                    document.documentElement.style.setProperty('--text-color', '#1a1a1a');
+                    document.documentElement.style.setProperty('--secondary-color', '#bbb');
+                    document.documentElement.style.setProperty('--accent-color', '#ff6c60');
+                } else {
+                    document.documentElement.style.setProperty('--background-color', '#fff');
+                    document.documentElement.style.setProperty('--text-color', '#000');
+                    document.documentElement.style.setProperty('--secondary-color', '#6c757d');
+                    document.documentElement.style.setProperty('--accent-color', '#007bff');
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>
