@@ -2,448 +2,189 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Tools - Your Private AI Marketplace</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Configuration Profile Generator</title>
+    <!-- Add modern and unique font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Add Bootstrap CSS CDN with a customized color scheme -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s4Wz6iJgD/+ub3o" crossorigin="anonymous">
     <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #6c5ce7;
+            --background-color: #f5f5f5;
+        }
         body {
-            font-family: 'Roboto', sans-serif;
-            color: #fff;
-            background-color: #1a1a1a;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
         }
-        .navbar {
-            padding: 15px 0;
-            background-color: #222;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-        }
-        .navbar-brand {
-            font-weight: bold;
-            color: #fff;
-        }
-        .navbar-nav .nav-link {
-            color: #bbb;
-            font-weight: 500;
-        }
-        .navbar-nav .nav-link:hover {
-            color: #ff6c60;
-        }
-        .hero-section {
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #fff;
-        }
-        .hero-section h1 {
-            font-size: 3em;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .hero-section p {
-            font-size: 1.2em;
-            margin-bottom: 40px;
-        }
-        .hero-section video {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -1;
-            transform: translateX(-50%) translateY(-50%);
-        }
-        .statistics {
-            background-color: #222;
-            padding: 60px 0;
-        }
-        .statistics .stat {
-            text-align: center;
-            padding: 20px;
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #fff;
             border-radius: 10px;
-            background-color: #333;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-            margin: 20px;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease-in-out;
         }
-        .stat h3 {
-            font-size: 2em;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-        .stat p {
-            font-size: 1.2em;
-            color: #bbb;
-        }
-        .testimonials {
-            background-color: #333;
-            color: #fff;
-            padding: 60px 0;
-        }
-        .testimonials h2 {
-            font-size: 2em;
-            font-weight: bold;
+        h1 {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            font-weight: 700;
+            animation: slideInDown 1s ease-in-out;
         }
-        .testimonial {
-            background-color: #444;
-            padding: 20px;
+        label {
+            font-weight: 700;
+            color: var(--primary-color);
+            animation: slideInUp 1s ease-in-out;
+        }
+        input, select, textarea {
             border-radius: 10px;
-            margin: 20px;
-            position: relative;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+            padding: 10px;
+            font-size: 14px;
+            animation: slideInUp 1s ease-in-out;
         }
-        .testimonial:before {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-top: 20px solid #444;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-        }
-        .testimonial p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-        .testimonial h5 {
-            font-size: 1em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .testimonial span {
-            font-size: 0.9em;
-            color: #bbb;
-        }
-        .product-showcase {
-            background-color: #222;
-            padding: 60px 0;
-        }
-        .product-showcase h2 {
-            font-size: 2em;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .product-card {
-            background-color: #333;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            transition: transform 0.3s;
-        }
-        .product-card:hover {
-            transform: scale(1.05);
-        }
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .product-card .details {
-            padding: 20px;
-        }
-        .product-card h5 {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .product-card p {
-            font-size: 1em;
-            color: #bbb;
-            margin-bottom: 20px;
-        }
-        .product-card .price {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #ff6c60;
-        }
-        .product-card .btn {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-        }
-        .newsletter-form {
-            background-color: #333;
-            padding: 60px 0;
-        }
-        .newsletter-form h2 {
-            font-size: 2em;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .newsletter-form form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .newsletter-form .form-control {
-            margin-bottom: 20px;
-        }
-        .newsletter-form .btn {
-            background-color: #ff6c60;
+        button {
+            background-color: var(--secondary-color);
             color: #fff;
-            border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             padding: 10px 20px;
-            font-size: 1em;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        .newsletter-form .btn:hover {
-            background-color: #e95950;
-        }
-        .social-media {
-            background-color: #222;
-            padding: 30px 0;
-        }
-        .social-media h2 {
-            font-size: 2em;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .social-media ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-        }
-        .social-media li {
-            margin: 0 10px;
-        }
-        .social-media a {
-            font-size: 2em;
-            color: #bbb;
-            transition: color 0.3s;
-        }
-        .social-media a:hover {
-            color: #ff6c60;
-        }
-        .scroll-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #ff6c60;
-            color: #fff;
             border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            transition: background-color 0.3s;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+            font-weight: 700;
+            animation: slideInUp 1s ease-in-out;
         }
-        .scroll-to-top:hover {
-            background-color: #e95950;
+        button:hover {
+            background-color: #5c4acd;
         }
-        .footer {
-            background-color: #1a1a1a;
-            color: #bbb;
-            padding: 30px 0;
+        /* Add responsive styles for mobile devices */
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            label {
+                font-size: 14px;
+            }
+            input, select, textarea {
+                font-size: 14px;
+            }
+            button {
+                font-size: 14px;
+            }
         }
-        .footer p {
-            font-size: 1em;
-            text-align: center;
+        /* Add animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">AI Tools</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <section class="hero-section">
     <div class="container">
-        <video autoplay muted loop playsinline>
-            <source src="https://files.fm/f/6y4gngtzhq" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <h1>Welcome to AI Tools</h1>
-        <p>Your one-stop shop for private AI tools</p>
+        <h1>Configuration Profile Generator</h1>
+        <!-- Add form for configuration generator -->
+        <form>
+            <div class="mb-3">
+                <label for="carrier" class="form-label">Carrier:</label>
+                <select id="carrier" class="form-select">
+                    <option value="mcinet">MCI</option>
+                    <option value="irancell">Irancell</option>
+                    <option value="rightel">RighTel</option>
+                </select>
+                <div class="form-text">Select your mobile carrier.</div>
+            </div>
+            <div class="mb-3">
+                <label for="apn" class="form-label">APN (optional):</label>
+                <input type="text" id="apn" class="form-control">
+                <div class="form-text">Enter your APN (Access Point Name) if you want to override the default APN for your carrier. Leave this field blank to use the default APN.</div>
+            </div>
+            <div class="mb-3">
+                <label for="vpn_server" class="form-label">VPN Server (optional):</label>
+                <input type="text" id="vpn_server" class="form-control">
+                <div class="form-text">Enter the hostname or IP address of your VPN server if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
+            </div>
+            <div class="mb-3">
+                <label for="vpn_username" class="form-label">VPN Username (optional):</label>
+                <input type="text" id="vpn_username" class="form-control">
+                <div class="form-text">Enter your VPN username if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
+            </div>
+            <div class="mb-3">
+                <label for="vpn_password" class="form-label">VPN Password (optional):</label>
+                <input type="password" id="vpn_password" class="form-control">
+                <div class="form-text">Enter your VPN password if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
+            </div>
+            <div class="mb-3">
+                <label for="proxy_server" class="form-label">Proxy Server (optional):</label>
+                <input type="text" id="proxy_server" class="form-control">
+                <div class="form-text">Enter the hostname or IP address of your proxy server if you want to use a proxy connection. Leave this field blank if you don't want to use a proxy.</div>
+            </div>
+            <div class="mb-3">
+                <label for="proxy_port" class="form-label">Proxy Port (optional):</label>
+                <input type="text" id="proxy_port" class="form-control">
+                <div class="form-text">Enter the port number of your proxy server if you want to use a proxy connection. Leave this field blank if you don't want to use a proxy.</div>
+            </div>
+            <div class="mb-3">
+                <label for="dns_server" class="form-label">DNS Server (optional):</label>
+                <input type="text" id="dns_server" class="form-control">
+                <div class="form-text">Enter the hostname or IP address of your DNS server if you want to use a custom DNS server. Leave this field blank to use the default DNS server for your carrier.</div>
+            </div>
+            <div class="mb-3">
+                <label for="cloudflare_domain" class="form-label">Cloudflare Domain (optional):</label>
+                <input type="text" id="cloudflare_domain" class="form-control">
+                <div class="form-text">Enter the domain name for your Cloudflare account if you want to use Cloudflare's DNS servers. Leave this field blank if you don't want to use Cloudflare's DNS servers.</div>
+            </div>
+            <!-- Add additional options -->
+            <div class="mb-3 form-check">
+                <input type="checkbox" id="enable_vpn" class="form-check-input">
+                <label for="enable_vpn" class="form-check-label">Enable VPN by default</label>
+                <div class="form-text">Check this box if you want the VPN connection to be enabled by default when you install the configuration profile. Leave this box unchecked if you want to manually enable the VPN connection.</div>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" id="enable_proxy" class="form-check-input">
+                <label for="enable_proxy" class="form-check-label">Enable proxy by default</label>
+                <div class="form-text">Check this box if you want the proxy connection to be enabled by default when you install the configuration profile. Leave this box unchecked if you want to manually enable the proxy connection.</div>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" id="remove_configuration" class="form-check-input">
+                <label for="remove_configuration" class="form-check-label">Remove configuration profile after uninstalling</label>
+                <div class="form-text">Check this box if you want the configuration profile to be removed from your device when you uninstall the app. Leave this box unchecked if you want the configuration profile to remain on your device after uninstalling the app.</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
+        </form>
+        <!-- Add Bootstrap JS CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBud7TlRbs/ic4AwGcFZOxg5DpPt8EgeUIgIwzjWfXQKWA4" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
     </div>
-</section>
-
-
-    <section class="statistics">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat text-center animate__animated animate__fadeInUp">
-                        <i class="fas fa-users fa-3x"></i>
-                        <h3>100+</h3>
-                        <p>Happy Customers</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat text-center animate__animated animate__fadeInUp">
-                        <i class="fas fa-box fa-3x"></i>
-                        <h3>50+</h3>
-                        <p>Products Sold</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat text-center animate__animated animate__fadeInUp">
-                        <i class="fas fa-star fa-3x"></i>
-                        <h3>4.8/5</h3>
-                        <p>Average Rating</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat text-center animate__animated animate__fadeInUp">
-                        <i class="fas fa-globe-americas fa-3x"></i>
-                        <h3>10+</h3>
-                        <p>Countries Served</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials">
-        <div class="container">
-            <h2>Testimonials</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="testimonial animate__animated animate__fadeInUp">
-                        <p>"AI Tools has been a game changer for our business. The AI tools they offer have helped us streamline our processes and increase efficiency."</p>
-                        <h5>John Doe</h5>
-                        <span>CEO, Acme Inc.</span>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial animate__animated animate__fadeInUp">
-                        <p>"The team at AI Tools is fantastic. They are knowledgeable, responsive, and always willing to go the extra mile to ensure our satisfaction."</p>
-                        <h5>Jane Smith</h5>
-                        <span>CTO, XYZ Corp.</span>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial animate__animated animate__fadeInUp">
-                        <p>"I highly recommend AI Tools to anyone looking for high-quality AI tools. Their products are top-notch and their customer service is exceptional."</p>
-                        <h5>Bob Johnson</h5>
-                        <span>CMO, ABC Co.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="product-showcase">
-        <div class="container">
-            <h2>Our Products</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="product-card text-center animate__animated animate__fadeInUp" data-tilt data-tilt-max-glare=".3" data-tilt-perspective="500">
-                        <img src="product1.jpg" alt="Product 1">
-                        <div class="details">
-                            <h5>Product 1</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras porttitor metus justo, ut fringilla velit fermentum a.</p>
-                            <h6 class="price">$99</h6>
-                            <button type="button" class="btn btn-primary">Learn More</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-card text-center animate__animated animate__fadeInUp" data-tilt data-tilt-max-glare=".3" data-tilt-perspective="500">
-                        <img src="product2.jpg" alt="Product 2">
-                        <div class="details">
-                            <h5>Product 2</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras porttitor metus justo, ut fringilla velit fermentum a.</p>
-                            <h6 class="price">$199</h6>
-                            <button type="button" class="btn btn-primary">Learn More</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-card text-center animate__animated animate__fadeInUp" data-tilt data-tilt-max-glare=".3" data-tilt-perspective="500">
-                        <img src="product3.jpg" alt="Product 3">
-                        <div class="details">
-                            <h5>Product 3</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras porttitor metus justo, ut fringilla velit fermentum a.</p>
-                            <h6 class="price">$299</h6>
-                            <button type="button" class="btn btn-primary">Learn More</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="newsletter-form">
-        <div class="container">
-            <h2>Join Our Newsletter</h2>
-            <form>
-                <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Enter your email address" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Subscribe</button>
-            </form>
-        </div>
-    </section>
-
-    <section class="social-media">
-        <div class="container">
-            <h2>Follow Us</h2>
-            <ul>
-                <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-            </ul>
-        </div>
-    </section>
-
-    <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"><i class="fas fa-angle-up"></i></button>
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2023 AI Tools. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.product-card').tilt({
-                glare: true,
-                maxGlare: .3
-            });
-        });
-    </script>
 </body>
 </html>
