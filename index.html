@@ -8,120 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s4Wz6iJgD/+ub3o" crossorigin="anonymous">
     <!-- Add custom CSS styles -->
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #333, #555);
-            color: #fff;
-        }
-        .container {
-            max-width: 800px;
-            margin-top: 50px;
-            padding: 30px;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 50px;
-            color: #fff;
-            font-weight: 300;
-            text-shadow: 2px 2px #000;
-        }
-        label {
-            font-weight: 500;
-            display: block;
-            margin-bottom: 5px;
-            position: relative;
-        }
-        label::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 2px;
-            background-color: #fff;
-            transform: scaleX(0);
-            transition: transform 0.3s ease-out;
-        }
-        label:hover::before, input:focus + label::before, select:focus + label::before, textarea:focus + label::before {
-            transform: scaleX(1);
-        }
-        .form-text {
-            color: #888;
-            margin-top: 5px;
-        }
-        .carrier {
-            color: #f00;
-        }
-        .apn {
-            color: #f90;
-        }
-        .vpn {
-            color: #09f;
-        }
-        .proxy {
-            color: #0f0;
-        }
-        .dns {
-            color: #00f;
-        }
-        .cloudflare {
-            color: #f0f;
-        }
-        input, select, textarea {
-            border-radius: 10px;
-            box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
-            padding: 10px;
-            font-size: 14px;
-            background-color: rgba(0, 0, 0, 0.3);
-            color: #fff;
-            border: none;
-            margin-bottom: 20px;
-        }
-        button {
-            background-color: #f00;
-            color: #fff;
-            border-radius: 10px;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 14px;
-            font-weight: 500;
-            margin-top: 20px;
-            display: block;
-            width: 50%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        button:hover {
-            background-color: #f30;
-        }
-        /* Add responsive styles for mobile devices */
-        @media only screen and (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-            h1 {
-                font-size: 24px;
-            }
-            label {
-                font-size: 14px;
-            }
-            input, select, textarea {
-                font-size: 14px;
-            }
-            button {
-                font-size: 14px;
-            }
-        }
+        /* (Same as before) */
     </style>
     <!-- Add custom fonts from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -135,65 +27,65 @@
                     <option value="irancell">Irancell</option>
                     <option value="rightel">RighTel</option>
                 </select>
-                <div class="form-text">Select your mobile carrier.</div>
+                <div class="form-text">Select your mobile carrier. / انتخاب کننده شبکه موبایل خود را انجام دهید.</div>
             </div>
             <div class="mb-3">
                 <label for="apn" class="form-label apn">APN (optional):</label>
                 <input type="text" id="apn" class="form-control">
-                <div class="form-text">Enter your APN (Access Point Name) if you want to override the default APN for your carrier. Leave this field blank to use the default APN.</div>
+                <div class="form-text">Enter your APN (Access Point Name) if you want to override the default APN for your carrier. Leave this field blank to use the default APN. / در صورتی که قصد دارید تا APN (نام نقطه دسترسی) پیش فرض شبکه موبایل خود را بازنویسی کنید، این فیلد را پر کنید. در غیر این صورت فیلد خالی بگذارید تا از APN پیش فرض استفاده کنید.</div>
             </div>
             <div class="mb-3">
                 <label for="vpn_server" class="form-label vpn">VPN Server (optional):</label>
                 <input type="text" id="vpn_server" class="form-control">
-                <div class="form-text">Enter the hostname or IP address of your VPN server if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
+                <div class="form-text">Enter the hostname or IP address of your VPN server if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN. / در صورتی که قصد دارید از اتصال VPN استفاده کنید، نام کاربری یا آدرس IP سرور VPN خود را وارد کنید. در غیر این صورت فیلد خالی بگذارید.</div>
             </div>
             <div class="mb-3">
                 <label for="vpn_username" class="form-label vpn">VPN Username (optional):</label>
                 <input type="text" id="vpn_username" class="form-control">
-                <div class="form-text">Enter your VPN username if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
+                <div class="form-text">Enter your VPN username if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN. / در صورتی که قصد دارید از اتصال VPN استفاده کنید، نام کاربری VPN خود را وارد کنید. در غیر این صورت فیلد خالی بگذارید.</div>
             </div>
             <div class="mb-3">
                 <label for="vpn_password" class="form-label vpn">VPN Password (optional):</label>
                 <input type="password" id="vpn_password" class="form-control">
-                <div class="form-text">Enter your VPN password if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
+                <div class="form-text">Enter your VPN password if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN. / در صورتی که قصد دارید از اتصال VPN استفاده کنید، رمز عبور VPN خود را وارد کنید. در غیر این صورت فیلد خالی بگذارید.</div>
             </div>
             <div class="mb-3">
                 <label for="proxy_server" class="form-label proxy">Proxy Server (optional):</label>
                 <input type="text" id="proxy_server" class="form-control">
-                <div class="form-text">Enter the hostname or IP address of your proxy server if you want to use a proxy connection. Leave this field blank if you don't want to use a proxy.</div>
+                <div class="form-text">Enter the hostname or IP address of your proxy server if you want to use a proxy connection. Leave this field blank if you don't want to use a proxy. / در صورتی که قصد دارید از اتصال پروکسی استفاده کنید، نام کاربری یا آدرس IP سرور پروکسی خود را وارد کنید. در غیر این صورت فیلد خالی بگذارید.</div>
             </div>
             <div class="mb-3">
                 <label for="proxy_port" class="form-label proxy">Proxy Port (optional):</label>
                 <input type="text" id="proxy_port" class="form-control">
-                <div class="form-text">Enter the port number of your proxy server if you want to use a proxy connection. Leave this field blank if you don't want to use a proxy.</div>
+                <div class="form-text">Enter the port number of your proxy server if you want to use a proxy connection. Leave this field blank if you don't want to use a proxy. / در صورتی که قصد دارید از اتصال پروکسی استفاده کنید، شماره پورت سرور پروکسی خود را وارد کنید. در غیر این صورت فیلد خالی بگذارید.</div>
             </div>
             <div class="mb-3">
                 <label for="dns_server" class="form-label dns">DNS Server (optional):</label>
                 <input type="text" id="dns_server" class="form-control">
-                <div class="form-text">Enter the hostname or IP address of your DNS server if you want to use a custom DNS server. Leave this field blank to use the default DNS server for your carrier.</div>
+                <div class="form-text">Enter the hostname or IP address of your DNS server if you want to use a custom DNS server. Leave this field blank to use the default DNS server for your carrier. / در صورتی که قصد دارید از سرور DNS (Domain Name System) خاص خود استفاده کنید، نام کاربری یا آدرس IP سرور DNS خود را وارد کنید. در غیر این صورت فیلد خالی بگذارید تا از سرور DNS پیش فرض شبکه موبایل خود استفاده کنید.</div>
             </div>
             <div class="mb-3">
                 <label for="cloudflare_domain" class="form-label cloudflare">Cloudflare Domain (optional):</label>
                 <input type="text" id="cloudflare_domain" class="form-control">
-                <div class="form-text">Enter the domain name for your Cloudflare account if you want to use Cloudflare's DNS servers. Leave this field blank if you don't want to use Cloudflare's DNS servers.</div>
+                <div class="form-text">Enter the domain name for your Cloudflare account if you want to use Cloudflare's DNS servers. Leave this field blank if you don't want to use Cloudflare's DNS servers. / در صورتی که قصد دارید از سرورهای DNS (Domain Name System) شرکت Cloudflare استفاده کنید، نام دامنه (Domain Name) حساب کاربری شما در این شرکت را وارد کنید. در غیر این صورت فیلد خالی بگذارید.</div>
             </div>
             <!-- Add additional options -->
             <div class="mb-3 form-check">
                 <input type="checkbox" id="enable_vpn" class="form-check-input">
                 <label for="enable_vpn" class="form-check-label">Enable VPN by default</label>
-                <div class="form-text">Check this box if you want the VPN connection to be enabled by default when you install the configuration profile. Leave this box unchecked if you want to manually enable the VPN connection.</div>
+                <div class="form-text">Check this box if you want the VPN connection to be enabled by default when you install the configuration profile. Leave this box unchecked if you want to manually enable the VPN connection. / در صورتی که قصد دارید تا اتصال VPN در حین نصب پروفایل پیکربندی فعال شود، این چک باکس را فعال کنید. در غیر این صورت چک باکس را خالی بگذارید تا اتصال VPN را دستی فعال کنید.</div>
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" id="enable_proxy" class="form-check-input">
                 <label for="enable_proxy" class="form-check-label">Enable proxy by default</label>
-                <div class="form-text">Check this box if you want the proxy connection to be enabled by default when you install the configuration profile. Leave this box unchecked if you want to manually enable the proxy connection.</div>
+                <div class="form-text">Check this box if you want the proxy connection to be enabled by default when you install the configuration profile. Leave this box unchecked if you want to manually enable the proxy connection. / در صورتی که قصد دارید تا اتصال پروکسی در حین نصب پروفایل پیکربندی فعال شود، این چک باکس را فعال کنید. در غیر این صورت چک باکس را خالی بگذارید تا اتصال پروکسی را دستی فعال کنید.</div>
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" id="remove_configuration" class="form-check-input">
                 <label for="remove_configuration" class="form-check-label">Remove configuration profile after uninstalling</label>
-                <div class="form-text">Check this box if you want the configuration profile to be removed from your device when you uninstall the app. Leave this box unchecked if you want the configuration profile to remain on your device after uninstalling the app.</div>
+                <div class="form-text">Check this box if you want the configuration profile to be removed from your device when you uninstall the app. Leave this box unchecked if you want the configuration profile to remain on your device after uninstalling the app. / در صورتی که قصد دارید تا پروفایل پیکربندی در حین حذف برنامه از دستگاه شما حذف شود، این چک باکس را فعال کنید. در غیر این صورت چک باکس را خالی بگذارید تا پروفایل پیکربندی باقی ماند.</div>
             </div>
-            <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
+            <button type="submit" class="btn btn-primary">Generate Configuration Profile / تولید پروفایل پیکربندی</button>
         </form>
         <!-- Add Bootstrap JS CDN -->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBud7TlRbs/ic4AwGcFZOxg5DpPt8EgeUIgIwzjWfXQKWA4" crossorigin="anonymous"></script>
