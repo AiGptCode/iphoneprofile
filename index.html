@@ -4,19 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Configuration Profile Generator</title>
-    <!-- Add modern and unique font from Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Add Bootstrap CSS CDN with a customized color scheme -->
+    <!-- Add Bootstrap CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s4Wz6iJgD/+ub3o" crossorigin="anonymous">
+    <!-- Add custom CSS styles -->
     <style>
-        :root {
-            --primary-color: #333;
-            --secondary-color: #6c5ce7;
-            --background-color: #f5f5f5;
-        }
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--background-color);
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
         }
         .container {
             max-width: 800px;
@@ -25,29 +19,25 @@
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
-            animation: fadeIn 1s ease-in-out;
         }
         h1 {
             text-align: center;
             margin-bottom: 50px;
-            color: var(--primary-color);
-            font-weight: 700;
-            animation: slideInDown 1s ease-in-out;
+            color: #333;
+            font-weight: 300;
         }
         label {
-            font-weight: 700;
-            color: var(--primary-color);
-            animation: slideInUp 1s ease-in-out;
+            font-weight: 500;
+            color: #333;
         }
         input, select, textarea {
             border-radius: 10px;
             box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
             padding: 10px;
             font-size: 14px;
-            animation: slideInUp 1s ease-in-out;
         }
         button {
-            background-color: var(--secondary-color);
+            background-color: #333;
             color: #fff;
             border-radius: 10px;
             padding: 10px 20px;
@@ -55,11 +45,10 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-size: 14px;
-            font-weight: 700;
-            animation: slideInUp 1s ease-in-out;
+            font-weight: 500;
         }
         button:hover {
-            background-color: #5c4acd;
+            background-color: #555;
         }
         /* Add responsive styles for mobile devices */
         @media only screen and (max-width: 600px) {
@@ -79,36 +68,11 @@
                 font-size: 14px;
             }
         }
-        /* Add animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        @keyframes slideInDown {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        @keyframes slideInUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
     </style>
+    <!-- Add custom fonts from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
