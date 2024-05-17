@@ -129,19 +129,16 @@
         <!-- Add form for configuration generator -->
         <form>
             <div class="mb-3">
-                <label for="carrier" class="form-label carrier">Carrier:</label>
-                <select id="carrier" class="form-select">
-                    <option value="mcinet">MCI</option>
-                    <option value="irancell">Irancell</option>
-                    <option value="rightel">RighTel</option>
-                </select>
-                <div class="form-text">Select your mobile carrier.</div>
-            </div>
-            <div class="mb-3">
-                <label for="apn" class="form-label apn">APN (optional):</label>
-                <input type="text" id="apn" class="form-control">
-                <div class="form-text">Enter your APN (Access Point Name) if you want to override the default APN for your carrier. Leave this field blank to use the default APN.</div>
-            </div>
+    <label for="apn" class="form-label apn">APN:</label>
+    <select id="apn" class="form-select">
+        <option value="automatic">Automatic</option>
+        <option value="mcinet" data-carrier="mcinet">MCI</option>
+        <option value="irancell" data-carrier="irancell">Irancell</option>
+        <option value="rightel" data-carrier="rightel">RighTel</option>
+    </select>
+    <div class="form-text">Select the APN (Access Point Name) for your carrier. The default option is "Automatic", which will automatically select the APN based on your carrier.</div>
+           </div>
+
             <div class="mb-3">
                 <label for="vpn_server" class="form-label vpn">VPN Server (optional):</label>
                 <input type="text" id="vpn_server" class="form-control">
