@@ -2,220 +2,178 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuration Profile Generator</title>
-    <!-- Add Bootstrap CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s4Wz6iJgD/+ub3o" crossorigin="anonymous">
-    <!-- Add custom CSS styles -->
     <style>
+        /* Add your CSS here */
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #333, #555);
-            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
+
         .container {
             max-width: 800px;
-            margin-top: 50px;
-            padding: 30px;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+            margin: 0 auto;
+            padding: 50px 0;
         }
+
         h1 {
             text-align: center;
             margin-bottom: 50px;
-            color: #fff;
-            font-weight: 300;
-            text-shadow: 2px 2px #000;
         }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
         label {
-            font-weight: 500;
-            display: block;
             margin-bottom: 5px;
-            position: relative;
         }
-        label::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 2px;
-            background-color: #fff;
-            transform: scaleX(0);
-            transition: transform 0.3s ease-out;
-        }
-        label:hover::before, input:focus + label::before, select:focus + label::before, textarea:focus + label::before {
-            transform: scaleX(1);
-        }
-        .form-text {
-            color: #888;
-            margin-top: 5px;
-        }
-        .carrier {
-            color: #f00;
-        }
-        .apn {
-            color: #f90;
-        }
-        .vpn {
-            color: #09f;
-        }
-        .proxy {
-            color: #0f0;
-        }
-        .dns {
-            color: #00f;
-        }
-        .cloudflare {
-            color: #f0f;
-        }
+
         input, select, textarea {
-            border-radius: 10px;
-            box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
-            padding: 10px;
-            font-size: 14px;
-            background-color: rgba(0, 0, 0, 0.3);
-            color: #fff;
-            border: none;
             margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
         }
+
+        input[type="checkbox"] {
+            margin: 0 10px 0 0;
+        }
+
         button {
-            background-color: #f00;
-            color: #fff;
-            border-radius: 10px;
-            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 14px;
-            font-weight: 500;
-            margin-top: 20px;
-            display: block;
-            width: 50%;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 16px;
         }
+
         button:hover {
-            background-color: #f30;
-        }
-        /* Add responsive styles for mobile devices */
-        @media only screen and (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-            h1 {
-                font-size: 24px;
-            }
-            label {
-                font-size: 14px;
-            }
-            input, select, textarea {
-                font-size: 14px;
-            }
-            button {
-                font-size: 14px;
-            }
+            background-color: #45a049;
         }
     </style>
-    <!-- Add custom fonts from Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <h1>Configuration Profile Generator</h1>
         <!-- Add form for configuration generator -->
         <form>
-  <div class="form-group">
-    <label for="carrier">Carrier:</label>
-    <select id="carrier" class="form-control" required>
-      <option value="">Select a carrier</option>
-      <option value="mcinet">MCI</option>
-      <option value="irancell">Irancell</option>
-      <option value="rightel">RighTel</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="apn">APN:</label>
-    <input type="text" id="apn" class="form-control" required>
-  </div>
-  <div class="form-group">
-    <label for="dns">DNS:</label>
-    <input type="text" id="dns" class="form-control" required>
-  </div>
-  <div class="form-group">
-    <div class="form-check">
-      <input type="checkbox" id="vpn" class="form-check-input">
-      <label for="vpn" class="form-check-label">VPN:</label>
-    </div>
-    <div class="vpn-options" style="display:none;">
-      <label for="vpn_server">VPN Server:</label>
-      <input type="text" id="vpn_server" class="form-control">
-      <label for="vpn_username">VPN Username:</label>
-      <input type="text" id="vpn_username" class="form-control">
-      <label for="vpn_password">VPN Password:</label>
-      <input type="password" id="vpn_password" class="form-control">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="form-check">
-      <input type="checkbox" id="proxy" class="form-check-input">
-      <label for="proxy" class="form-check-label">Proxy:</label>
-    </div>
-    <div class="proxy-options" style="display:none;">
-      <label for="proxy_server">Proxy Server:</label>
-      <input type="text" id="proxy_server" class="form-control">
-      <label for="proxy_port">Proxy Port:</label>
-      <input type="number" id="proxy_port" class="form-control">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="form-check">
-      <input type="checkbox" id="cloudflare" class="form-check-input">
-      <label for="cloudflare" class="form-check-label">Cloudflare Domain:</label>
-    </div>
-    <div class="cloudflare-options" style="display:none;">
-      <label for="cloudflare_domain">Cloudflare Domain:</label>
-      <input type="text" id="cloudflare_domain" class="form-control">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="signalbooster">Signal Booster:</label>
-    <input type="text" id="signalbooster" class="form-control" value="True" readonly>
-  </div>
-  <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
-</form>
+            <div class="mb-3">
+                <label for="carrier" class="form-label">Carrier:</label>
+                <select id="carrier" class="form-select" required>
+                    <option value="">Select a carrier</option>
+                    <option value="mcinet">MCI</option>
+                    <option value="irancell">Irancell</option>
+                    <option value="rightel">RighTel</option>
+                </select>
+                <div class="form-text">Select the APN (Access Point Name) for your carrier. The default option is "Automatic", which will automatically select the APN based on your carrier.</div>
+            </div>
 
-<script>
-  // Show/hide VPN options when VPN checkbox is clicked
-  document.getElementById('vpn').addEventListener('click', function() {
-    document.querySelector('.vpn-options').style.display = this.checked ? 'block' : 'none';
-  });
+            <div class="mb-3">
+                <label for="apn" class="form-label">APN:</label>
+                <input type="text" id="apn" class="form-control" required>
+                <div class="form-text">Enter the APN (Access Point Name) for your carrier. Leave this field blank to use the default APN for your carrier.</div>
+            </div>
 
-  // Show/hide proxy options when proxy checkbox is clicked
-  document.getElementById('proxy').addEventListener('click', function() {
-    document.querySelector('.proxy-options').style.display = this.checked ? 'block' : 'none';
-  });
+            <div class="mb-3">
+                <label for="dns_server" class="form-label">DNS Server:</label>
+                <input type="text" id="dns_server" class="form-control" required>
+                <div class="form-text">Enter the IP address of the DNS server that you want to use. Leave this field blank to use the default DNS server for your carrier.</div>
+            </div>
 
-  // Show/hide Cloudflare options when Cloudflare checkbox is clicked
-  document.getElementById('cloudflare').addEventListener('click', function() {
-    document.querySelector('.cloudflare-options').style.display = this.checked ? 'block' : 'none';
-  });
+            <div class="mb-3">
+                <div class="form-check">
+                    <input type="checkbox" id="vpn" class="form-check-input">
+                    <label for="vpn" class="form-check-label">VPN:</label>
+                </div>
+                <div id="vpn_options" style="display:none;">
+                    <label for="vpn_server" class="form-label">VPN Server:</label>
+                    <input type="text" id="vpn_server" class="form-control">
+                    <label for="vpn_username" class="form-label">VPN Username:</label>
+                    <input type="text" id="vpn_username" class="form-control">
+                    <label for="vpn_password" class="form-label">VPN Password:</label>
+                    <input type="password" id="vpn_password" class="form-control">
+                </div>
+            </div>
 
-  // Handle form submission
-  document.querySelector('form').addEventListener('submit', function(event) {
-    event.preventDefault();
+            <div class="mb-3">
+                <div class="form-check">
+                    <input type="checkbox" id="proxy" class="form-check-input">
+                    <label for="proxy" class="form-check-label">Proxy:</label>
+                </div>
+                <div id="proxy_options" style="display:none;">
+                    <label for="proxy_server" class="form-label">Proxy Server:</label>
+                    <input type="text" id="proxy_server" class="form-control">
+                    <label for="proxy_port" class="form-label">Proxy Port:</label>
+                    <input type="number" id="proxy_port" class="form-control">
+                </div>
+            </div>
 
-    // Get form values
-    const carrier = document.getElementById('carrier').value;
-    const apn = document.getElementById('apn').value;
-    const dns = document.getElementById('dns').value;
-    const vpn = document.getElementById('vpn').checked;
-    const vpn_server = document.getElementById('vpn_server').value;
-    const vpn_username = document.getElementById('vpn_username').value;
-    const vpn_password = document.getElementById('vpn_password').value;
-    const proxy = document.getElementById('proxy').checked;
-    const proxy_server = document.getElementById('proxy_server').value;
-    const proxy_port = document.getElementById('proxy_port').value;
+            <div class="mb-3">
+                <div class="form-check">
+                    <input type="checkbox" id="cloudflare" class="form-check-input">
+                    <label for="cloudflare" class="form-check-label">Cloudflare Domain:</label>
+                </div>
+                <div id="cloudflare_options" style="display:none;">
+                    <label for="cloudflare_domain" class="form-label">Cloudflare Domain:</label>
+                    <input type="text" id="cloudflare_domain" class="form-control">
+                </div>
+            </div>
+
+            <!-- Add additional options -->
+
+            <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
+        </form>
+        <!-- Add Bootstrap JS CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBud7TlRbs/ic4AwGcFZOxg5DpPt8EgeUIgIwzjWfXQKWA4" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+        <script>
+            // Show/hide VPN options
+            document.getElementById('vpn').addEventListener('change', function() {
+                document.getElementById('vpn_options').style.display = this.checked ? 'block' : 'none';
+            });
+
+            // Show/hide proxy options
+            document.getElementById('proxy').addEventListener('change', function() {
+                document.getElementById('proxy_options').style.display = this.checked ? 'block' : 'none';
+            });
+
+            // Show/hide Cloudflare options
+            document.getElementById('cloudflare').addEventListener('change', function() {
+                document.getElementById('cloudflare_options').style.display = this.checked ? 'block' : 'none';
+            });
+
+            // Handle form submission
+            document.querySelector('form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                // Get form values
+                const carrier = document.getElementById('carrier').value;
+                const apn = document.getElementById('apn').value;
+                const dns_server = document.getElementById('dns_server').value;
+                const vpn = document.getElementById('vpn').checked;
+                const vpn_server = document.getElementById('vpn_server').value;
+                const vpn_username = document.getElementById('vpn_username').value;
+                const vpn_password = document.getElementById('vpn_password').value;
+                const proxy = document.getElementById('proxy').checked;
+                const proxy_server = document.getElementById('proxy_server').value;
+                const proxy_port = document.getElementById('proxy_port').value;
+                const cloudflare = document.getElementById('cloudflare').checked;
+                const cloudflare_domain = document.getElementById('cloudflare_domain').value;
+
+                // Generate configuration profile
+                const config_profile = generate_config(carrier, apn, vpn_server, vpn_username, vpn_password, proxy_server, proxy_port, dns_server, cloudflare_domain);
+
+                // Do something with the configuration profile (e.g. download it)
+                console.log(config_profile);
+            });
+        </script>
+    </div>
+</body>
+</html>
