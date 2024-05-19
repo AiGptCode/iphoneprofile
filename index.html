@@ -325,104 +325,37 @@
 
     function handleShowRawClick() {
   const apn = document.getElementById("apn").value;
-  const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>PayloadContent</key>
-    <array>
-        <dict>
-            <key>PayloadDisplayName</key>
-            <string>Cellular</string>
-            <key>PayloadIdentifier</key>
-            <string>com.apple.cellular</string>
-            <key>PayloadType</key>
-            <string>com.apple.cellular</string>
-            <key>PayloadUUID</key>
-            <string>${generateUniqueUUID()}</string>
-            <key>PayloadVersion</key>
-            <integer>1</integer>
-            <key>APNs</key>
-            <array>
-                <dict>
-                    <key>AuthenticationType</key>
-                    <string>CHAP</string>
-                    <key>Enabled</key>
-                    <true/>
-                    <key>Name</key>
-                    <string>${apn}</string>
-                </dict>
-            </array>
-            <key>SignalBoostEnabled</key>
-            <true/>
-            <key>Proxy</key>
-            <dict>
-                <key>Enabled</key>
-                <true/>
-                <key>PayloadType</key>
-                <string>com.apple.proxy</string>
-                <key>PayloadUUID</key>
-                <string>${generateUniqueUUID()}</string>
-                <key>PayloadVersion</key>
-                <integer>1</integer>
-                <key>HTTPEnable</key>
-                <true/>
-                <key>HTTPPort</key>
-                <integer>8080</integer>
-                <key>HTTPSEnable</key>
-                <true/>
-                <key>HTTPSPort</key>
-                <integer>8080</integer>
-                <key>FTPEnable</key>
-                <true/>
-                <key>FTPPort</key>
-                <integer>21</integer>
-                <key>SOCKSEnable</key>
-                <true/>
-                <key>SOCKSPort</key>
-                <integer>1080</integer>
-                <key>Server</key>
-                <string>proxy.example.com</string>
-                <key>ExclusionList</key>
-                <array>
-                    <string>localhost</string>
-                    <string>127.0.0.1</string>
-                    <string>169.254.0.0/16</string>
-                </array>
-            </dict>
-        </dict>
-    </array>
-    <key>PayloadDisplayName</key>
-    <string>Cellular and Network Settings</string>
-    <key>PayloadIdentifier</key>
-    <string>com.example.cellular</string>
-    <key>PayloadOrganization</key>
-    <string>Example Inc.</string>
-    <key>PayloadRemovalDisallowed</key>
-    <false/>
-    <key>PayloadType</key>
-    <string>Configuration</string>
-    <key>PayloadUUID</key>
-    <string>${generateUniqueUUID()}</string>
-    <key>PayloadVersion</key>
-    <integer>1</integer>
-</dict>
-</plist>`;
 
-  // Convert the XML string to a Blob
-  const blob = new Blob([configPlist], { type: "text/xml" });
-
-  // Create an anchor tag and set its href to the Blob's URL
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "config.mobileconfig";
-
-  // Simulate a click on the anchor tag to trigger the download
-  a.click();
-
-  // Release the Blob's URL to avoid memory leaks
-  URL.revokeObjectURL(a.href);
+  // Send a POST request to the server to generate the file
+  fetch("/generate-config", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ apn }),
+    })
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.blob();
+      } else {
+        throw new Error("Failed to generate config file");
+      }
+    })
+    .then((blob) => {
+      // Create a new tab or window to open the file with the config.mobileconfig MIME type
+      const configUrl = URL.createObjectURL(blob);
+      const configWindow = window.open(configUrl, "_blank");
+      configWindow.document.write(
+        `<a href="${configUrl}" download="config.mobileconfig">Download Config File</a>`
+      );
+      configWindow.document.close();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
+
 
 
     configForm.addEventListener('submit', handleFormSubmit);
