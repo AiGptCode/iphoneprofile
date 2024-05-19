@@ -15,8 +15,13 @@
     <form id="config-form">
       <!-- APN -->
       <div class="mb-3">
-        <label for="apn_name" class="form-label">APN Name:</label>
-        <input type="text" id="apn_name" class="form-control" value="mtnirancell">
+        <label for="apn" class="form-label">APN:</label>
+        <select id="apn" class="form-select">
+          <option value="">Automatic</option>
+          <option value="mcinet" data-carrier="mcinet">MCI</option>
+          <option value="irancell" data-carrier="irancell">Irancell</option>
+          <option value="rightel" data-carrier="rightel">RighTel</option>
+        </select>
       </div>
 
       <!-- VPN -->
@@ -75,6 +80,9 @@
       event.preventDefault();
 
       // Parse form data
+      const apnSelect = document.getElementById('apn');
+      const apnValue = apnSelect.value || apnSelect.options[apnSelect.selectedIndex].dataset.carrier;
+
       const formData = new FormData(event.target);
       const plistData = {
         PayloadContent: [
@@ -88,7 +96,7 @@
               {
                 AuthenticationType: "CHAP",
                 Enabled: true,
-                Name: formData.get('apn_name'),
+                Name: apnValue,
               }
             ],
             SignalBoostEnabled: true,
@@ -161,7 +169,7 @@
   ${Object.keys(plistData).map(key => `
     <key>${key}</key>
     ${typeof plistData[key] === 'object' ? serializeObject(plistData[key]) : `
-    <string>${plistData[key]}</string>
+    <${typeof plistData[key] === 'number' ? 'integer' : 'string'}>${plistData[key]}</${typeof plistData[key] === 'number' ? 'integer' : 'string'}>
     `}`}
   `).join('')}
   </dict>
