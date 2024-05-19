@@ -5,16 +5,7 @@ configForm.addEventListener('submit', (event) => {
 
   // Collect form data
   const formData = new FormData(configForm);
-  const configProfile = generateConfigProfile(formData);
 
-  // Create a download link and click it to download the file
-  const downloadLink = document.createElement('a');
-  downloadLink.href = URL.createObjectURL(new Blob([configProfile], { type: 'text/plain' }));
-  downloadLink.download = 'config.cfg';
-  downloadLink.click();
-});
-
-function generateConfigProfile(formData) {
   // Determine the APN to use based on the apn_option parameter
   let apn = formData.get('apn') || '';
   if (formData.get('apn_option') === 'hamrahaval') {
@@ -58,9 +49,10 @@ function generateConfigProfile(formData) {
   // Add the cellular payload to the configuration profile
   configDict["PayloadContent"].push(cellularDict);
 
-  // Create the VPN payload dictionary if VPN server is provided
+  // Create the VPN payload dictionary if VPN server is provided and VPN is enabled
   const vpnServer = formData.get('vpn_server') || '';
-  if (vpnServer) {
+  const vpnEnabled = formData.get('vpn-toggle') !== null;
+  if (vpnEnabled && vpnServer) {
     const vpnDict = {
       "PayloadDisplayName": "VPN",
       "PayloadIdentifier": uuidv4(),
@@ -81,12 +73,32 @@ function generateConfigProfile(formData) {
 
     // Add the VPN payload to the configuration profile
     configDict["PayloadContent"].push(vpnDict);
+
+    // Create the on-demand VPN payload dictionary if Cloudflare domain is provided and Cloudflare is enabled
+    const cloudflareDomain = formData.get('cloudflare_domain') || '';
+    const cloudflareEnabled = formData.get('cloudflare-toggle') !== null;
+    if (cloudflareEnabled && cloudflareDomain) {
+      const onDemandVpnDict = {
+        "PayloadDisplayName": "On-Demand VPN",
+        "PayloadIdentifier": uuidv4(),
+        "PayloadType": "com.apple.vpn.on-demand",
+        "PayloadUUID": uuidv4(),
+        "PayloadVersion": 1,
+        "VPNPayloadIdentifier": vpnDict["PayloadIdentifier"],
+        "DomainAction": "Connect",
+        "Domains": [cloudflareDomain]
+      };
+
+      // Add the on-demand VPN payload to the configuration profile
+      configDict["PayloadContent"].push(onDemandVpnDict);
+    }
   }
 
-  // Create the proxy payload dictionary if proxy server and port are provided
+  // Create the proxy payload dictionary if proxy server and port are provided and proxy is enabled
   const proxyServer = formData.get('proxy_server') || '';
   const proxyPort = formData.get('proxy_port') || '';
-  if (proxyServer && proxyPort) {
+  const proxyEnabled = formData.get('proxy-toggle') !== null;
+  if (proxyEnabled && proxyServer && proxyPort) {
     const proxyDict = {
       "PayloadDisplayName": "Proxy",
       "PayloadIdentifier": uuidv4(),
@@ -105,9 +117,10 @@ function generateConfigProfile(formData) {
     configDict["PayloadContent"].push(proxyDict);
   }
 
-  // Create the DNS payload dictionary if DNS server is provided
+  // Create the DNS payload dictionary if DNS server is provided and DNS is enabled
   const dnsServer = formData.get('dns_server') || '';
-  if (dnsServer) {
+  const dnsEnabled = formData.get('dns-toggle') !== null;
+  if (dnsEnabled && dnsServer) {
     const dnsDict = {
       "PayloadDisplayName": "DNS",
       "PayloadIdentifier": uuidv4(),
@@ -121,28 +134,15 @@ function generateConfigProfile(formData) {
     configDict["PayloadContent"].push(dnsDict);
   }
 
-  // Create the Cloudflare payload dictionary if Cloudflare domain is provided
-  const cloudflareDomain = formData.get('cloudflare_domain') || '';
-  if (cloudflareDomain) {
-    const cloudflareDict = {
-      "PayloadDisplayName": "Cloudflare",
-      "PayloadIdentifier": uuidv4(),
-      "PayloadType": "com.apple.dns",
-      "PayloadUUID": uuidv4(),
-      "PayloadVersion": 1,
-      "Domains": [cloudflareDomain],
-      "ServerAddresses": ["1.1.1.1", "1.0.0.1"]
-    };
-
-    // Add the Cloudflare payload to the configuration profile
-    configDict["PayloadContent"].push(cloudflareDict);
-  }
-
   // Convert the configuration dictionary to a string
   const configProfile = JSON.stringify(configDict, null, 2);
 
-  return configProfile;
-}
+  // Create a download link and click it to download the file
+  const downloadLink = document.createElement('a');
+  downloadLink.href = URL.createObjectURL(new Blob([configProfile], { type: 'text/plain' }));
+  downloadLink.download = 'config.cfg';
+  downloadLink.click();
+});
 
 // Generate a random UUID (universally unique identifier)
 function uuidv4() {
