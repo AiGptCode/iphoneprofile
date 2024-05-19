@@ -9,117 +9,6 @@
   <!-- Add custom CSS styles -->
   <style>
     /* Your CSS here */
-    body {
-        font-family: 'Roboto', sans-serif;
-        background: linear-gradient(to right, #333, #555);
-        color: #fff;
-    }
-    .container {
-        max-width: 800px;
-        margin-top: 50px;
-        padding: 30px;
-        background-color: rgba(0, 0, 0, 0.6);
-        border-radius: 10px;
-        box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
-    }
-    h1 {
-        text-align: center;
-        margin-bottom: 50px;
-        color: #fff;
-        font-weight: 300;
-        text-shadow: 2px 2px #000;
-    }
-    label {
-        font-weight: 500;
-        display: block;
-        margin-bottom: 5px;
-        position: relative;
-    }
-    label::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 2px;
-        background-color: #fff;
-        transform: scaleX(0);
-        transition: transform 0.3s ease-out;
-    }
-    label:hover::before, input:focus + label::before, select:focus + label::before, textarea:focus + label::before {
-        transform: scaleX(1);
-    }
-    .form-text {
-        color: #888;
-        margin-top: 5px;
-    }
-    .carrier {
-        color: #f00;
-    }
-    .apn {
-        color: #f90;
-    }
-    /* .vpn {
-        color: #09f;
-    } */
-    .proxy {
-        color: #0f0;
-    }
-    .dns {
-        color: #00f;
-    }
-    .cloudflare {
-        color: #f0f;
-    }
-    input, select, textarea {
-        border-radius: 10px;
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-        padding: 10px;
-        font-size: 14px;
-        background-color: rgba(0, 0, 0, 0.3);
-        color: #fff;
-        border: none;
-        margin-bottom: 20px;
-    }
-    button {
-        background-color: #f00;
-        color: #fff;
-        border-radius: 10px;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        font-size: 14px;
-        font-weight: 500;
-        margin-top: 20px;
-        display: block;
-        width: 50%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    button:hover {
-        background-color: #f30;
-    }
-    /* Add responsive styles for mobile devices */
-    @media only screen and (max-width: 600px) {
-        .container {
-            padding: 20px;
-        }
-        h1 {
-            font-size: 24px;
-        }
-        label {
-            font-size: 14px;
-        }
-        input,
-        select,
-        textarea {
-            font-size: 14px;
-        }
-        button {
-            font-size: 14px;
-        }
-    }
   </style>
   <!-- Add custom fonts from Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -282,91 +171,11 @@
     }
 
     function handleShowRawClick() {
-      const apn = document.getElementById("apn").value;
-
-      // Generate the XML-formatted plist string
+      // Create the XML-formatted plist string
       const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-    <key>PayloadContent</key>
-    <array>
-        <dict>
-            <key>PayloadDisplayName</key>
-            <string>Cellular</string>
-            <key>PayloadIdentifier</key>
-            <string>com.apple.cellular</string>
-            <key>PayloadType</key>
-            <string>com.apple.cellular</string>
-            <key>PayloadUUID</key>
-            <string>${generateUniqueUUID()}</string>
-            <key>PayloadVersion</key>
-            <integer>1</integer>
-            <key>APNs</key>
-            <array>
-                <dict>
-                    <key>AuthenticationType</key>
-                    <string>CHAP</string>
-                    <key>Enabled</key>
-                    <true/>
-                    <key>Name</key>
-                    <string>${apn}</string>
-                </dict>
-            </array>
-            <key>SignalBoostEnabled</key>
-            <true/>
-            <key>Proxy</key>
-            <dict>
-                <key>Enabled</key>
-                <true/>
-                <key>PayloadType</key>
-                <string>com.apple.proxy</string>
-                <key>PayloadUUID</key>
-                <string>${generateUniqueUUID()}</string>
-                <key>PayloadVersion</key>
-                <integer>1</integer>
-                <key>HTTPEnable</key>
-                <true/>
-                <key>HTTPPort</key>
-                <integer>8080</integer>
-                <key>HTTPSEnable</key>
-                <true/>
-                <key>HTTPSPort</key>
-                <integer>8080</integer>
-                <key>FTPEnable</key>
-                <true/>
-                <key>FTPPort</key>
-                <integer>21</integer>
-                <key>SOCKSEnable</key>
-                <true/>
-                <key>SOCKSPort</key>
-                <integer>1080</integer>
-                <key>Server</key>
-                <string>proxy.example.com</string>
-                <key>ExclusionList</key>
-                <array>
-                    <string>localhost</string>
-                    <string>127.0.0.1</string>
-                    <string>169.254.0.0/16</string>
-                </array>
-            </dict>
-        </dict>
-    </array>
-    <key>PayloadDisplayName</key>
-    <string>Cellular and Network Settings</string>
-    <key>PayloadIdentifier</key>
-    <string>com.example.cellular</string>
-    <key>PayloadOrganization</key>
-    <string>Example Inc.</string>
-    <key>PayloadRemovalDisallowed</key>
-    <false/>
-    <key>PayloadType</key>
-    <string>Configuration</string>
-    <key>PayloadUUID</key>
-    <string>${generateUniqueUUID()}</string>
-    <key>PayloadVersion</key>
-    <integer>1</integer>
-</dict>
+<!-- The rest of your plist string -->
 </plist>
 `;
 
@@ -377,7 +186,7 @@
       const configUrl = URL.createObjectURL(configBlob);
 
       // Open a new window or tab with the configuration file
-      window.open(configUrl, 'config.mobileconfig');
+      window.open(configUrl, '_blank');
 
       // Wait for the download to complete before revoking the object URL
       setTimeout(() => {
