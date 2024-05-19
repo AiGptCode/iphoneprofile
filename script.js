@@ -1,6 +1,6 @@
 const configForm = document.getElementById('config-form');
 
-configForm.addEventListener('submit', (event) => {
+configForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
   // Collect form data
@@ -137,11 +137,19 @@ configForm.addEventListener('submit', (event) => {
   // Convert the configuration dictionary to a string
   const configProfile = JSON.stringify(configDict, null, 2);
 
+  // Create a Blob object from the configuration profile string
+  const configBlob = new Blob([configProfile], { type: 'application/x-apple-config' });
+
   // Create a download link and click it to download the file
   const downloadLink = document.createElement('a');
-  downloadLink.href = URL.createObjectURL(new Blob([configProfile], { type: 'text/plain' }));
-  downloadLink.download = 'config.cfg';
+  downloadLink.href = URL.createObjectURL(configBlob);
+  downloadLink.download = 'config.mobileconfig';
   downloadLink.click();
+
+  // Wait for the download to complete before revoking the object URL
+  setTimeout(() => {
+    URL.revokeObjectURL(downloadLink.href);
+  }, 1000);
 });
 
 // Generate a random UUID (universally unique identifier)
