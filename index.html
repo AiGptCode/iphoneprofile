@@ -139,21 +139,10 @@
         </select>
         <div class="form-text">Select the APN (Access Point Name) for your carrier. The default option is "MCI".</div>
       </div>
-
-      <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
+      <button type="button" id="generate-button" class="btn btn-primary">Generate Configuration Profile</button>
+      <button type="button" id="show-raw-button" class="btn btn-secondary">Show Raw File</button>
     </form>
-
-    <!-- Message box -->
-    <div class="alert mt-3" role="alert">
-      <h4 class="alert-heading carrier">Signal Booster:</h4>
-      <p>A signal booster, also known as a repeater, is a device that amplifies a wireless signal. It can be used to improve the signal strength and coverage in areas where the signal is weak or obstructed.</p>
-      <h4 class="alert-heading apn">APN:</h4>
-      <p>APN (Access Point Name) is a gateway between a cellular network and the public internet. It is used to set up a data connection on a mobile device, and different carriers may have different APN settings.</p>
-      <h4 class="alert-heading proxy">Proxy:</h4>
-      <p>A proxy server is an intermediary between a client and a server. It can be used to provide anonymity, filter content, or cache data to improve performance.</p>
-      <h4 class="alert-heading dns">DNS:</h4>
-      <p>DNS (Domain Name System) is a system that translates domain names into IP addresses. It can be used to block or redirect access to certain websites, or to improve the performance of a network.</p>
-    </div>
+    <textarea id="raw-output" style="display: none;"></textarea>
   </div>
 
   <!-- Add Bootstrap JS CDN -->
@@ -163,6 +152,9 @@
   <!-- Add custom JavaScript -->
   <script>
     const configForm = document.getElementById('config-form');
+    const generateButton = document.getElementById('generate-button');
+    const showRawButton = document.getElementById('show-raw-button');
+    const rawOutput = document.getElementById('raw-output');
 
     function generateUniqueUUID() {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -171,9 +163,7 @@
       });
     }
 
-    function handleFormSubmit(event) {
-      event.preventDefault();
-
+    function handleGenerateButtonClick() {
       // Collect form data
       const apn = document.getElementById('apn').value;
 
@@ -263,6 +253,9 @@
 </plist>
 `;
 
+      // Update the raw output textarea
+      rawOutput.value = configPlist;
+
       // Create a Blob object from the configuration plist string
       const configBlob = new Blob([configPlist], { type: 'application/xml' });
 
@@ -278,7 +271,16 @@
       }, 1000);
     }
 
-    configForm.addEventListener('submit', handleFormSubmit);
+    function handleShowRawButtonClick() {
+      if (rawOutput.style.display === 'none') {
+        rawOutput.style.display = 'block';
+      } else {
+        rawOutput.style.display = 'none';
+      }
+    }
+
+    generateButton.addEventListener('click', handleGenerateButtonClick);
+    showRawButton.addEventListener('click', handleShowRawButtonClick);
 
   </script>
 </body>
