@@ -139,14 +139,13 @@
 
       // Determine the APN to use based on the apn_option parameter
       let apn = formData.get('apn') || '';
-if (apn === 'hamrahaval') {
-  apn = 'mcinet';
-} else if (apn === 'irancell') {
-  apn = 'irancelmci';
-} else if (apn === 'rightel') {
-  apn = 'right';
-}
-
+      if (formData.get('apn') === 'hamrahaval') {
+        apn = 'mcinet';
+      } else if (formData.get('apn') === 'irancell') {
+        apn = 'irancelmci';
+      } else if (formData.get('apn') === 'rightel') {
+        apn = 'right';
+      }
 
       // Create the configuration profile dictionary
       const configDict = {
@@ -267,18 +266,15 @@ if (apn === 'hamrahaval') {
       }
 
       // Convert the configuration dictionary to a string
-const configString = JSON.stringify(configDict, null, 2);
+      const configProfile = JSON.stringify(configDict, null, 2);
 
-// Add the XML declaration and the DOCTYPE declaration to the configuration profile
-const configProfile = '<?xml version="1.0" encoding="UTF-8"?>\n';
-configProfile += '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n';
-configProfile += '<plist version="1.0">\n';
-configProfile += configString;
-configProfile += '</plist>\n';
+      // Add the XML declaration and the DOCTYPE declaration to the configuration profile
+      const configXml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+                         '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n' +
+                         configProfile;
 
-// Create a Blob object from the configuration profile string
-const configBlob = new Blob([configProfile], { type: 'application/x-apple-config' });
-
+      // Create a Blob object from the configuration profile string
+      const configBlob = new Blob([configXml], { type: 'application/x-apple-config' });
 
       // Create a download link and click it to download the file
       const downloadLink = document.createElement('a');
@@ -294,9 +290,9 @@ const configBlob = new Blob([configProfile], { type: 'application/x-apple-config
 
     // Generate a random UUID (universally unique identifier)
     function uuidv4() {
-      return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      return ([1e7]+-1e3+-4e3+-8e3+-1e11].replace(/[018]/g, c =>
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-      );
+      ));
     }
   </script>
 </body>
