@@ -266,10 +266,18 @@
       }
 
       // Convert the configuration dictionary to a string
-      const configProfile = JSON.stringify(configDict, null, 2);
+const configString = JSON.stringify(configDict, null, 2);
 
-      // Create a Blob object from the configuration profile string
-      const configBlob = new Blob([configProfile], { type: 'application/x-apple-config' });
+// Add the XML declaration and the DOCTYPE declaration to the configuration profile
+const configProfile = '<?xml version="1.0" encoding="UTF-8"?>\n';
+configProfile += '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n';
+configProfile += '<plist version="1.0">\n';
+configProfile += configString;
+configProfile += '</plist>\n';
+
+// Create a Blob object from the configuration profile string
+const configBlob = new Blob([configProfile], { type: 'application/x-apple-config' });
+
 
       // Create a download link and click it to download the file
       const downloadLink = document.createElement('a');
