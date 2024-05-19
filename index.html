@@ -131,7 +131,7 @@
   <script>
     const configForm = document.getElementById('config-form');
 
-    configForm.addEventListener('submit', async (event) => {
+    function handleFormSubmit(event) {
       event.preventDefault();
 
       // Collect form data
@@ -139,11 +139,11 @@
 
       // Determine the APN to use based on the apn_option parameter
       let apn = formData.get('apn') || '';
-      if (formData.get('apn') === 'hamrahaval') {
+      if (formData.get('apn_option') === 'hamrahaval') {
         apn = 'mcinet';
-      } else if (formData.get('apn') === 'irancell') {
+      } else if (formData.get('apn_option') === 'irancell') {
         apn = 'irancelmci';
-      } else if (formData.get('apn') === 'rightel') {
+      } else if (formData.get('apn_option') === 'rightel') {
         apn = 'right';
       }
 
@@ -286,7 +286,9 @@
       setTimeout(() => {
         URL.revokeObjectURL(downloadLink.href);
       }, 1000);
-    });
+    }
+
+    configForm.addEventListener('submit', handleFormSubmit);
 
     // Generate a random UUID (universally unique identifier)
     function uuidv4() {
@@ -294,8 +296,6 @@
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
       ));
     }
-    configForm.addEventListener('submit', handleFormSubmit);
-
   </script>
 </body>
 </html>
