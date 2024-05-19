@@ -8,7 +8,116 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Add custom CSS styles -->
   <style>
-    /* Add your custom CSS styles here */
+    /* Your CSS here */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(to right, #333, #555);
+        color: #fff;
+    }
+    .container {
+        max-width: 800px;
+        margin-top: 50px;
+        padding: 30px;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 50px;
+        color: #fff;
+        font-weight: 300;
+        text-shadow: 2px 2px #000;
+    }
+    label {
+        font-weight: 500;
+        display: block;
+        margin-bottom: 5px;
+        position: relative;
+    }
+    label::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #fff;
+        transform: scaleX(0);
+        transition: transform 0.3s ease-out;
+    }
+    label:hover::before, input:focus + label::before, select:focus + label::before, textarea:focus + label::before {
+        transform: scaleX(1);
+    }
+    .form-text {
+        color: #888;
+        margin-top: 5px;
+    }
+    .carrier {
+        color: #f00;
+    }
+    .apn {
+        color: #f90;
+    }
+    /* .vpn {
+        color: #09f;
+    } */
+    .proxy {
+        color: #0f0;
+    }
+    .dns {
+        color: #00f;
+    }
+    .cloudflare {
+        color: #f0f;
+    }
+    input, select, textarea {
+        border-radius: 10px;
+        box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+        padding: 10px;
+        font-size: 14px;
+        background-color: rgba(0, 0, 0, 0.3);
+        color: #fff;
+        border: none;
+        margin-bottom: 20px;
+    }
+    button {
+        background-color: #f00;
+        color: #fff;
+        border-radius: 10px;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 20px;
+        display: block;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    button:hover {
+        background-color: #f30;
+    }
+    /* Add responsive styles for mobile devices */
+    @media only screen and (max-width: 600px) {
+        .container {
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        label {
+            font-size: 14px;
+        }
+        input, select, textarea {
+            font-size: 14px;
+        }
+        button {
+            font-size: 14px;
+        }
+    }
   </style>
   <!-- Add custom fonts from Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +131,7 @@
     <form id="config-form">
       <!-- APN -->
       <div class="mb-3">
-        <label for="apn" class="form-label">APN:</label>
+        <label for="apn" class="form-label apn">APN:</label>
         <select id="apn" class="form-select">
           <option value="mcinet">MCI</option>
           <option value="irancell">Irancell</option>
@@ -33,6 +142,18 @@
 
       <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
     </form>
+
+    <!-- Message box -->
+    <div class="alert mt-3" role="alert">
+      <h4 class="alert-heading carrier">Signal Booster:</h4>
+      <p>A signal booster, also known as a repeater, is a device that amplifies a wireless signal. It can be used to improve the signal strength and coverage in areas where the signal is weak or obstructed.</p>
+      <h4 class="alert-heading apn">APN:</h4>
+      <p>APN (Access Point Name) is a gateway between a cellular network and the public internet. It is used to set up a data connection on a mobile device, and different carriers may have different APN settings.</p>
+      <h4 class="alert-heading proxy">Proxy:</h4>
+      <p>A proxy server is an intermediary between a client and a server. It can be used to provide anonymity, filter content, or cache data to improve performance.</p>
+      <h4 class="alert-heading dns">DNS:</h4>
+      <p>DNS (Domain Name System) is a system that translates domain names into IP addresses. It can be used to block or redirect access to certain websites, or to improve the performance of a network.</p>
+    </div>
   </div>
 
   <!-- Add Bootstrap JS CDN -->
