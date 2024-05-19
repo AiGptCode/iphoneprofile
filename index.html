@@ -129,6 +129,22 @@
 <body>
   <div class="container">
     <h1>Configuration Profile Generator</h1>
+    <!-- Add form for configuration generator -->
+    <form id="config-form">
+      <!-- APN -->
+      <div class="mb-3">
+        <label for="apn" class="form-label apn">APN:</label>
+        <select id="apn" class="form-select">
+          <option value="mcinet">MCI</option>
+          <option value="mtnirancell">Irancell</option>
+          <option value="RighTel">RighTel</option>
+        </select>
+        <div class="form-text">اپراتور خود را انتخاب  کنید</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
+    </form>
+
     <!-- Message box -->
     <div class="alert mt-3" role="alert">
       <h4 class="alert-heading carrier">Signal Booster:</h4>
