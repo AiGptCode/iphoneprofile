@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,32 +101,32 @@
         "PayloadDisplayName": "Cellular and Network Settings",
         "PayloadIdentifier": "com.example.cellular",
         "PayloadOrganization": "Example Inc.",
-"PayloadRemovalDisallowed": false,
-"PayloadType": "Configuration",
-"PayloadUUID": generateUniqueUUID(),
-"PayloadVersion": 1
-};
+        "PayloadRemovalDisallowed": false,
+        "PayloadType": "Configuration",
+        "PayloadUUID": generateUniqueUUID(),
+        "PayloadVersion": 1
+      };
 
-// Convert the configuration dictionary to a plist string
-const configPlist = plist.build(configDict);
+      // Convert the configuration dictionary to a plist string
+      const configPlist = plist.build(configDict);
 
-// Create a Blob object from the configuration plist string
-const configBlob = new Blob([configPlist], { type: 'application/x-apple-configurator' });
+      // Create a Blob object from the configuration plist string
+      const configBlob = new Blob([configPlist], { type: 'application/x-apple-configurator' });
 
-// Create a download link and click it to download the file
-const downloadLink = document.createElement('a');
-downloadLink.href = URL.createObjectURL(configBlob);
-downloadLink.download = 'config.mobileconfig';
-downloadLink.click();
+      // Create a download link and click it to download the file
+      const downloadLink = document.createElement('a');
+      downloadLink.href = URL.createObjectURL(configBlob);
+      downloadLink.download = 'config.mobileconfig';
+      downloadLink.click();
 
-// Wait for the download to complete before revoking the object URL
-setTimeout(() => {
-URL.revokeObjectURL(downloadLink.href);
-}, 1000);
-}
+      // Wait for the download to complete before revoking the object URL
+      setTimeout(() => {
+        URL.revokeObjectURL(downloadLink.href);
+      }, 1000);
+    }
 
-configForm.addEventListener('submit', handleFormSubmit);
+    configForm.addEventListener('submit', handleFormSubmit);
 
-</script>
+  </script>
 </body>
 </html>
