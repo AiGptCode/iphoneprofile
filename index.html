@@ -8,14 +8,122 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s4Wz6iJgD/+ub3o" crossorigin="anonymous">
   <!-- Add custom CSS styles -->
   <style>
-    /* ... */
-  </style>
-  <!-- Add custom fonts from Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-</head>
-<body>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #333, #555);
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #fff;
+            font-weight: 300;
+            text-shadow: 2px 2px #000;
+        }
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
+            position: relative;
+        }
+        label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #fff;
+            transform: scaleX(0);
+            transition: transform 0.3s ease-out;
+        }
+        label:hover::before, input:focus + label::before, select:focus + label::before, textarea:focus + label::before {
+            transform: scaleX(1);
+        }
+        .form-text {
+            color: #888;
+            margin-top: 5px;
+        }
+        .carrier {
+            color: #f00;
+        }
+        .apn {
+            color: #f90;
+        }
+        .vpn {
+            color: #09f;
+        }
+        .proxy {
+            color: #0f0;
+        }
+        .dns {
+            color: #00f;
+        }
+        .cloudflare {
+            color: #f0f;
+        }
+        input, select, textarea {
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+            padding: 10px;
+            font-size: 14px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            border: none;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #f00;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 20px;
+            display: block;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button:hover {
+            background-color: #f30;
+        }
+        /* Add responsive styles for mobile devices */
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            label {
+                font-size: 14px;
+            }
+            input, select, textarea {
+                font-size: 14px;
+            }
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+    <!-- Add custom fonts from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    </head>
+    <body>
   <div class="container">
     <h1>Configuration Profile Generator</h1>
     <!-- Add form for configuration generator -->
@@ -132,35 +240,29 @@
     const configForm = document.getElementById('config-form');
 
     function handleFormSubmit(event) {
-  event.preventDefault();
+      event.preventDefault();
 
-  // Collect form data
-  const formElements = configForm.elements;
-  const formData = {};
-  for (const element of formElements) {
-    if (element.name) {
-      if (element.type === 'checkbox') {
-        formData[element.name] = element.checked;
-      } else {
-        formData[element.name] = element.value;
+      // Collect form data
+      const formElements = configForm.elements;
+      const formData = {};
+      for (const element of formElements) {
+        if (element.name && element.type !== 'checkbox') {
+          formData[element.name] = element.value;
+        } else if (element.name && element.type === 'checkbox' && element.checked) {
+          formData[element.name] = element.value;
+        }
       }
-    }
-  }
-  formData.apn_option = document.querySelector('select[id="apn"] option:checked').dataset.carrier;
+      formData.apn_option = document.querySelector('select[id="apn"] option:checked').dataset.carrier;
 
-  // Determine the APN to use based on the apn_option parameter
-  let apn = formData.apn || '';
-  if (formData.apn_option === 'hamrahaval') {
-    apn = 'mcinet';
-  } else if (formData.apn_option === 'irancell') {
-    apn = 'irancelmci';
-  } else if (formData.apn_option === 'rightel') {
-    apn = 'right';
-  }
-
-  // ... Rest of the code ...
-}
-
+      // Determine the APN to use based on the apn_option parameter
+      let apn = formData.apn || '';
+      if (formData.apn_option === 'hamrahaval') {
+        apn = 'mcinet';
+      } else if (formData.apn_option === 'irancell') {
+        apn = 'irancelmci';
+      } else if (formData.apn_option === 'rightel') {
+        apn = 'right';
+      }
 
       // Create the configuration profile dictionary
       const configDict = {
