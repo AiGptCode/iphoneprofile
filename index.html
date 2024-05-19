@@ -136,6 +136,7 @@
 
       // Collect form data
       const formData = new FormData(configForm);
+      formData.set('apn_option', document.querySelector('select[id="apn"] option:checked').dataset.carrier);
 
       // Determine the APN to use based on the apn_option parameter
       let apn = formData.get('apn') || '';
