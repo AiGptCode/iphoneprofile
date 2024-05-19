@@ -132,29 +132,35 @@
     const configForm = document.getElementById('config-form');
 
     function handleFormSubmit(event) {
-      event.preventDefault();
+  event.preventDefault();
 
-      // Collect form data
-      const formElements = configForm.elements;
-      const formData = {};
-      for (const element of formElements) {
-        if (element.name && element.type !== 'checkbox') {
-          formData[element.name] = element.value;
-        } else if (element.name && element.type === 'checkbox' && element.checked) {
-          formData[element.name] = element.value;
-        }
+  // Collect form data
+  const formElements = configForm.elements;
+  const formData = {};
+  for (const element of formElements) {
+    if (element.name) {
+      if (element.type === 'checkbox') {
+        formData[element.name] = element.checked;
+      } else {
+        formData[element.name] = element.value;
       }
-      formData.apn_option = document.querySelector('select[id="apn"] option:checked').dataset.carrier;
+    }
+  }
+  formData.apn_option = document.querySelector('select[id="apn"] option:checked').dataset.carrier;
 
-      // Determine the APN to use based on the apn_option parameter
-      let apn = formData.apn || '';
-      if (formData.apn_option === 'hamrahaval') {
-        apn = 'mcinet';
-      } else if (formData.apn_option === 'irancell') {
-        apn = 'irancelmci';
-      } else if (formData.apn_option === 'rightel') {
-        apn = 'right';
-      }
+  // Determine the APN to use based on the apn_option parameter
+  let apn = formData.apn || '';
+  if (formData.apn_option === 'hamrahaval') {
+    apn = 'mcinet';
+  } else if (formData.apn_option === 'irancell') {
+    apn = 'irancelmci';
+  } else if (formData.apn_option === 'rightel') {
+    apn = 'right';
+  }
+
+  // ... Rest of the code ...
+}
+
 
       // Create the configuration profile dictionary
       const configDict = {
