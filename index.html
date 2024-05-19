@@ -4,396 +4,198 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Configuration Profile Generator</title>
-  <!-- Add Bootstrap CSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s4Wz6iJgD/+ub3o" crossorigin="anonymous">
-  <!-- Add custom CSS styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(to right, #333, #555);
-      color: #fff;
-    }
-    .container {
-      max-width: 800px;
-      margin-top: 50px;
-      padding: 30px;
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 10px;
-      box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 50px;
-      color: #fff;
-      font-weight: 300;
-      text-shadow: 2px 2px #000;
-    }
-    label {
-      font-weight: 500;
-      display: block;
-      margin-bottom: 5px;
-      position: relative;
-    }
-    label::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 2px;
-      background-color: #fff;
-      transform: scaleX(0);
-      transition: transform 0.3s ease-out;
-    }
-    label:hover::before, input:focus + label::before, select:focus + label::before, textarea:focus + label::before {
-      transform: scaleX(1);
-    }
-    .form-text {
-      color: #888;
-      margin-top: 5px;
-    }
-    .carrier {
-      color: #f00;
-    }
-    .apn {
-      color: #f90;
-    }
-    .vpn {
-      color: #09f;
-    }
-    .proxy {
-      color: #0f0;
-    }
-    .dns {
-      color: #00f;
-    }
-    .cloudflare {
-      color: #f0f;
-    }
-    input, select, textarea {
-      border-radius: 10px;
-      box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
-      padding: 10px;
-      font-size: 14px;
-      background-color: rgba(0, 0, 0, 0.3);
-      color: #fff;
-      border: none;
-      margin-bottom: 20px;
-    }
-    button {
-      background-color: #f00;
-      color: #fff;
-      border-radius: 10px;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-size: 14px;
-      font-weight: 500;
-      margin-top: 20px;
-      display: block;
-      width: 50%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    button:hover {
-      background-color: #f30;
-    }
-    /* Add responsive styles for mobile devices */
-    @media only screen and (max-width: 600px) {
-      .container {
-        padding: 20px;
-      }
-      h1 {
-        font-size: 24px;
-      }
-      label {
-        font-size: 14px;
-      }
-      input, select, textarea {
-        font-size: 14px;
-      }
-      button {
-        font-size: 14px;
-      }
-    }
+    /* Add your custom CSS styles here */
   </style>
-  <!-- Add custom fonts from Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
+  <div class="container mt-5">
     <h1>Configuration Profile Generator</h1>
-    <!-- Add form for configuration generator -->
     <form id="config-form">
       <!-- APN -->
       <div class="mb-3">
-        <label for="apn" class="form-label apn">APN:</label>
-        <div id="apn-inputs">
-          <input type="text" id="apn" class="form-control" value="mtnirancell">
-          <div class="form-text">Enter the APN (Access Point Name) for your carrier. The default value is "mtnirancell".</div>
-        </div>
+        <label for="apn_name" class="form-label">APN Name:</label>
+        <input type="text" id="apn_name" class="form-control" value="mtnirancell">
       </div>
 
       <!-- VPN -->
       <div class="mb-3">
-        <label for="vpn_server" class="form-label vpn">VPN Server (optional):</label>
-        <div id="vpn-inputs">
-          <input type="text" id="vpn_server" class="form-control">
-          <div class="form-text">Enter the hostname or IP address of your VPN server if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
-
-          <label for="vpn_username" class="form-label vpn">VPN Username (optional):</label>
-          <input type="text" id="vpn_username" class="form-control">
-          <div class="form-text">Enter your VPN username if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
-
-          <label for="vpn_password" class="form-label vpn">VPN Password (optional):</label>
-          <input type="password" id="vpn_password" class="form-control">
-          <div class="form-text">Enter your VPN password if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" id="vpn-toggle" class="form-check-input">
-          <label for="vpn-toggle" class="form-check-label">Include VPN in profile</label>
-        </div>
+        <label for="vpn_server" class="form-label">VPN Server:</label>
+        <input type="text" id="vpn_server" class="form-control" value="vpn.example.com">
+      </div>
+      <div class="mb-3">
+        <label for="vpn_username" class="form-label">VPN Username:</label>
+        <input type="text" id="vpn_username" class="form-control" value="YourUsername">
+      </div>
+      <div class="mb-3">
+        <label for="vpn_shared_secret" class="form-label">VPN Shared Secret:</label>
+        <input type="text" id="vpn_shared_secret" class="form-control" value="YourSharedSecret">
       </div>
 
       <!-- Proxy -->
       <div class="mb-3">
-        <label for="proxy_server" class="form-label proxy">Proxy Server (optional):</label>
-        <div id="proxy-inputs">
-          <input type="text" id="proxy_server" class="form-control">
-          <div class="form-text">Enter the hostname or IP address of your proxy server if you want to use a proxy connection. Leave this field blank if you don't want to use a proxy.</div>
-
-          <label for="proxy_port" class="form-label proxy">Proxy Port (optional):</label>
-          <input type="text" id="proxy_port" class="form-control">
-          <div class="form-text">Enter the port number of your proxy server if you want to use a proxy connection. Leave this field blank if you don't want to use a proxy.</div>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" id="proxy-toggle" class="form-check-input">
-          <label for="proxy-toggle" class="form-check-label">Include Proxy in profile</label>
-        </div>
+        <label for="proxy_server" class="form-label">Proxy Server:</label>
+        <input type="text" id="proxy_server" class="form-control" value="proxy.example.com">
+      </div>
+      <div class="mb-3">
+        <label for="http_port" class="form-label">HTTP Port:</label>
+        <input type="number" id="http_port" class="form-control" value="8080">
+      </div>
+      <div class="mb-3">
+        <label for="https_port" class="form-label">HTTPS Port:</label>
+        <input type="number" id="https_port" class="form-control" value="8080">
+      </div>
+      <div class="mb-3">
+        <label for="ftp_port" class="form-label">FTP Port:</label>
+        <input type="number" id="ftp_port" class="form-control" value="21">
+      </div>
+      <div class="mb-3">
+        <label for="socks_port" class="form-label">SOCKS Port:</label>
+        <input type="number" id="socks_port" class="form-control" value="1080">
       </div>
 
       <!-- Firewall -->
-      <div class="mb-3 form-check">
-        <input type="checkbox" id="firewall-toggle" class="form-check-input">
-        <label for="firewall-toggle" class="form-check-label">Include Firewall in profile</label>
+      <div class="mb-3">
+        <label for="allowed_applications" class="form-label">Allowed Applications (comma-separated):</label>
+        <input type="text" id="allowed_applications" class="form-control" value="com.apple.Safari,com.apple.Mail,com.apple.Messages,com.apple.iChat">
+      </div>
+      <div class="mb-3">
+        <label for="allowed_services" class="form-label">Allowed Services (comma-separated):</label>
+        <input type="text" id="allowed_services" class="form-control" value="com.apple.netbios,com.apple.ssh">
       </div>
 
       <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
     </form>
   </div>
-
-  <!-- Add Bootstrap JS CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBud7TlRbs/ic4AwGcFZOxg5DpPt8EgeUIgIwzjWfXQKWA4" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-
-  <!-- Add custom JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
   <script>
-    const configForm = document.getElementById('config-form');
-
-    function handleFormSubmit(event) {
+    document.getElementById('config-form').addEventListener('submit', function(event) {
       event.preventDefault();
 
-      // Collect form data
-      const formElements = configForm.elements;
-      const formData = {};
-      for (const element of formElements) {
-        if (element.name && element.type !== 'checkbox') {
-          formData[element.name] = element.value;
-        } else if (element.name && element.type === 'checkbox' && element.checked) {
-          formData[element.name] = element.value;
-        }
-      }
-
-      // Create the configuration profile dictionary
-      const configDict = {
-        "PayloadContent": [],
-        "PayloadDisplayName": "Cellular and Network Settings",
-        "PayloadIdentifier": "com.example.cellular",
-        "PayloadOrganization": "Example Inc.",
-        "PayloadRemovalDisallowed": false,
-        "PayloadType": "Configuration",
-        "PayloadUUID": uuidv4(),
-        "PayloadVersion": 1
-      };
-
-      // Create the cellular payload dictionary
-      const cellularDict = {
-        "PayloadDisplayName": "Cellular",
-        "PayloadIdentifier": uuidv4(),
-        "PayloadType": "com.apple.cellular",
-        "PayloadUUID": uuidv4(),
-        "PayloadVersion": 1,
-        "APNs": [
+      // Parse form data
+      const formData = new FormData(event.target);
+      const plistData = {
+        PayloadContent: [
           {
-            "AuthenticationType": "CHAP",
-            "Enabled": true,
-            "Name": formData.apn || "mtnirancell"
+            PayloadDisplayName: "Cellular",
+            PayloadIdentifier: "com.apple.cellular",
+            PayloadType: "com.apple.cellular",
+            PayloadUUID: "A1B2C3D4-E5F6-1234-5678-90ABCDEF0123",
+            PayloadVersion: 1,
+            APNs: [
+              {
+                AuthenticationType: "CHAP",
+                Enabled: true,
+                Name: formData.get('apn_name'),
+              }
+            ],
+            SignalBoostEnabled: true,
+            VPN: {
+              Enabled: true,
+              PayloadType: "com.apple.vpn",
+              PayloadUUID: "A1B2C3D4-E5F6-1234-5678-90ABCDEF0124",
+              PayloadVersion: 1,
+              OnDemandEnabled: true,
+              PayloadContent: [
+                {
+                  PayloadDisplayName: "VPN Configuration",
+                  PayloadIdentifier: "com.apple.vpn.managed",
+                  PayloadType: "com.apple.vpn.managed",
+                  PayloadUUID: "A1B2C3D4-E5F6-1234-5678-90ABCDEF0125",
+                  PayloadVersion: 1,
+                  AuthenticationMethod: "Certificate",
+                  DisconnectOnLogout: true,
+                  DisconnectOnSleep: true,
+                  SendAllTraffic: true,
+                  ServerAddress: formData.get('vpn_server'),
+                  ServerPort: 1723,
+                  Protocol: "L2TP",
+                  SharedSecret: formData.get('vpn_shared_secret'),
+                  Username: formData.get('vpn_username'),
+                }
+              ]
+            },
+            Proxy: {
+              Enabled: true,
+              PayloadType: "com.apple.proxy",
+              PayloadUUID: "A1B2C3D4-E5F6-1234-5678-90ABCDEF0126",
+              PayloadVersion: 1,
+              HTTPEnable: true,
+              HTTPPort: parseInt(formData.get('http_port')), 10),
+              HTTPSEnable: true,
+              HTTPSPort: parseInt(formData.get('https_port')), 10),
+              FTPEnable: true,
+              FTPPort: parseInt(formData.get('ftp_port')), 10),
+              SOCKSEnable: true,
+              SOCKSPort: parseInt(formData.get('socks_port')), 10),
+              Server: formData.get('proxy_server'),
+              ExclusionList: ["localhost", "127.0.0.1", "169.254.0.0/16"],
+            },
+            Firewall: {
+              Enabled: true,
+              PayloadType: "com.apple.firewall",
+              PayloadUUID: "A1B2C3D4-E5F6-1234-5678-90ABCDEF0127",
+              PayloadVersion: 1,
+              AllowedApplications: formData.get('allowed_applications').split(','),
+              AllowedServices: formData.get('allowed_services').split(','),
+              StealthMode: true,
+            }
           }
         ],
-        "SignalBoostEnabled": true
+        PayloadDisplayName: "Cellular and Network Settings",
+        PayloadIdentifier: "com.example.cellular",
+        PayloadOrganization: "Example Inc.",
+        PayloadRemovalDisallowed: false,
+        PayloadType: "Configuration",
+        PayloadUUID: "A1B2C3D4-E5F6-1234-5678-90ABCDEF0128",
+        PayloadVersion: 1
       };
 
-      // Add the cellular payload to the configuration profile
-      configDict["PayloadContent"].push(cellularDict);
+      // Convert plistData to XML
+      const plistXml = `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  ${Object.keys(plistData).map(key => `
+    <key>${key}</key>
+    ${typeof plistData[key] === 'object' ? serializeObject(plistData[key]) : `
+    <string>${plistData[key]}</string>
+    `}`}
+  `).join('')}
+  </dict>
+</plist>`;
 
-      // Create the VPN payload dictionary if VPN server is provided and VPN is enabled
-      const vpnServer = formData.vpn_server || '';
-      const vpnEnabled = formData['vpn-toggle'] !== null;
-      if (vpnEnabled && vpnServer) {
-        const vpnDict = {
-          "PayloadDisplayName": "VPN",
-          "PayloadIdentifier": uuidv4(),
-          "PayloadType": "com.apple.vpn.managed",
-          "PayloadUUID": uuidv4(),
-          "PayloadVersion": 1,
-          "AuthenticationMethod": "Certificate",
-          "DisconnectOnLogout": true,
-          "DisconnectOnSleep": true,
-          "SendAllTraffic": true,
-          "ServerAddress": vpnServer,
-          "ServerPort": 1723,
-          "Protocol": "L2TP",
-          "SharedSecret": "YourSharedSecret",
-          "Username": formData.vpn_username || "YourUsername",
-          "Password": formData.vpn_password || "YourPassword"
-        };
+      // Download plistXml as a file
+      const blob = new Blob([plistXml], { type: 'text/xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'config.plist';
+      a.click();
 
-        // Add the VPN payload to the configuration profile
-        configDict["PayloadContent"].push(vpnDict);
-      }
-
-      // Create the proxy payload dictionary if proxy server and port are provided and proxy is enabled
-      const proxyServer = formData.proxy_server || '';
-      const proxyPort = formData.proxy_port || '';
-      const proxyEnabled = formData['proxy-toggle'] !== null;
-      if (proxyEnabled && proxyServer && proxyPort) {
-        const proxyDict = {
-          "PayloadDisplayName": "Proxy",
-          "PayloadIdentifier": uuidv4(),
-          "PayloadType": "com.apple.proxy",
-          "PayloadUUID": uuidv4(),
-          "PayloadVersion": 1,
-          "HTTPEnable": true,
-          "HTTPPort": parseInt(proxyPort),
-          "HTTPSEnable": true,
-          "HTTPSPort": parseInt(proxyPort),
-          "FTPEnable": true,
-          "FTPPort": 21,
-          "SOCKSEnable": true,
-          "SOCKSPort": 1080,
-          "Server": proxyServer,
-          "ExclusionList": ["localhost", "127.0.0.1", "169.254.0.0/16"]
-        };
-
-        // Add the proxy payload to the configuration profile
-        configDict["PayloadContent"].push(proxyDict);
-      }
-
-      // Create the firewall payload dictionary if firewall is enabled
-      const firewallEnabled = formData['firewall-toggle'] !== null;
-      if (firewallEnabled) {
-        const firewallDict = {
-          "PayloadDisplayName": "Firewall",
-          "PayloadIdentifier": uuidv4(),
-          "PayloadType": "com.apple.firewall",
-          "PayloadUUID": uuidv4(),
-          "PayloadVersion": 1,
-          "Enabled": true,
-          "AllowedApplications": ["com.apple.Safari", "com.apple.Mail", "com.apple.Messages", "com.apple.iChat"],
-          "AllowedServices": ["com.apple.netbios", "com.apple.ssh"],
-          "StealthMode": true
-        };
-
-        // Add the firewall payload to the configuration profile
-        configDict["PayloadContent"].push(firewallDict);
-      }
-
-      // Convert the configuration dictionary to a plist string
-      const configPlist = plistToXml(configDict);
-
-      // Create a Blob object from the configuration profile string
-      const configBlob = new Blob([configPlist], { type: 'application/x-apple-config' });
-
-      // Create a download link and click it to download the file
-      const downloadLink = document.createElement('a');
-      downloadLink.href = URL.createObjectURL(configBlob);
-      downloadLink.download = 'config.mobileconfig';
-      downloadLink.click();
-
-      // Wait for the download to complete before revoking the object URL
-      setTimeout(() => {
-        URL.revokeObjectURL(downloadLink.href);
-      }, 1000);
-    }
-
-    function uuidv4() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
-
-    // Function to convert a JavaScript object (JSON) to an XML-based plist string
-    function plistToXml(obj, indent = '', isArray = false, key = '') {
-  let result = '';
-  if (isArray) {
-    result += indent + '<array>\n';
-  } else {
-    result += indent + '<dict>\n';
-  }
-  let i = 0;
-  for (const item in obj) {
-    const value = obj[item];
-    const newIndent = indent + '  ';
-    if (typeof value === 'object' && value !== null) {
-      if (Array.isArray(value)) {
-        result += plistToXml(value, newIndent, true);
-      } else {
-        if (!isArray) {
-          result += newIndent + '<key>' + item + '</key>\n';
+      function serializeObject(obj) {
+        if (Array.isArray(obj)) {
+          return `
+    <array>
+      ${obj.map(item => serializeObject(item)).join('')}
+      </array>
+    `;
         }
-        result += plistToXml(value, newIndent, false, item);
-      }
-    } else if (typeof value === 'boolean') {
-      if (!isArray) {
-        result += newIndent + '<key>' + item + '</key>\n';
-      }
-      result += newIndent + '<' + (value ? 'true' : 'false') + '/>\n';
-    } else if (typeof value === 'number' && !isNaN(value)) {
-      if (!isArray) {
-        result += newIndent + '<key>' + item + '</key>\n';
-      }
-      result += newIndent + '<integer>' + value + '</integer>\n';
-    } else {
-      if (!isArray) {
-        result += newIndent + '<key>' + item + '</key>\n';
-      }
-      result += newIndent + '<string>' + value + '</string>\n';
-    }
-    i++;
-  }
-  if (isArray) {
-    result += indent + '</array>\n';
-  } else {
-    result += indent + '</dict>\n';
-  }
 
-  // Add the XML declaration, DOCTYPE, and plist root element if this is the top-level object
-  if (indent === '' && key === '') {
-    result = '<?xml version="1.0" encoding="UTF-8"?>'\n +
-             '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">'\n +
-             '<plist version="1.0">' + result + '</plist>';
-  }
-
-  return result;
-}
-
-    }
-
-    configForm.addEventListener('submit', handleFormSubmit);
+        return `
+    <dict>
+      ${Object.keys(obj).map(key => `
+        <key>${key}</key>
+        ${typeof obj[key] === 'object' ? serializeObject(obj[key]) : `
+        <${typeof obj[key] === 'number' ? 'integer' : 'string'}>${obj[key]}</${typeof obj[key] === 'number' ? 'integer' : 'string'}>
+        `}`}
+      `).join('')}
+      </dict>
+    `;
+      }
+    });
   </script>
 </body>
 </html>
