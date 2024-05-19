@@ -2,150 +2,314 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Configuration Profile Generator</title>
+  <!-- Add Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s4Wz6iJgD/+ub3o" crossorigin="anonymous">
+  <!-- Add custom CSS styles -->
   <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    form {
-      width: 300px;
-      margin: 0 auto;
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-    }
-    input, textarea {
-      width: 100%;
-    }
-    button {
-      display: block;
-      width: 100%;
-      margin-top: 10px;
-    }
-  </style>
-</head>
-<body>
-  <form id="config-form">
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #333, #555);
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #fff;
+            font-weight: 300;
+            text-shadow: 2px 2px #000;
+        }
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
+            position: relative;
+        }
+        label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #fff;
+            transform: scaleX(0);
+            transition: transform 0.3s ease-out;
+        }
+        label:hover::before, input:focus + label::before, select:focus + label::before, textarea:focus + label::before {
+            transform: scaleX(1);
+        }
+        .form-text {
+            color: #888;
+            margin-top: 5px;
+        }
+        .carrier {
+            color: #f00;
+        }
+        .apn {
+            color: #f90;
+        }
+        .vpn {
+            color: #09f;
+        }
+        .proxy {
+            color: #0f0;
+        }
+        .dns {
+            color: #00f;
+        }
+        .cloudflare {
+            color: #f0f;
+        }
+        input, select, textarea {
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+            padding: 10px;
+            font-size: 14px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            border: none;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #f00;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 20px;
+            display: block;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button:hover {
+            background-color: #f30;
+        }
+        /* Add responsive styles for mobile devices */
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            label {
+                font-size: 14px;
+            }
+            input, select, textarea {
+                font-size: 14px;
+            }
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+    <!-- Add custom fonts from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+  <div class="container">
     <h1>Configuration Profile Generator</h1>
-    <label for="apn-name">APN Name:</label>
-    <input type="text" id="apn-name" value="mtnirancell">
+    <!-- Add form for configuration generator -->
+    <form id="config-form">
+      <!-- APN -->
+      <div class="mb-3">
+        <label for="apn-name" class="form-label apn">APN Name:</label>
+        <input type="text" id="apn-name" class="form-control" value="mtnirancell">
+      </div>
 
-    <label for="apn-auth-type">APN Authentication Type:</label>
-    <input type="text" id="apn-auth-type" value="CHAP">
+      <div class="mb-3">
+        <label for="apn-auth-type" class="form-label apn">APN Authentication Type:</label>
+        <input type="text" id="apn-auth-type" class="form-control" value="CHAP">
+      </div>
 
-    <label for="vpn-enabled">Enable VPN:</label>
-    <select id="vpn-enabled">
-      <option value="true">Yes</option>
-      <option value="false">No</option>
-    </select>
+      <!-- VPN -->
+      <div class="mb-3">
+        <label for="vpn-enabled" class="form-label vpn">Enable VPN:</label>
+        <select id="vpn-enabled" class="form-select">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
 
-    <label for="vpn-server-address">VPN Server Address:</label>
-    <input type="text" id="vpn-server-address" value="vpn.example.com">
+      <div class="mb-3">
+        <label for="vpn-server-address" class="form-label vpn">VPN Server Address:</label>
+        <input type="text" id="vpn-server-address" class="form-control" value="vpn.example.com">
+      </div>
 
-    <label for="vpn-server-port">VPN Server Port:</label>
-    <input type="number" id="vpn-server-port" value="1723">
+      <div class="mb-3">
+        <label for="vpn-server-port" class="form-label vpn">VPN Server Port:</label>
+        <input type="number" id="vpn-server-port" class="form-control" value="1723">
+      </div>
 
-    <label for="vpn-auth-method">VPN Authentication Method:</label>
-    <input type="text" id="vpn-auth-method" value="Certificate">
+      <div class="mb-3">
+        <label for="vpn-auth-method" class="form-label vpn">VPN Authentication Method:</label>
+        <input type="text" id="vpn-auth-method" class="form-control" value="Certificate">
+      </div>
 
-    <label for="vpn-username">VPN Username:</label>
-    <input type="text" id="vpn-username" value="YourUsername">
+      <div class="mb-3">
+        <label for="vpn-username" class="form-label vpn">VPN Username:</label>
+        <input type="text" id="vpn-username" class="form-control" value="YourUsername">
+      </div>
 
-    <label for="vpn-shared-secret">VPN Shared Secret:</label>
-    <input type="text" id="vpn-shared-secret" value="YourSharedSecret">
+      <div class="mb-3">
+        <label for="vpn-shared-secret" class="form-label vpn">VPN Shared Secret:</label>
+        <input type="text" id="vpn-shared-secret" class="form-control" value="YourSharedSecret">
+      </div>
 
-    <label for="proxy-enabled">Enable Proxy:</label>
-    <select id="proxy-enabled">
-      <option value="true">Yes</option>
-      <option value="false">No</option>
-    </select>
+      <!-- Proxy -->
+      <div class="mb-3">
+        <label for="proxy-enabled" class="form-label proxy">Enable Proxy:</label>
+        <select id="proxy-enabled" class="form-select">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
 
-    <label for="proxy-server">Proxy Server:</label>
-    <input type="text" id="proxy-server" value="proxy.example.com">
+      <div class="mb-3">
+        <label for="proxy-server" class="form-label proxy">Proxy Server:</label>
+        <input type="text" id="proxy-server" class="form-control" value="proxy.example.com">
+      </div>
 
-    <label for="proxy-http-port">Proxy HTTP Port:</label>
-    <input type="number" id="proxy-http-port" value="8080">
+      <div class="mb-3">
+        <label for="proxy-http-port" class="form-label proxy">Proxy HTTP Port:</label>
+        <input type="number" id="proxy-http-port" class="form-control" value="8080">
+      </div>
 
-    <label for="proxy-https-port">Proxy HTTPS Port:</label>
-    <input type="number" id="proxy-https-port" value="8080">
+      <div class="mb-3">
+        <label for="proxy-https-port" class="form-label proxy">Proxy HTTPS Port:</label>
+        <input type="number" id="proxy-https-port" class="form-control" value="8080">
+      </div>
 
-    <label for="proxy-ftp-port">Proxy FTP Port:</label>
-    <input type="number" id="proxy-ftp-port" value="21">
+      <div class="mb-3">
+        <label for="proxy-ftp-port" class="form-label proxy">Proxy FTP Port:</label>
+        <input type="number" id="proxy-ftp-port" class="form-control" value="21">
+      </div>
 
-    <label for="proxy-socks-port">Proxy SOCKS Port:</label>
-    <input type="number" id="proxy-socks-port" value="1080">
+      <div class="mb-3">
+        <label for="proxy-socks-port" class="form-label proxy">Proxy SOCKS Port:</label>
+        <input type="number" id="proxy-socks-port" class="form-control" value="1080">
+      </div>
 
-    <button type="submit">Generate Configuration Profile</button>
-  </form>
+      <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
+    </form>
+  </div>
 
+  <!-- Add Bootstrap JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBud7TlRbs/ic4AwGcFZOxg5DpPt8EgeUIgIwzjWfXQKWA4" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+
+  <!-- Add custom JavaScript -->
   <script>
     const configForm = document.getElementById('config-form');
 
     function handleFormSubmit(event) {
       event.preventDefault();
 
-      const formData = new FormData(event.target);
+      const formElements = configForm.elements;
+      const formData = {};
+      for (const element of formElements) {
+        if (element.name) {
+          formData[element.name] = element.value;
+        }
+      }
 
       // Create the APN payload dictionary
       const apnDict = {
         "PayloadDisplayName": "Cellular",
         "PayloadIdentifier": "com.apple.cellular",
         "PayloadType": "com.apple.cellular",
-        "PayloadUUID": "A1B2C3D4-E5F6-1234-5678-90ABCDEF0123",
+        "PayloadUUID": uuidv4(),
         "PayloadVersion": 1,
         "APNs": [
           {
-            "AuthenticationType": formData.get('apn-auth-type'),
+            "AuthenticationType": formData['apn-auth-type'],
             "Enabled": true,
-            "Name": formData.get('apn-name')
+            "Name": formData['apn-name']
           }
         ],
         "SignalBoostEnabled": true
       };
 
       // Create the VPN payload dictionary if VPN is enabled
-      const vpnDict = {
-        "PayloadDisplayName": "VPN Configuration",
-        "PayloadIdentifier": "com.apple.vpn.managed",
-        "PayloadType": "com.apple.vpn.managed",
-        "PayloadUUID": "A1B2C3D4-E5F6-1234-5678-90ABCDEF0125",
-        "PayloadVersion": 1,
-        "AuthenticationMethod": formData.get('vpn-auth-method'),
-        "DisconnectOnLogout": true,
-        "DisconnectOnSleep": true,
-        "SendAllTraffic": true,
-        "ServerAddress": formData.get('vpn-server-address'),
-        "ServerPort": parseInt(formData.get('vpn-server-port')),
-        "Protocol": "L2TP",
-        "SharedSecret": formData.get('vpn-shared-secret'),
-        "Username": formData.get('vpn-username')
-      };
+      if (formData['vpn-enabled'] === 'true') {
+        const vpnDict = {
+          "PayloadDisplayName": "VPN Configuration",
+          "PayloadIdentifier": "com.apple.vpn.managed",
+          "PayloadType": "com.apple.vpn.managed",
+          "PayloadUUID": uuidv4(),
+          "PayloadVersion": 1,
+          "AuthenticationMethod": formData['vpn-auth-method'],
+          "DisconnectOnLogout": true,
+          "DisconnectOnSleep": true,
+          "SendAllTraffic": true,
+          "ServerAddress": formData['vpn-server-address'],
+          "ServerPort": parseInt(formData['vpn-server-port']),
+          "Protocol": "L2TP",
+          "SharedSecret": formData['vpn-shared-secret'],
+          "Username": formData['vpn-username']
+        };
+
+        // Add the VPN payload to the APN payload
+        apnDict["VPN"] = {
+          "Enabled": true,
+          "PayloadType": "com.apple.vpn",
+          "PayloadUUID": uuidv4(),
+          "PayloadVersion": 1,
+          "OnDemandEnabled": true,
+          "PayloadContent": [vpnDict]
+        };
+      }
 
       // Create the Proxy payload dictionary if Proxy is enabled
-      const proxyDict = {
-        "PayloadDisplayName": "Proxy",
-        "PayloadIdentifier": "com.apple.proxy",
-        "PayloadType": "com.apple.proxy",
-        "PayloadUUID": "A1B2C3D4-E5F6-1234-5678-90ABCDEF0126",
-        "PayloadVersion": 1,
-        "HTTPEnable": true,
-        "HTTPPort": parseInt(formData.get('proxy-http-port')),
-        "HTTPSEnable": true,
-        "HTTPSPort": parseInt(formData.get('proxy-https-port')),
-        "FTPEnable": true,
-        "FTPPort": parseInt(formData.get('proxy-ftp-port')),
-        "SOCKSEnable": true,
-        "SOCKSPort": parseInt(formData.get('proxy-socks-port')),
-        "Server": formData.get('proxy-server'),
-        "ExclusionList": [
-          "localhost",
-          "127.0.0.1",
-          "169.254.0.0/16"
-        ]
-      };
-      ```
+      if (formData['proxy-enabled'] === 'true') {
+        const proxyDict = {
+          "PayloadDisplayName": "Proxy",
+          "PayloadIdentifier": "com.apple.proxy",
+          "PayloadType": "com.apple.proxy",
+          "PayloadUUID": uuidv4(),
+          "PayloadVersion": 1,
+          "HTTPEnable": true,
+          "HTTPPort": parseInt(formData['proxy-http-port']),
+          "HTTPSEnable": true,
+          "HTTPSPort": parseInt(formData['proxy-https-port']),
+          "FTPEnable": true,
+          "FTPPort": parseInt(formData['proxy-ftp-port']),
+          "SOCKSEnable": true,
+          "SOCKSPort": parseInt(formData['proxy-socks-port']),
+          "Server": formData['proxy-server'],
+          "ExclusionList": [
+            "localhost",
+            "127.0.0.1",
+            "169.254.0.0/16"
+          ]
+        };
+
+        // Add the Proxy payload to the APN payload
+        apnDict["Proxy"] = {
+          "Enabled": true,
+          "PayloadType": "com.apple.proxy",
+          "PayloadUUID": uuidv4(),
+          "PayloadVersion": 1,
+          ...proxyDict
+        };
+      }
 
       // Create the configuration profile dictionary
       const configDict = {
@@ -155,19 +319,9 @@
         "PayloadOrganization": "Example Inc.",
         "PayloadRemovalDisallowed": false,
         "PayloadType": "Configuration",
-        "PayloadUUID": "A1B2C3D4-E5F6-1234-5678-90ABCDEF0128",
+        "PayloadUUID": uuidv4(),
         "PayloadVersion": 1
       };
-
-      // Add the VPN payload to the configuration profile if VPN is enabled
-      if (formData.get('vpn-enabled') === 'true') {
-        configDict["PayloadContent"].push(vpnDict);
-      }
-
-      // Add the Proxy payload to the configuration profile if Proxy is enabled
-      if (formData.get('proxy-enabled') === 'true') {
-        configDict["PayloadContent"].push(proxyDict);
-      }
 
       // Convert the configuration dictionary to a string
       const configProfile = JSON.stringify(configDict, null, 2);
@@ -190,6 +344,13 @@
       setTimeout(() => {
         URL.revokeObjectURL(downloadLink.href);
       }, 1000);
+    }
+
+    function uuidv4() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
     }
 
     configForm.addEventListener('submit', handleFormSubmit);
