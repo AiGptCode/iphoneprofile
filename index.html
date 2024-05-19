@@ -4,326 +4,115 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Configuration Profile Generator</title>
+  <!-- Add Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Add custom CSS styles -->
   <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #333, #555);
-            color: #fff;
-        }
-        .container {
-            max-width: 800px;
-            margin-top: 50px;
-            padding: 30px;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 50px;
-            color: #fff;
-            font-weight: 300;
-            text-shadow: 2px 2px #000;
-        }
-        label {
-            font-weight: 500;
-            display: block;
-            margin-bottom: 5px;
-            position: relative;
-        }
-        label::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 2px;
-            background-color: #fff;
-            transform: scaleX(0);
-            transition: transform 0.3s ease-out;
-        }
-        label:hover::before, input:focus + label::before, select:focus + label::before, textarea:focus + label::before {
-            transform: scaleX(1);
-        }
-        .form-text {
-            color: #888;
-            margin-top: 5px;
-        }
-        .carrier {
-            color: #f00;
-        }
-        .apn {
-            color: #f90;
-        }
-        .vpn {
-            color: #09f;
-        }
-        .proxy {
-            color: #0f0;
-        }
-        .dns {
-            color: #00f;
-        }
-        .cloudflare {
-            color: #f0f;
-        }
-        input, select, textarea {
-            border-radius: 10px;
-            box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
-            padding: 10px;
-            font-size: 14px;
-            background-color: rgba(0, 0, 0, 0.3);
-            color: #fff;
-            border: none;
-            margin-bottom: 20px;
-        }
-        button {
-            background-color: #f00;
-            color: #fff;
-            border-radius: 10px;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 14px;
-            font-weight: 500;
-            margin-top: 20px;
-            display: block;
-            width: 50%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        button:hover {
-            background-color: #f30;
-        }
-        /* Add responsive styles for mobile devices */
-        @media only screen and (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-            h1 {
-                font-size: 24px;
-            }
-            label {
-                font-size: 14px;
-            }
-            input, select, textarea {
-                font-size: 14px;
-            }
-            button {
-                font-size: 14px;
-            }
-        }
-    </style>
-    <!-- Add custom fonts from Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    </head>
-    <body>
-  <div class="container mt-5">
+    /* Add your custom CSS styles here */
+  </style>
+  <!-- Add custom fonts from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
     <h1>Configuration Profile Generator</h1>
+    <!-- Add form for configuration generator -->
     <form id="config-form">
       <!-- APN -->
       <div class="mb-3">
         <label for="apn" class="form-label">APN:</label>
-        <select id="apn" class="form-select">
-          <option value="">Automatic</option>
-          <option value="mcinet" data-carrier="mcinet">MCI</option>
-          <option value="irancell" data-carrier="irancell">Irancell</option>
-          <option value="rightel" data-carrier="rightel">RighTel</option>
-        </select>
-      </div>
-
-      <!-- VPN -->
-      <div class="mb-3">
-        <label for="vpn_server" class="form-label">VPN Server:</label>
-        <input type="text" id="vpn_server" class="form-control" value="vpn.example.com">
-      </div>
-      <div class="mb-3">
-        <label for="vpn_username" class="form-label">VPN Username:</label>
-        <input type="text" id="vpn_username" class="form-control" value="YourUsername">
-      </div>
-      <div class="mb-3">
-        <label for="vpn_shared_secret" class="form-label">VPN Shared Secret:</label>
-        <input type="text" id="vpn_shared_secret" class="form-control" value="YourSharedSecret">
-      </div>
-
-      <!-- Proxy -->
-      <div class="mb-3">
-        <label for="proxy_server" class="form-label">Proxy Server:</label>
-        <input type="text" id="proxy_server" class="form-control" value="proxy.example.com">
-      </div>
-      <div class="mb-3">
-        <label for="http_port" class="form-label">HTTP Port:</label>
-        <input type="number" id="http_port" class="form-control" value="8080">
-      </div>
-      <div class="mb-3">
-        <label for="https_port" class="form-label">HTTPS Port:</label>
-        <input type="number" id="https_port" class="form-control" value="8080">
-      </div>
-      <div class="mb-3">
-        <label for="ftp_port" class="form-label">FTP Port:</label>
-        <input type="number" id="ftp_port" class="form-control" value="21">
-      </div>
-      <div class="mb-3">
-        <label for="socks_port" class="form-label">SOCKS Port:</label>
-        <input type="number" id="socks_port" class="form-control" value="1080">
-      </div>
-
-      <!-- Firewall -->
-      <div class="mb-3">
-        <label for="allowed_applications" class="form-label">Allowed Applications (comma-separated):</label>
-        <input type="text" id="allowed_applications" class="form-control" value="com.apple.Safari,com.apple.Mail,com.apple.Messages,com.apple.iChat">
-      </div>
-      <div class="mb-3">
-        <label for="allowed_services" class="form-label">Allowed Services (comma-separated):</label>
-        <input type="text" id="allowed_services" class="form-control" value="com.apple.netbios,com.apple.ssh">
+        <input type="text" id="apn" class="form-control" value="mcinet">
+        <div class="form-text">Enter the APN (Access Point Name) for your carrier. The default value is "mcinet".</div>
       </div>
 
       <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
     </form>
   </div>
+
+  <!-- Add Bootstrap JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-  <script>
-    // Function to generate a random UUID
-    function generateUUID() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
 
-    document.getElementById('config-form').addEventListener('submit', function(event) {
+  <!-- Add custom JavaScript -->
+  <script>
+    const configForm = document.getElementById('config-form');
+
+    function handleFormSubmit(event) {
       event.preventDefault();
 
-      // Parse form data
-      const apnSelect = document.getElementById('apn');
-      const apnValue = apnSelect.value || apnSelect.options[apnSelect.selectedIndex].dataset.carrier;
+      // Collect form data
+      const apn = document.getElementById('apn').value;
 
-      const formData = new FormData(event.target);
-      const plistData = {
-        PayloadContent: [
+      // Create the configuration profile dictionary
+      const configDict = {
+        "PayloadContent": [
           {
-            PayloadDisplayName: "Cellular",
-            PayloadIdentifier: "com.apple.cellular",
-            PayloadType: "com.apple.cellular",
-            PayloadUUID: generateUUID(), // Generate a unique UUID
-            PayloadVersion: 1,
-            APNs: [
+            "PayloadDisplayName": "Cellular",
+            "PayloadIdentifier": "com.apple.cellular",
+            "PayloadType": "com.apple.cellular",
+            "PayloadUUID": "A1B2C3D4-E5F6-1234-5678-90ABCDEF0123",
+            "PayloadVersion": 1,
+            "APNs": [
               {
-                AuthenticationType: "CHAP",
-                Enabled: true,
-                Name: apnValue,
+                "AuthenticationType": "CHAP",
+                "Enabled": true,
+                "Name": apn
               }
             ],
-            SignalBoostEnabled: true,
-            VPN: {
-              Enabled: true,
-              PayloadType: "com.apple.vpn",
-              PayloadUUID: generateUUID(), // Generate a unique UUID
-              PayloadVersion: 1,
-              OnDemandEnabled: true,
-              PayloadContent: [
-                {
-                  PayloadDisplayName: "VPN Configuration",
-                  PayloadIdentifier: "com.apple.vpn.managed",
-                  PayloadType: "com.apple.vpn.managed",
-                  PayloadUUID: generateUUID(), // Generate a unique UUID
-                  PayloadVersion: 1,
-                  AuthenticationMethod: "Certificate",
-                  DisconnectOnLogout: true,
-                  DisconnectOnSleep: true,
-                  SendAllTraffic: true,
-                  ServerAddress: formData.get('vpn_server'),
-                  ServerPort: 1723,
-                  Protocol: "L2TP",
-                  SharedSecret: formData.get('vpn_shared_secret'),
-                  Username: formData.get('vpn_username'),
-                }
+            "SignalBoostEnabled": true,
+            "Proxy": {
+              "Enabled": true,
+              "PayloadType": "com.apple.proxy",
+              "PayloadUUID": "A1B2C3D4-E5F6-1234-5678-90ABCDEF0126",
+              "PayloadVersion": 1,
+              "HTTPEnable": true,
+              "HTTPPort": 8080,
+              "HTTPSEnable": true,
+              "HTTPSPort": 8080,
+              "FTPEnable": true,
+              "FTPPort": 21,
+              "SOCKSEnable": true,
+              "SOCKSPort": 1080,
+              "Server": "proxy.example.com",
+              "ExclusionList": [
+                "localhost",
+                "127.0.0.1",
+                "169.254.0.0/16"
               ]
-            },
-            Proxy: {
-              Enabled: true,
-              PayloadType: "com.apple.proxy",
-              PayloadUUID: generateUUID(), // Generate a unique UUID
-              PayloadVersion: 1,
-              HTTPEnable: true,
-              HTTPPort: parseInt(formData.get('http_port')), 10),
-              HTTPSEnable: true,
-              HTTPSPort: parseInt(formData.get('https_port')), 10),
-              FTPEnable: true,
-              FTPPort: parseInt(formData.get('ftp_port')), 10),
-              SOCKSEnable: true,
-              SOCKSPort: parseInt(formData.get('socks_port')), 10),
-              Server: formData.get('proxy_server'),
-              ExclusionList: ["localhost", "127.0.0.1", "169.254.0.0/16"],
-            },
-            Firewall: {
-              Enabled: true,
-              PayloadType: "com.apple.firewall",
-              PayloadUUID: generateUUID(), // Generate a unique UUID
-              PayloadVersion: 1,
-              AllowedApplications: formData.get('allowed_applications').split(','),
-              AllowedServices: formData.get('allowed_services').split(','),
-              StealthMode: true,
             }
           }
         ],
-        PayloadDisplayName: "Cellular and Network Settings",
-        PayloadIdentifier: "com.example.cellular",
-        PayloadOrganization: "Example Inc.",
-        PayloadRemovalDisallowed: false,
-        PayloadType: "Configuration",
-        PayloadUUID: generateUUID(), // Generate a unique UUID
-        PayloadVersion: 1
+        "PayloadDisplayName": "Cellular and Network Settings",
+        "PayloadIdentifier": "com.example.cellular",
+        "PayloadOrganization": "Example Inc.",
+        "PayloadRemovalDisallowed": false,
+        "PayloadType": "Configuration",
+        "PayloadUUID": "A1B2C3D4-E5F6-1234-5678-90ABCDEF0128",
+        "PayloadVersion": 1
       };
 
-      // Convert plistData to XML
-      const plistXml = `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-  ${Object.keys(plistData).map(key => `
-    <key>${key}</key>
-    ${typeof plistData[key] === 'object' ? serializeObject(plistData[key]) : `
-    <${typeof plistData[key] === 'number' ? 'integer' : 'string'}>${plistData[key]}</${typeof plistData[key] === 'number' ? 'integer' : 'string'}>
-    `}`}
-  `).join('')}
-  </dict>
-</plist>`;
+      // Convert the configuration dictionary to a plist string
+      const configPlist = plist.build(configDict);
 
-      // Download plistXml as a file
-      const blob = new Blob([plistXml], { type: 'text/xml' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'config.mobileconfig';
-      a.click();
+      // Create a Blob object from the configuration plist string
+      const configBlob = new Blob([configPlist], { type: 'application/x-apple-configurator' });
 
-      function serializeObject(obj) {
-        if (Array.isArray(obj)) {
-          return `
-    <array>
-      ${obj.map(item => serializeObject(item)).join('')}
-      </array>
-    `;
-        }
+      // Create a download link and click it to download the file
+      const downloadLink = document.createElement('a');
+      downloadLink.href = URL.createObjectURL(configBlob);
+      downloadLink.download = 'config.mobileconfig';
+      downloadLink.click();
 
-        return `
-    <dict>
-      ${Object.keys(obj).map(key => `
-        <key>${key}</key>
-        ${typeof obj[key] === 'object' ? serializeObject(obj[key]) : `
-        <${typeof obj[key] === 'number' ? 'integer' : 'string'}>${obj[key]}</${typeof obj[key] === 'number' ? 'integer' : 'string'}>
-        `}`}
-      `).join('')}
-      </dict>
-    `;
-      }
-    });
+      // Wait for the download to complete before revoking the object URL
+      setTimeout(() => {
+        URL.revokeObjectURL(downloadLink.href);
+      }, 1000);
+    }
+
+    configForm.addEventListener('submit', handleFormSubmit);
   </script>
 </body>
 </html>
+
