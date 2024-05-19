@@ -76,6 +76,14 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
   <script>
+    // Function to generate a random UUID
+    function generateUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
     document.getElementById('config-form').addEventListener('submit', function(event) {
       event.preventDefault();
 
@@ -90,7 +98,7 @@
             PayloadDisplayName: "Cellular",
             PayloadIdentifier: "com.apple.cellular",
             PayloadType: "com.apple.cellular",
-            PayloadUUID: "A1B2C3D4-E5F6-1234-5678-90ABCDEF0123",
+            PayloadUUID: generateUUID(), // Generate a unique UUID
             PayloadVersion: 1,
             APNs: [
               {
@@ -103,7 +111,7 @@
             VPN: {
               Enabled: true,
               PayloadType: "com.apple.vpn",
-              PayloadUUID: "A1B2C3D4-E5F6-1234-5678-90ABCDEF0124",
+              PayloadUUID: generateUUID(), // Generate a unique UUID
               PayloadVersion: 1,
               OnDemandEnabled: true,
               PayloadContent: [
@@ -111,7 +119,7 @@
                   PayloadDisplayName: "VPN Configuration",
                   PayloadIdentifier: "com.apple.vpn.managed",
                   PayloadType: "com.apple.vpn.managed",
-                  PayloadUUID: "A1B2C3D4-E5F6-1234-5678-90ABCDEF0125",
+                  PayloadUUID: generateUUID(), // Generate a unique UUID
                   PayloadVersion: 1,
                   AuthenticationMethod: "Certificate",
                   DisconnectOnLogout: true,
@@ -128,7 +136,7 @@
             Proxy: {
               Enabled: true,
               PayloadType: "com.apple.proxy",
-              PayloadUUID: "A1B2C3D4-E5F6-1234-5678-90ABCDEF0126",
+              PayloadUUID: generateUUID(), // Generate a unique UUID
               PayloadVersion: 1,
               HTTPEnable: true,
               HTTPPort: parseInt(formData.get('http_port')), 10),
@@ -144,7 +152,7 @@
             Firewall: {
               Enabled: true,
               PayloadType: "com.apple.firewall",
-              PayloadUUID: "A1B2C3D4-E5F6-1234-5678-90ABCDEF0127",
+              PayloadUUID: generateUUID(), // Generate a unique UUID
               PayloadVersion: 1,
               AllowedApplications: formData.get('allowed_applications').split(','),
               AllowedServices: formData.get('allowed_services').split(','),
@@ -157,7 +165,7 @@
         PayloadOrganization: "Example Inc.",
         PayloadRemovalDisallowed: false,
         PayloadType: "Configuration",
-        PayloadUUID: "A1B2C3D4-E5F6-1234-5678-90ABCDEF0128",
+        PayloadUUID: generateUUID(), // Generate a unique UUID
         PayloadVersion: 1
       };
 
