@@ -129,23 +129,6 @@
 <body>
   <div class="container">
     <h1>Configuration Profile Generator</h1>
-    <!-- Add form for configuration generator -->
-    <form id="config-form">
-      <!-- APN -->
-      <div class="mb-3">
-        <label for="apn" class="form-label apn">APN:</label>
-        <select id="apn" class="form-select">
-          <option value="mcinet">MCI</option>
-          <option value="mtnirancell">Irancell</option>
-          <option value="RighTel">RighTel</option>
-        </select>
-        <div class="form-text">اپراتور خود را انتخاب  کنید</div>
-      </div>
-
-      <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
-      <button type="button" id="show-raw" class="btn btn-secondary mt-3">Show Raw File</button>
-    </form>
-
     <!-- Message box -->
     <div class="alert mt-3" role="alert">
       <h4 class="alert-heading carrier">Signal Booster:</h4>
@@ -281,112 +264,7 @@
       }, 1000);
     }
 
-    function handleShowRawClick() {
-      const apn = document.getElementById("apn").value;
-
-      // Generate the XML-formatted plist string
-      const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>PayloadContent</key>
-    <array>
-        <dict>
-            <key>PayloadDisplayName</key>
-            <string>Cellular</string>
-            <key>PayloadIdentifier</key>
-            <string>com.apple.cellular</string>
-            <key>PayloadType</key>
-            <string>com.apple.cellular</string>
-            <key>PayloadUUID</key>
-            <string>${generateUniqueUUID()}</string>
-            <key>PayloadVersion</key>
-            <integer>1</integer>
-            <key>APNs</key>
-            <array>
-                <dict>
-                    <key>AuthenticationType</key>
-                    <string>CHAP</string>
-                    <key>Enabled</key>
-                    <true/>
-                    <key>Name</key>
-                    <string>${apn}</string>
-                </dict>
-            </array>
-            <key>SignalBoostEnabled</key>
-            <true/>
-            <key>Proxy</key>
-            <dict>
-                <key>Enabled</key>
-                <true/>
-                <key>PayloadType</key>
-                <string>com.apple.proxy</string>
-                <key>PayloadUUID</key>
-                <string>${generateUniqueUUID()}</string>
-                <key>PayloadVersion</key>
-                <integer>1</integer>
-                <key>HTTPEnable</key>
-                <true/>
-                <key>HTTPPort</key>
-                <integer>8080</integer>
-                <key>HTTPSEnable</key>
-                <true/>
-                <key>HTTPSPort</key>
-                <integer>8080</integer>
-                <key>FTPEnable</key>
-                <true/>
-                <key>FTPPort</key>
-                <integer>21</integer>
-                <key>SOCKSEnable</key>
-                <true/>
-                <key>SOCKSPort</key>
-                <integer>1080</integer>
-                <key>Server</key>
-                <string>proxy.example.com</string>
-                <key>ExclusionList</key>
-                <array>
-                    <string>localhost</string>
-                    <string>127.0.0.1</string>
-                    <string>169.254.0.0/16</string>
-                </array>
-            </dict>
-        </dict>
-    </array>
-    <key>PayloadDisplayName</key>
-    <string>Cellular and Network Settings</string>
-    <key>PayloadIdentifier</key>
-    <string>com.example.cellular</string>
-    <key>PayloadOrganization</key>
-    <string>Example Inc.</string>
-    <key>PayloadRemovalDisallowed</key>
-    <false/>
-    <key>PayloadType</key>
-    <string>Configuration</string>
-    <key>PayloadUUID</key>
-    <string>${generateUniqueUUID()}</string>
-    <key>PayloadVersion</key>
-    <integer>1</integer>
-</dict>
-</plist>
-`;
-
-      // Create a Blob object from the configuration plist string
-      const configBlob = new Blob([configPlist], { type: 'application/xml' });
-
-      // Create an object URL for the Blob
-      const configUrl = URL.createObjectURL(configBlob);
-
-      // Open a new window or tab with the configuration file
-      window.open(configUrl, '_blank');
-
-      // Wait for the download to complete before revoking the object URL
-      setTimeout(() => {
-        URL.revokeObjectURL(configUrl);
-      }, 1000);
-    }
-
     configForm.addEventListener('submit', handleFormSubmit);
-    document.getElementById('show-raw').addEventListener('click', handleShowRawClick);
   </script>
 </body>
 </html>
