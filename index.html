@@ -1,7 +1,3 @@
-Fixed
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -243,161 +239,181 @@ Fixed
   <script>
     const configForm = document.getElementById('config-form');
 
-    function handleFormSubmit(event) {
-      event.preventDefault();
+function handleFormSubmit(event) {
+  event.preventDefault();
 
-      // Collect form data
-      const formElements = configForm.elements;
-      const formData = {};
-      for (const element of formElements) {
-        if (element.name && element.type !== 'checkbox') {
-          formData[element.name] = element.value;
-        } else if (element.name && element.type === 'checkbox' && element.checked) {
-          formData[element.name] = element.value;
-        }
-      }
-      formData.apn_option = document.querySelector('select[id="apn"] option:checked').dataset.carrier;
-
-      // Determine the APN to use based on the apn_option parameter
-      let apn = formData.apn || '';
-      if (formData.apn_option === 'mcinet') {
-        apn = 'mcinet';
-      } else if (formData.apn_option === 'irancell') {
-        apn = 'irancell';
-      } else if (formData.apn_option === 'rightel') {
-        apn = 'rightel';
-      }
-
-      // Create the configuration profile dictionary
-      const configDict = {
-        "PayloadContent": [],
-        "PayloadDisplayName": "Cellular and Network Settings",
-        "PayloadIdentifier": "com.example.cellular.config",
-        "PayloadOrganization": "Example Inc.",
-        "PayloadRemovalDisallowed": false,
-        "PayloadType": "Configuration",
-        "PayloadUUID": uuidv4(),
-        "PayloadVersion": 1
-      };
-
-      // Create the cellular payload dictionary
-      const cellularDict = {
-        "PayloadDisplayName": "Cellular",
-        "PayloadIdentifier": uuidv4(),
-        "PayloadType": "com.apple.cellular",
-        "PayloadUUID": uuidv4(),
-        "PayloadVersion": 1,
-        "APNs": [
-          {
-            "AuthenticationType": "PAP",
-            "Enabled": true,
-            "Name": apn
-          }
-        ],
-        "SignalBoostEnabled": true,
-        "APNSelectionMode": "Automatic"  // Set the APN to automatic
-      };
-
-      // Add the cellular payload to the configuration profile
-      configDict["PayloadContent"].push(cellularDict);
-
-      // Create the VPN payload dictionary if VPN server is provided and VPN is enabled
-      const vpnServer = formData.vpn_server || '';
-      const vpnEnabled = formData['vpn-toggle'] !== null;
-      if (vpnEnabled && vpnServer) {
-        const vpnDict = {
-          "PayloadDisplayName": "VPN",
-          "PayloadIdentifier": uuidv4(),
-          "PayloadType": "com.apple.vpn.managed",
-          "PayloadUUID": uuidv4(),
-          "PayloadVersion": 1,
-          "AuthenticationMethod": "Certificate",
-          "DisconnectOnLogout": true,
-          "DisconnectOnSleep": true,
-          "SendAllTraffic": true,
-          "ServerAddress": vpnServer,
-          "ServerPort": 1723,
-          "Protocol": "L2TP",
-          "SharedSecret": "YourSharedSecret",
-          "Username": formData.vpn_username || "YourUsername",
-          "Password": formData.vpn_password || "YourPassword"
-        };
-
-        // Add the VPN payload to the configuration profile
-        configDict["PayloadContent"].push(vpnDict);
-      }
-
-      // Create the proxy payload dictionary if proxy server and port are provided and proxy is enabled
-      const proxyServer = formData.proxy_server || '';
-      const proxyPort = formData.proxy_port || '';
-      const proxyEnabled = formData['proxy-toggle'] !== null;
-      if (proxyEnabled && proxyServer && proxyPort) {
-        const proxyDict = {
-          "PayloadDisplayName": "Proxy",
-          "PayloadIdentifier": uuidv4(),
-          "PayloadType": "com.apple.proxy",
-          "PayloadUUID": uuidv4(),
-          "PayloadVersion": 1,
-          "HTTPEnable": true,
-          "HTTPPort": parseInt(proxyPort),
-          "HTTPServer": proxyServer,
-          "HTTPSEnable": true,
-          "HTTPSPort": parseInt(proxyPort),
-          "HTTPSServer": proxyServer
-        };
-
-        // Add the proxy payload to the configuration profile
-        configDict["PayloadContent"].push(proxyDict);
-      }
-
-      // Create the DNS payload dictionary if DNS server is provided and DNS is enabled
-      const dnsServer = formData.dns_server || '';
-      const dnsEnabled = formData['dns-toggle'] !== null;
-      if (dnsEnabled && dnsServer) {
-        const dnsDict = {
-          "PayloadDisplayName": "DNS",
-          "PayloadIdentifier": uuidv4(),
-          "PayloadType": "com.apple.dns",
-          "PayloadUUID": uuidv4(),
-          "PayloadVersion": 1,
-          "Servers": [dnsServer]
-        };
-
-        // Add the DNS payload to the configuration profile
-        configDict["PayloadContent"].push(dnsDict);
-      }
-
-      // Convert the configuration dictionary to a string
-      const configProfile = JSON.stringify(configDict, null, 2);
-
-      // Add the XML declaration and the DOCTYPE declaration to the configuration profile
-      const configXml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
-                         '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n' +
-                         configProfile;
-
-      // Create a Blob object from the configuration profile string
-      const configBlob = new Blob([configXml], { type: 'application/x-apple-config' });
-
-      // Create a download link and click it to download the file
-      const downloadLink = document.createElement('a');
-      downloadLink.href = URL.createObjectURL(configBlob);
-      downloadLink.download = 'config.mobileconfig';
-      downloadLink.click();
-
-      // Wait for the download to complete before revoking the object URL
-      setTimeout(() => {
-        URL.revokeObjectURL(downloadLink.href);
-      }, 1000);
+  // Collect form data
+  const formElements = configForm.elements;
+  const formData = {};
+  for (const element of formElements) {
+    if (element.name && element.type !== 'checkbox') {
+      formData[element.name] = element.value;
+    } else if (element.name && element.type === 'checkbox' && element.checked) {
+      formData[element.name] = element.value;
     }
+  }
 
-    function uuidv4() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
+  // Create the configuration profile dictionary
+  const configDict = {
+    "PayloadContent": [],
+    "PayloadDisplayName": "Cellular and Network Settings",
+    "PayloadIdentifier": "com.example.cellular",
+    "PayloadOrganization": "Example Inc.",
+    "PayloadRemovalDisallowed": false,
+    "PayloadType": "Configuration",
+    "PayloadUUID": uuidv4(),
+    "PayloadVersion": 1
+  };
+
+  // Create the cellular payload dictionary
+  const cellularDict = {
+    "PayloadDisplayName": "Cellular",
+    "PayloadIdentifier": uuidv4(),
+    "PayloadType": "com.apple.cellular",
+    "PayloadUUID": uuidv4(),
+    "PayloadVersion": 1,
+    "APNs": [
+      {
+        "AuthenticationType": "CHAP",
+        "Enabled": true,
+        "Name": formData.apn || "mtnirancell"
+      }
+    ],
+    "SignalBoostEnabled": true
+  };
+
+  // Add the cellular payload to the configuration profile
+  configDict["PayloadContent"].push(cellularDict);
+
+  // Create the VPN payload dictionary if VPN server is provided and VPN is enabled
+  const vpnServer = formData.vpn_server || '';
+  const vpnEnabled = formData['vpn-toggle'] !== null;
+  if (vpnEnabled && vpnServer) {
+    const vpnDict = {
+      "PayloadDisplayName": "VPN",
+      "PayloadIdentifier": uuidv4(),
+      "PayloadType": "com.apple.vpn.managed",
+      "PayloadUUID": uuidv4(),
+      "PayloadVersion": 1,
+      "AuthenticationMethod": "Certificate",
+      "DisconnectOnLogout": true,
+      "DisconnectOnSleep": true,
+      "SendAllTraffic": true,
+      "ServerAddress": vpnServer,
+      "ServerPort": 1723,
+      "Protocol": "L2TP",
+      "SharedSecret": "YourSharedSecret",
+      "Username": "YourUsername"
+    };
+
+    // Add the VPN payload to the configuration profile
+    configDict["PayloadContent"].push(vpnDict);
+  }
+
+  // Create the proxy payload dictionary if proxy server and port are provided and proxy is enabled
+  const proxyServer = formData.proxy_server || '';
+  const proxyPort = formData.proxy_port || '';
+  const proxyEnabled = formData['proxy-toggle'] !== null;
+  if (proxyEnabled && proxyServer && proxyPort) {
+    const proxyDict = {
+      "PayloadDisplayName": "Proxy",
+      "PayloadIdentifier": uuidv4(),
+      "PayloadType": "com.apple.proxy",
+      "PayloadUUID": uuidv4(),
+      "PayloadVersion": 1,
+      "HTTPEnable": true,
+      "HTTPPort": parseInt(proxyPort),
+      "HTTPSEnable": true,
+      "HTTPSPort": parseInt(proxyPort),
+      "FTPEnable": true,
+      "FTPPort": 21,
+      "SOCKSEnable": true,
+      "SOCKSPort": 1080,
+      "Server": proxyServer,
+      "ExclusionList": ["localhost", "127.0.0.1", "169.254.0.0/16"]
+    };
+
+    // Add the proxy payload to the configuration profile
+    configDict["PayloadContent"].push(proxyDict);
+  }
+
+  // Create the firewall payload dictionary
+  const firewallDict = {
+    "PayloadDisplayName": "Firewall",
+    "PayloadIdentifier": uuidv4(),
+    "PayloadType": "com.apple.firewall",
+    "PayloadUUID": uuidv4(),
+    "PayloadVersion": 1,
+    "Enabled": true,
+    "AllowedApplications": ["com.apple.Safari", "com.apple.Mail", "com.apple.Messages", "com.apple.iChat"],
+    "AllowedServices": ["com.apple.netbios", "com.apple.ssh"],
+    "StealthMode": true
+  };
+
+  // Add the firewall payload to the configuration profile
+  configDict["PayloadContent"].push(firewallDict);
+
+  // Convert the configuration dictionary to a plist string
+  const configPlist = plistToXml(configDict);
+
+  // Create a Blob object from the configuration profile string
+  const configBlob = new Blob([configPlist], { type: 'application/x-apple-config' });
+
+  // Create a download link and click it to download the file
+  const downloadLink = document.createElement('a');
+  downloadLink.href = URL.createObjectURL(configBlob);
+  downloadLink.download = 'config.mobileconfig';
+  downloadLink.click();
+
+  // Wait for the download to complete before revoking the object URL
+  setTimeout(() => {
+    URL.revokeObjectURL(downloadLink.href);
+  }, 1000);
+}
+
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+// Function to convert a JavaScript object (JSON) to an XML-based plist string
+function plistToXml(obj, indent = '', isArray = false) {
+  let result = '';
+  if (isArray) {
+    result += indent + '<array>\n';
+  } else {
+    result += indent + '<dict>\n';
+  }
+  for (const key in obj) {
+    const value = obj[key];
+    const newIndent = indent + '  ';
+    if (typeof value === 'object' && value !== null) {
+      if (Array.isArray(value)) {
+        result += plistToXml(value, newIndent, true);
+      } else {
+        result += newIndent + '<key>' + key + '</key>\n';
+        result += plistToXml(value, newIndent);
+      }
+    } else if (typeof value === 'boolean') {
+      result += newIndent + '<key>' + key + '</key><' + (value ? 'true' : 'false') + '/>\n';
+    } else if (typeof value === 'number' && !isNaN(value)) {
+      result += newIndent + '<key>' + key + '</key><integer>' + value + '</integer>\n';
+    } else {
+      result += newIndent + '<key>' + key + '</key><string>' + value + '</string>\n';
     }
+  }
+  if (isArray) {
+    result += indent + '</array>\n';
+  } else {
+    result += indent + '</dict>\n';
+  }
+  return result;
+}
 
-    configForm.addEventListener('submit', handleFormSubmit);
+configForm.addEventListener('submit', handleFormSubmit);
+
   </script>
 </body>
 </html>
