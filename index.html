@@ -337,45 +337,60 @@
     }
 
     // Function to convert a JavaScript object (JSON) to an XML-based plist string
-    function plistToXml(obj, indent = '', isArray = false) {
-      let result = '';
-      if (isArray) {
-        result += indent + '<array>\n';
+    function plistToXml(obj, indent = '', isArray = false, key = '') {
+  let result = '';
+  if (isArray) {
+    result += indent + '<array>\n';
+  } else {
+    result += indent + '<dict>\n';
+  }
+  let i = 0;
+  for (const item in obj) {
+    const value = obj[item];
+    const newIndent = indent + '  ';
+    if (typeof value === 'object' && value !== null) {
+      if (Array.isArray(value)) {
+        result += plistToXml(value, newIndent, true);
       } else {
-        result += indent + '<dict>\n';
-      }
-      for (const key in obj) {
-        const value = obj[key];
-        const newIndent = indent + '  ';
-        if (typeof value === 'object' && value !== null) {
-          if (Array.isArray(value)) {
-            result += plistToXml(value, newIndent, true);
-          } else {
-            result += newIndent + '<key>' + key + '</key>\n';
-            result += plistToXml(value, newIndent);
-          }
-        } else if (typeof value === 'boolean') {
-          result += newIndent + '<key>' + key + '</key><' + (value ? 'true' : 'false') + '/>\n';
-        } else if (typeof value === 'number' && !isNaN(value)) {
-          result += newIndent + '<key>' + key + '</key><integer>' + value + '</integer>\n';
-        } else {
-          result += newIndent + '<key>' + key + '</key><string>' + value + '</string>\n';
+        if (!isArray) {
+          result += newIndent + '<key>' + item + '</key>\n';
         }
+        result += plistToXml(value, newIndent, false, item);
       }
-      if (isArray) {
-        result += indent + '</array>\n';
-      } else {
-        result += indent + '</dict>\n';
+    } else if (typeof value === 'boolean') {
+      if (!isArray) {
+        result += newIndent + '<key>' + item + '</key>\n';
       }
+      result += newIndent + '<' + (value ? 'true' : 'false') + '/>\n';
+    } else if (typeof value === 'number' && !isNaN(value)) {
+      if (!isArray) {
+        result += newIndent + '<key>' + item + '</key>\n';
+      }
+      result += newIndent + '<integer>' + value + '</integer>\n';
+    } else {
+      if (!isArray) {
+        result += newIndent + '<key>' + item + '</key>\n';
+      }
+      result += newIndent + '<string>' + value + '</string>\n';
+    }
+    i++;
+  }
+  if (isArray) {
+    result += indent + '</array>\n';
+  } else {
+    result += indent + '</dict>\n';
+  }
 
-      // Add the XML declaration, DOCTYPE, and plist root element if this is the top-level object
-      if (indent === '') {
-        result = '<?xml version="1.0" encoding="UTF-8"?>'\n +
-                 '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">'\n +
-                 '<plist version="1.0">' + result + '</plist>';
-      }
+  // Add the XML declaration, DOCTYPE, and plist root element if this is the top-level object
+  if (indent === '' && key === '') {
+    result = '<?xml version="1.0" encoding="UTF-8"?>'\n +
+             '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">'\n +
+             '<plist version="1.0">' + result + '</plist>';
+  }
 
-      return result;
+  return result;
+}
+
     }
 
     configForm.addEventListener('submit', handleFormSubmit);
