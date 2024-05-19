@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Configuration Profile Generator</title>
-    <!-- Add Bootstrap CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s4Wz6iJgD/+ub3o" crossorigin="anonymous">
-    <!-- Add custom CSS styles -->
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Configuration Profile Generator</title>
+  <!-- Add Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s4Wz6iJgD/+ub3o" crossorigin="anonymous">
+  <!-- Add custom CSS styles -->
+  <style>
         body {
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(to right, #333, #555);
@@ -124,76 +124,54 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     </head>
     <body>
-    <div class="container">
-        <h1>Configuration Profile Generator</h1>
-        <!-- Add form for configuration generator -->
-    <form>
-            <div class="mb-3">
-    <label for="apn" class="form-label apn">APN:</label>
-    <select id="apn" class="form-select">
-        <option value="mcinet" data-carrier="mcinet">MCI</option>
-        <option value="irancell" data-carrier="irancell">Irancell</option>
-        <option value="rightel" data-carrier="rightel">RighTel</option>
-    </select>
-    <div class="form-text">Select the APN (Access Point Name) for your carrier. The default option is "Automatic", which will automatically select the APN based on your carrier.</div>
-           </div>
+  <div class="container">
+    <h1>Configuration Profile Generator</h1>
+    <!-- Add form for configuration generator -->
+    <form id="config-form">
+      <!-- APN -->
+      <div class="mb-3">
+        <label for="apn" class="form-label apn">APN:</label>
+        <div id="apn-inputs">
+          <select id="apn" class="form-select">
+            <option value="">Automatic</option>
+            <option value="mcinet" data-carrier="mcinet">MCI</option>
+            <option value="irancell" data-carrier="irancell">Irancell</option>
+            <option value="rightel" data-carrier="rightel">RighTel</option>
+          </select>
+          <div class="form-text">Select the APN (Access Point Name) for your carrier. The default option is "Automatic", which will automatically select the APN based on your carrier.</div>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="apn-toggle" class="form-check-input">
+          <label for="apn-toggle" class="form-check-label">Include APN in profile</label>
+        </div>
+      </div>
 
-            <div class="mb-3">
-                <label for="vpn_server" class="form-label vpn">VPN Server (optional):</label>
-                <input type="text" id="vpn_server" class="form-control">
-                <div class="form-text">Enter the hostname or IP address of your VPN server if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
-            </div>
-            <div class="mb-3">
-                <label for="vpn_username" class="form-label vpn">VPN Username (optional):</label>
-                <input type="text" id="vpn_username" class="form-control">
-                <div class="form-text">Enter your VPN username if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
-            </div>
-            <div class="mb-3">
-                <label for="vpn_password" class="form-label vpn">VPN Password (optional):</label>
-                <input type="password" id="vpn_password" class="form-control">
-                <div class="form-text">Enter your VPN password if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
-            </div>
-            <div class="mb-3">
-                <label for="proxy_server" class="form-label proxy">Proxy Server (optional):</label>
-                <input type="text" id="proxy_server" class="form-control">
-                <div class="form-text">Enter the hostname or IP address of your proxy server if you want to use a proxy connection. Leave this field blank if you don't want to use a proxy.</div>
-            </div>
-            <div class="mb-3">
-                <label for="proxy_port" class="form-label proxy">Proxy Port (optional):</label>
-                <input type="text" id="proxy_port" class="form-control">
-                <div class="form-text">Enter the port number of your proxy server if you want to use a proxy connection. Leave this field blank if you don't want to use a proxy.</div>
-            </div>
-            <div class="mb-3">
-                <label for="dns_server" class="form-label dns">DNS Server (optional):</label>
-                <input type="text" id="dns_server" class="form-control">
-                <div class="form-text">Enter the hostname or IP address of your DNS server if you want to use a custom DNS server. Leave this field blank to use the default DNS server for your carrier.</div>
-            </div>
-            <div class="mb-3">
-                <label for="cloudflare_domain" class="form-label cloudflare">Cloudflare Domain (optional):</label>
-                <input type="text" id="cloudflare_domain" class="form-control">
-                <div class="form-text">Enter the domain name for your Cloudflare account if you want to use Cloudflare's DNS servers. Leave this field blank if you don't want to use Cloudflare's DNS servers.</div>
-            </div>
-            <!-- Add additional options -->
-            <div class="mb-3 form-check">
-                <input type="checkbox" id="enable_vpn" class="form-check-input">
-                <label for="enable_vpn" class="form-check-label">Enable VPN by default</label>
-                <div class="form-text">Check this box if you want the VPN connection to be enabled by default when you install the configuration profile. Leave this box unchecked if you want to manually enable the VPN connection.</div>
-            </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" id="enable_proxy" class="form-check-input">
-                <label for="enable_proxy" class="form-check-label">Enable proxy by default</label>
-                <div class="form-text">Check this box if you want the proxy connection to be enabled by default when you install the configuration profile. Leave this box unchecked if you want to manually enable the proxy connection.</div>
-            </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" id="remove_configuration" class="form-check-input">
-                <label for="remove_configuration" class="form-check-label">Remove configuration profile after uninstalling</label>
-                <div class="form-text">Check this box if you want the configuration profile to be removed from your device when you uninstall the app. Leave this box unchecked if you want the configuration profile to remain on your device after uninstalling the app.</div>
-            </div>
-            <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
-        </form>
-        <!-- Add Bootstrap JS CDN -->
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBud7TlRbs/ic4AwGcFZOxg5DpPt8EgeUIgIwzjWfXQKWA4" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-    </div>
-</body>
-</html>
+      <!-- VPN -->
+      <div class="mb-3">
+        <label for="vpn_server" class="form-label vpn">VPN Server (optional):</label>
+        <div id="vpn-inputs">
+          <input type="text" id="vpn_server" class="form-control">
+          <div class="form-text">Enter the hostname or IP address of your VPN server if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
+
+          <label for="vpn_username" class="form-label vpn">VPN Username (optional):</label>
+          <input type="text" id="vpn_username" class="form-control">
+          <div class="form-text">Enter your VPN username if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
+
+          <label for="vpn_password" class="form-label vpn">VPN Password (optional):</label>
+          <input type="password" id="vpn_password" class="form-control">
+          <div class="form-text">Enter your VPN password if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="vpn-toggle" class="form-check-input">
+          <label for="vpn-toggle" class="form-check-label">Include VPN in profile</label>
+        </div>
+      </div>
+
+      <!-- Proxy -->
+      <div class="mb-3">
+        <label for="proxy_server" class="form-label proxy">Proxy Server (optional):</label>
+        <div id="proxy-inputs">
+          <input type="text" id="proxy_server" class="form-control">
+          <div class="form-text">Enter the hostname or IP address of your proxy server if you want to use a proxy connection. Leave this field blank if you don't want to use a proxy.</div>
+
+          <label for="proxy_port" class="form-label proxy">Proxy
