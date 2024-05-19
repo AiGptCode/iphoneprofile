@@ -142,7 +142,7 @@
       <button type="button" id="generate-button" class="btn btn-primary">Generate Configuration Profile</button>
       <button type="button" id="show-raw-button" class="btn btn-secondary">Show Raw File</button>
     </form>
-    <textarea id="raw-output" style="display: none;"></textarea>
+    <textarea id="raw-output" style="margin-top: 20px;"></textarea>
   </div>
 
   <!-- Add Bootstrap JS CDN -->
@@ -272,11 +272,8 @@
     }
 
     function handleShowRawButtonClick() {
-      if (rawOutput.style.display === 'none') {
-        rawOutput.style.display = 'block';
-      } else {
-        rawOutput.style.display = 'none';
-      }
+      const rawFileUrl = 'data:text/plain;charset=utf-8,' + encodeURIComponent(rawOutput.value);
+      window.open(rawFileUrl, '_blank');
     }
 
     generateButton.addEventListener('click', handleGenerateButtonClick);
