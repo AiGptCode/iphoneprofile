@@ -139,13 +139,14 @@
 
       // Determine the APN to use based on the apn_option parameter
       let apn = formData.get('apn') || '';
-      if (formData.get('apn_option') === 'hamrahaval') {
-        apn = 'mcinet';
-      } else if (formData.get('apn_option') === 'irancell') {
-        apn = 'irancelmci';
-      } else if (formData.get('apn_option') === 'rightel') {
-        apn = 'right';
-      }
+if (apn === 'hamrahaval') {
+  apn = 'mcinet';
+} else if (apn === 'irancell') {
+  apn = 'irancelmci';
+} else if (apn === 'rightel') {
+  apn = 'right';
+}
+
 
       // Create the configuration profile dictionary
       const configDict = {
