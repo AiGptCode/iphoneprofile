@@ -39,9 +39,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
-  <!-- Add plist.js library -->
-  <script src="https://unpkg.com/plist@3.0.2/build/plist.min.js"></script>
-
   <!-- Add custom JavaScript -->
   <script>
     const configForm = document.getElementById('config-form');
@@ -59,59 +56,94 @@
       // Collect form data
       const apn = document.getElementById('apn').value;
 
-      // Create the configuration profile dictionary
-      const configDict = {
-        "PayloadContent": [
-          {
-            "PayloadDisplayName": "Cellular",
-            "PayloadIdentifier": "com.apple.cellular",
-            "PayloadType": "com.apple.cellular",
-            "PayloadUUID": generateUniqueUUID(),
-            "PayloadVersion": 1,
-            "APNs": [
-              {
-                "AuthenticationType": "CHAP",
-                "Enabled": true,
-                "Name": apn
-              }
-            ],
-            "SignalBoostEnabled": true,
-            "Proxy": {
-              "Enabled": true,
-              "PayloadType": "com.apple.proxy",
-              "PayloadUUID": generateUniqueUUID(),
-              "PayloadVersion": 1,
-              "HTTPEnable": true,
-              "HTTPPort": 8080,
-              "HTTPSEnable": true,
-              "HTTPSPort": 8080,
-              "FTPEnable": true,
-              "FTPPort": 21,
-              "SOCKSEnable": true,
-              "SOCKSPort": 1080,
-              "Server": "proxy.example.com",
-              "ExclusionList": [
-                "localhost",
-                "127.0.0.1",
-                "169.254.0.0/16"
-              ]
-            }
-          }
-        ],
-        "PayloadDisplayName": "Cellular and Network Settings",
-        "PayloadIdentifier": "com.example.cellular",
-        "PayloadOrganization": "Example Inc.",
-        "PayloadRemovalDisallowed": false,
-        "PayloadType": "Configuration",
-        "PayloadUUID": generateUniqueUUID(),
-        "PayloadVersion": 1
-      };
-
-      // Convert the configuration dictionary to a plist string
-      const configPlist = plist.build(configDict);
+      // Create the XML-formatted plist string
+      const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>PayloadDisplayName</key>
+            <string>Cellular</string>
+            <key>PayloadIdentifier</key>
+            <string>com.apple.cellular</string>
+            <key>PayloadType</key>
+            <string>com.apple.cellular</string>
+            <key>PayloadUUID</key>
+            <string>${generateUniqueUUID()}</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>APNs</key>
+            <array>
+                <dict>
+                    <key>AuthenticationType</key>
+                    <string>CHAP</string>
+                    <key>Enabled</key>
+                    <true/>
+                    <key>Name</key>
+                    <string>${apn}</string>
+                </dict>
+            </array>
+            <key>SignalBoostEnabled</key>
+            <true/>
+            <key>Proxy</key>
+            <dict>
+                <key>Enabled</key>
+                <true/>
+                <key>PayloadType</key>
+                <string>com.apple.proxy</string>
+                <key>PayloadUUID</key>
+                <string>${generateUniqueUUID()}</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                <key>HTTPEnable</key>
+                <true/>
+                <key>HTTPPort</key>
+                <integer>8080</integer>
+                <key>HTTPSEnable</key>
+                <true/>
+                <key>HTTPSPort</key>
+                <integer>8080</integer>
+                <key>FTPEnable</key>
+                <true/>
+                <key>FTPPort</key>
+                <integer>21</integer>
+                <key>SOCKSEnable</key>
+                <true/>
+                <key>SOCKSPort</key>
+                <integer>1080</integer>
+                <key>Server</key>
+                <string>proxy.example.com</string>
+                <key>ExclusionList</key>
+                <array>
+                    <string>localhost</string>
+                    <string>127.0.0.1</string>
+                    <string>169.254.0.0/16</string>
+                </array>
+            </dict>
+        </dict>
+    </array>
+    <key>PayloadDisplayName</key>
+    <string>Cellular and Network Settings</string>
+    <key>PayloadIdentifier</key>
+    <string>com.example.cellular</string>
+    <key>PayloadOrganization</key>
+    <string>Example Inc.</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>${generateUniqueUUID()}</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>
+`;
 
       // Create a Blob object from the configuration plist string
-      const configBlob = new Blob([configPlist], { type: 'application/x-apple-configurator' });
+      const configBlob = new Blob([configPlist], { type: 'application/xml' });
 
       // Create a download link and click it to download the file
       const downloadLink = document.createElement('a');
