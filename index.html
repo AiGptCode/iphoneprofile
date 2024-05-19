@@ -1,3 +1,7 @@
+Fixed
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -130,81 +134,101 @@
     <form id="config-form">
       <!-- APN -->
       <div class="mb-3">
-        <label for="apn-name" class="form-label apn">APN Name:</label>
-        <input type="text" id="apn-name" class="form-control" value="mtnirancell">
-      </div>
-
-      <div class="mb-3">
-        <label for="apn-auth-type" class="form-label apn">APN Authentication Type:</label>
-        <input type="text" id="apn-auth-type" class="form-control" value="CHAP">
+        <label for="apn" class="form-label apn">APN:</label>
+        <div id="apn-inputs">
+          <select id="apn" class="form-select">
+            <option value="">Automatic</option>
+            <option value="mcinet" data-carrier="mcinet">MCI</option>
+            <option value="irancell" data-carrier="irancell">Irancell</option>
+            <option value="rightel" data-carrier="rightel">RighTel</option>
+          </select>
+          <div class="form-text">Select the APN (Access Point Name) for your carrier. The default option is "Automatic", which will automatically select the APN based on your carrier.</div>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="apn-toggle" class="form-check-input">
+          <label for="apn-toggle" class="form-check-label">Include APN in profile</label>
+        </div>
       </div>
 
       <!-- VPN -->
       <div class="mb-3">
-        <label for="vpn-enabled" class="form-label vpn">Enable VPN:</label>
-        <select id="vpn-enabled" class="form-select">
-          <option value="true">Yes</option>
-          <option value="false">No</option>
-        </select>
-      </div>
+        <label for="vpn_server" class="form-label vpn">VPN Server (optional):</label>
+        <div id="vpn-inputs">
+          <input type="text" id="vpn_server" class="form-control">
+          <div class="form-text">Enter the hostname or IP address of your VPN server if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
 
-      <div class="mb-3">
-        <label for="vpn-server-address" class="form-label vpn">VPN Server Address:</label>
-        <input type="text" id="vpn-server-address" class="form-control" value="vpn.example.com">
-      </div>
+          <label for="vpn_username" class="form-label vpn">VPN Username (optional):</label>
+          <input type="text" id="vpn_username" class="form-control">
+          <div class="form-text">Enter your VPN username if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
 
-      <div class="mb-3">
-        <label for="vpn-server-port" class="form-label vpn">VPN Server Port:</label>
-        <input type="number" id="vpn-server-port" class="form-control" value="1723">
-      </div>
-
-      <div class="mb-3">
-        <label for="vpn-auth-method" class="form-label vpn">VPN Authentication Method:</label>
-        <input type="text" id="vpn-auth-method" class="form-control" value="Certificate">
-      </div>
-
-      <div class="mb-3">
-        <label for="vpn-username" class="form-label vpn">VPN Username:</label>
-        <input type="text" id="vpn-username" class="form-control" value="YourUsername">
-      </div>
-
-      <div class="mb-3">
-        <label for="vpn-shared-secret" class="form-label vpn">VPN Shared Secret:</label>
-        <input type="text" id="vpn-shared-secret" class="form-control" value="YourSharedSecret">
+          <label for="vpn_password" class="form-label vpn">VPN Password (optional):</label>
+          <input type="password" id="vpn_password" class="form-control">
+          <div class="form-text">Enter your VPN password if you want to use a VPN connection. Leave this field blank if you don't want to use a VPN.</div>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="vpn-toggle" class="form-check-input">
+          <label for="vpn-toggle" class="form-check-label">Include VPN in profile</label>
+        </div>
       </div>
 
       <!-- Proxy -->
       <div class="mb-3">
-        <label for="proxy-enabled" class="form-label proxy">Enable Proxy:</label>
-        <select id="proxy-enabled" class="form-select">
-          <option value="true">Yes</option>
-          <option value="false">No</option>
-        </select>
+        <label for="proxy_server" class="form-label proxy">Proxy Server (optional):</label>
+        <div id="proxy-inputs">
+          <input type="text" id="proxy_server" class="form-control">
+          <div class="form-text">Enter the hostname or IP address of your proxy server if you want to use a proxy connection. Leave this field blank if you don't want to use a proxy.</div>
+
+          <label for="proxy_port" class="form-label proxy">Proxy Port (optional):</label>
+          <input type="text" id="proxy_port" class="form-control">
+          <div class="form-text">Enter the port number of your proxy server if you want to use a proxy connection. Leave this field blank if you don't want to use a proxy.</div>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="proxy-toggle" class="form-check-input">
+          <label for="proxy-toggle" class="form-check-label">Include Proxy in profile</label>
+        </div>
       </div>
 
+      <!-- DNS -->
       <div class="mb-3">
-        <label for="proxy-server" class="form-label proxy">Proxy Server:</label>
-        <input type="text" id="proxy-server" class="form-control" value="proxy.example.com">
+        <label for="dns_server" class="form-label dns">DNS Server (optional):</label>
+        <div id="dns-inputs">
+          <input type="text" id="dns_server" class="form-control" value="8.8.8.8">
+          <div class="form-text">Enter the hostname or IP address of your DNS server if you want to use a custom DNS server. Leave this field blank to use the default DNS server for your carrier.</div>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="dns-toggle" class="form-check-input">
+          <label for="dns-toggle" class="form-check-label">Include DNS in profile</label>
+        </div>
       </div>
 
+      <!-- Cloudflare -->
       <div class="mb-3">
-        <label for="proxy-http-port" class="form-label proxy">Proxy HTTP Port:</label>
-        <input type="number" id="proxy-http-port" class="form-control" value="8080">
+        <label for="cloudflare_domain" class="form-label cloudflare">Cloudflare Domain (optional):</label>
+        <div id="cloudflare-inputs">
+          <input type="text" id="cloudflare_domain" class="form-control">
+          <div class="form-text">Enter the domain name for your Cloudflare account if you want to use Cloudflare's DNS servers. Leave this field blank if you don't want to use Cloudflare's DNS servers.</div>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="cloudflare-toggle" class="form-check-input">
+          <label for="cloudflare-toggle" class="form-check-label">Include Cloudflare in profile</label>
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label for="proxy-https-port" class="form-label proxy">Proxy HTTPS Port:</label>
-        <input type="number" id="proxy-https-port" class="form-control" value="8080">
+      <!-- Additional options -->
+      <div class="mb-3 form-check">
+        <input type="checkbox" id="enable_vpn" class="form-check-input">
+        <label for="enable_vpn" class="form-check-label">Enable VPN by default</label>
+        <div class="form-text">Check this box if you want the VPN connection to be enabled by default when you install the configuration profile. Leave this box unchecked if you want to manually enable the VPN connection.</div>
       </div>
-
-      <div class="mb-3">
-        <label for="proxy-ftp-port" class="form-label proxy">Proxy FTP Port:</label>
-        <input type="number" id="proxy-ftp-port" class="form-control" value="21">
+      <div class="mb-3 form-check">
+        <input type="checkbox" id="enable_proxy" class="form-check-input">
+        <label for="enable_proxy" class="form-check-label">Enable proxy by default</label>
+        <div class="form-text">Check this box if you want the proxy connection to be enabled by default when you install the configuration profile. Leave this box unchecked if you want to manually enable the proxy connection.</div>
       </div>
-
-      <div class="mb-3">
-        <label for="proxy-socks-port" class="form-label proxy">Proxy SOCKS Port:</label>
-        <input type="number" id="proxy-socks-port" class="form-control" value="1080">
+      <div class="mb-3 form-check">
+        <input type="checkbox" id="remove_configuration" class="form-check-input">
+        <label for="remove_configuration" class="form-check-label">Remove configuration profile after uninstalling</label>
+        <div class="form-text">Check this box if you want the configuration profile to be removed from your device when you uninstall the app. Leave this box unchecked if you want the configuration profile to remain on your device after uninstalling the app.</div>
       </div>
 
       <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
@@ -222,106 +246,126 @@
     function handleFormSubmit(event) {
       event.preventDefault();
 
+      // Collect form data
       const formElements = configForm.elements;
       const formData = {};
       for (const element of formElements) {
-        if (element.name) {
+        if (element.name && element.type !== 'checkbox') {
+          formData[element.name] = element.value;
+        } else if (element.name && element.type === 'checkbox' && element.checked) {
           formData[element.name] = element.value;
         }
       }
+      formData.apn_option = document.querySelector('select[id="apn"] option:checked').dataset.carrier;
 
-      // Create the APN payload dictionary
-      const apnDict = {
-        "PayloadDisplayName": "Cellular",
-        "PayloadIdentifier": "com.apple.cellular",
-        "PayloadType": "com.apple.cellular",
-        "PayloadUUID": uuidv4(),
-        "PayloadVersion": 1,
-        "APNs": [
-          {
-            "AuthenticationType": formData['apn-auth-type'],
-            "Enabled": true,
-            "Name": formData['apn-name']
-          }
-        ],
-        "SignalBoostEnabled": true
-      };
-
-      // Create the VPN payload dictionary if VPN is enabled
-      if (formData['vpn-enabled'] === 'true') {
-        const vpnDict = {
-          "PayloadDisplayName": "VPN Configuration",
-          "PayloadIdentifier": "com.apple.vpn.managed",
-          "PayloadType": "com.apple.vpn.managed",
-          "PayloadUUID": uuidv4(),
-          "PayloadVersion": 1,
-          "AuthenticationMethod": formData['vpn-auth-method'],
-          "DisconnectOnLogout": true,
-          "DisconnectOnSleep": true,
-          "SendAllTraffic": true,
-          "ServerAddress": formData['vpn-server-address'],
-          "ServerPort": parseInt(formData['vpn-server-port']),
-          "Protocol": "L2TP",
-          "SharedSecret": formData['vpn-shared-secret'],
-          "Username": formData['vpn-username']
-        };
-
-        // Add the VPN payload to the APN payload
-        apnDict["VPN"] = {
-          "Enabled": true,
-          "PayloadType": "com.apple.vpn",
-          "PayloadUUID": uuidv4(),
-          "PayloadVersion": 1,
-          "OnDemandEnabled": true,
-          "PayloadContent": [vpnDict]
-        };
-      }
-
-      // Create the Proxy payload dictionary if Proxy is enabled
-      if (formData['proxy-enabled'] === 'true') {
-        const proxyDict = {
-          "PayloadDisplayName": "Proxy",
-          "PayloadIdentifier": "com.apple.proxy",
-          "PayloadType": "com.apple.proxy",
-          "PayloadUUID": uuidv4(),
-          "PayloadVersion": 1,
-          "HTTPEnable": true,
-          "HTTPPort": parseInt(formData['proxy-http-port']),
-          "HTTPSEnable": true,
-          "HTTPSPort": parseInt(formData['proxy-https-port']),
-          "FTPEnable": true,
-          "FTPPort": parseInt(formData['proxy-ftp-port']),
-          "SOCKSEnable": true,
-          "SOCKSPort": parseInt(formData['proxy-socks-port']),
-          "Server": formData['proxy-server'],
-          "ExclusionList": [
-            "localhost",
-            "127.0.0.1",
-            "169.254.0.0/16"
-          ]
-        };
-
-        // Add the Proxy payload to the APN payload
-        apnDict["Proxy"] = {
-          "Enabled": true,
-          "PayloadType": "com.apple.proxy",
-          "PayloadUUID": uuidv4(),
-          "PayloadVersion": 1,
-          ...proxyDict
-        };
+      // Determine the APN to use based on the apn_option parameter
+      let apn = formData.apn || '';
+      if (formData.apn_option === 'mcinet') {
+        apn = 'mcinet';
+      } else if (formData.apn_option === 'irancell') {
+        apn = 'irancell';
+      } else if (formData.apn_option === 'rightel') {
+        apn = 'rightel';
       }
 
       // Create the configuration profile dictionary
       const configDict = {
-        "PayloadContent": [apnDict],
+        "PayloadContent": [],
         "PayloadDisplayName": "Cellular and Network Settings",
-        "PayloadIdentifier": "com.example.cellular",
+        "PayloadIdentifier": "com.example.cellular.config",
         "PayloadOrganization": "Example Inc.",
         "PayloadRemovalDisallowed": false,
         "PayloadType": "Configuration",
         "PayloadUUID": uuidv4(),
         "PayloadVersion": 1
       };
+
+      // Create the cellular payload dictionary
+      const cellularDict = {
+        "PayloadDisplayName": "Cellular",
+        "PayloadIdentifier": uuidv4(),
+        "PayloadType": "com.apple.cellular",
+        "PayloadUUID": uuidv4(),
+        "PayloadVersion": 1,
+        "APNs": [
+          {
+            "AuthenticationType": "PAP",
+            "Enabled": true,
+            "Name": apn
+          }
+        ],
+        "SignalBoostEnabled": true,
+        "APNSelectionMode": "Automatic"  // Set the APN to automatic
+      };
+
+      // Add the cellular payload to the configuration profile
+      configDict["PayloadContent"].push(cellularDict);
+
+      // Create the VPN payload dictionary if VPN server is provided and VPN is enabled
+      const vpnServer = formData.vpn_server || '';
+      const vpnEnabled = formData['vpn-toggle'] !== null;
+      if (vpnEnabled && vpnServer) {
+        const vpnDict = {
+          "PayloadDisplayName": "VPN",
+          "PayloadIdentifier": uuidv4(),
+          "PayloadType": "com.apple.vpn.managed",
+          "PayloadUUID": uuidv4(),
+          "PayloadVersion": 1,
+          "AuthenticationMethod": "Certificate",
+          "DisconnectOnLogout": true,
+          "DisconnectOnSleep": true,
+          "SendAllTraffic": true,
+          "ServerAddress": vpnServer,
+          "ServerPort": 1723,
+          "Protocol": "L2TP",
+          "SharedSecret": "YourSharedSecret",
+          "Username": formData.vpn_username || "YourUsername",
+          "Password": formData.vpn_password || "YourPassword"
+        };
+
+        // Add the VPN payload to the configuration profile
+        configDict["PayloadContent"].push(vpnDict);
+      }
+
+      // Create the proxy payload dictionary if proxy server and port are provided and proxy is enabled
+      const proxyServer = formData.proxy_server || '';
+      const proxyPort = formData.proxy_port || '';
+      const proxyEnabled = formData['proxy-toggle'] !== null;
+      if (proxyEnabled && proxyServer && proxyPort) {
+        const proxyDict = {
+          "PayloadDisplayName": "Proxy",
+          "PayloadIdentifier": uuidv4(),
+          "PayloadType": "com.apple.proxy",
+          "PayloadUUID": uuidv4(),
+          "PayloadVersion": 1,
+          "HTTPEnable": true,
+          "HTTPPort": parseInt(proxyPort),
+          "HTTPServer": proxyServer,
+          "HTTPSEnable": true,
+          "HTTPSPort": parseInt(proxyPort),
+          "HTTPSServer": proxyServer
+        };
+
+        // Add the proxy payload to the configuration profile
+        configDict["PayloadContent"].push(proxyDict);
+      }
+
+      // Create the DNS payload dictionary if DNS server is provided and DNS is enabled
+      const dnsServer = formData.dns_server || '';
+      const dnsEnabled = formData['dns-toggle'] !== null;
+      if (dnsEnabled && dnsServer) {
+        const dnsDict = {
+          "PayloadDisplayName": "DNS",
+          "PayloadIdentifier": uuidv4(),
+          "PayloadType": "com.apple.dns",
+          "PayloadUUID": uuidv4(),
+          "PayloadVersion": 1,
+          "Servers": [dnsServer]
+        };
+
+        // Add the DNS payload to the configuration profile
+        configDict["PayloadContent"].push(dnsDict);
+      }
 
       // Convert the configuration dictionary to a string
       const configProfile = JSON.stringify(configDict, null, 2);
