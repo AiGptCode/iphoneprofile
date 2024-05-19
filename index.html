@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,136 +10,115 @@
   <style>
     /* Your CSS here */
     body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(to right, #333, #555);
-      color: #fff;
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(to right, #333, #555);
+        color: #fff;
     }
-
     .container {
-      max-width: 800px;
-      margin-top: 50px;
-      padding: 30px;
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 10px;
-      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        max-width: 800px;
+        margin-top: 50px;
+        padding: 30px;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
     }
-
     h1 {
-      text-align: center;
-      margin-bottom: 50px;
-      color: #fff;
-      font-weight: 300;
-      text-shadow: 2px 2px #000;
+        text-align: center;
+        margin-bottom: 50px;
+        color: #fff;
+        font-weight: 300;
+        text-shadow: 2px 2px #000;
     }
-
     label {
-      font-weight: 500;
-      display: block;
-      margin-bottom: 5px;
-      position: relative;
+        font-weight: 500;
+        display: block;
+        margin-bottom: 5px;
+        position: relative;
     }
-
     label::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 2px;
-      background-color: #fff;
-      transform: scaleX(0);
-      transition: transform 0.3s ease-out;
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #fff;
+        transform: scaleX(0);
+        transition: transform 0.3s ease-out;
     }
-
-    label:hover::before,
-    input:focus+label::before,
-    select:focus+label::before,
-    textarea:focus+label::before {
-      transform: scaleX(1);
+    label:hover::before, input:focus + label::before, select:focus + label::before, textarea:focus + label::before {
+        transform: scaleX(1);
     }
-
     .form-text {
-      color: #888;
-      margin-top: 5px;
+        color: #888;
+        margin-top: 5px;
     }
-
     .carrier {
-      color: #f00;
+        color: #f00;
     }
-
     .apn {
-      color: #f90;
+        color: #f90;
     }
-
     /* .vpn {
-      color: #09f;
+        color: #09f;
     } */
-
     .proxy {
-      color: #0f0;
+        color: #0f0;
     }
-
     .dns {
-      color: #00f;
+        color: #00f;
     }
-
     .cloudflare {
-      color: #f0f;
+        color: #f0f;
     }
-
-    input,
-    select,
-    textarea {
-      border-radius: 10px;
-      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-      padding: 10px;
-      font-size: 14px;
-      background-color: rgba(0, 0, 0, 0.3);
-      color: #fff;
-      border: none;
-      margin-bottom: 20px;
+    input, select, textarea {
+        border-radius: 10px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        font-size: 14px;
+        background-color: rgba(0, 0, 0, 0.3);
+        color: #fff;
+        border: none;
+        margin-bottom: 20px;
     }
-
     button {
-      background-color: #f00;
-      color: #fff;
-      border-radius: 10px;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-size: 14px;
-      font-weight: 500;
-      margin-top: 20px;
-      display: block;
-      width: 50%;
-      margin-left: auto;
-      margin-right: auto;
+        background-color: #f00;
+        color: #fff;
+        border-radius: 10px;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 20px;
+        display: block;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
     }
-
     button:hover {
-      background-color: #f30;
+        background-color: #f30;
     }
-
     /* Add responsive styles for mobile devices */
     @media only screen and (max-width: 600px) {
-      .container {
-        padding: 20px;
-      }
-      h1 {
-        font-size: 24px;
-      }
-      label {
-        font-size: 14px;
-      }
-      input,
-      select,
-      textarea {
-        font-size: 14px;
-      }
-      button {
-        font-size: 14px;
-      }
+        .container {
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        label {
+            font-size: 14px;
+        }
+        input,
+        select,
+        textarea {
+            font-size: 14px;
+        }
+        button {
+            font-size: 14px;
+        }
     }
   </style>
   <!-- Add custom fonts from Google Fonts -->
@@ -148,7 +126,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
-
 <body>
   <div class="container">
     <h1>Configuration Profile Generator</h1>
@@ -182,24 +159,6 @@
     </div>
   </div>
 
-  <!-- Bootstrap modal for showing raw file -->
-  <div class="modal fade" id="raw-modal" tabindex="-1" aria-labelledby="raw-modal-label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="raw-modal-label">Raw Configuration File</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div id="raw-content"></div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Add Bootstrap JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
@@ -209,9 +168,8 @@
     const configForm = document.getElementById('config-form');
 
     function generateUniqueUUID() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0,
-          v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
       });
     }
@@ -306,7 +264,7 @@
     <integer>1</integer>
 </dict>
 </plist>
-      `;
+`;
 
       // Create a Blob object from the configuration plist string
       const configBlob = new Blob([configPlist], { type: 'application/xml' });
@@ -324,42 +282,40 @@
     }
 
     function handleShowRawClick() {
-  const apn = document.getElementById("apn").value;
+      const apn = document.getElementById("apn").value;
 
-  // Send a POST request to the server to generate the file
-  fetch("/generate-config", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ apn }),
-    })
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.blob();
-      } else {
-        throw new Error("Failed to generate config file");
-      }
-    })
-    .then((blob) => {
-      // Create a new tab or window to open the file with the config.mobileconfig MIME type
-      const configUrl = URL.createObjectURL(blob);
-      const configWindow = window.open(configUrl, "_blank");
-      configWindow.document.write(
-        `<a href="${configUrl}" download="config.mobileconfig">Download Config File</a>`
-      );
-      configWindow.document.close();
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
+      // Send a POST request to the server to generate the file
+      fetch("/generate-config", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ apn }),
+        })
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.blob();
+          } else {
+            throw new Error("Failed to generate config file");
+          }
+        })
+        .then((blob) => {
+          // Create a new tab or window to open the file with the config.mobileconfig MIME type
+          const configUrl = URL.createObjectURL(blob);
+          const configWindow = window.open(configUrl, "_blank");
+          configWindow.document.write(
+            `<a href="${configUrl}" download="config.mobileconfig">Download Config File</a>`
+          );
+          configWindow.document.close();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
 
-
-
-    
+    configForm.addEventListener('submit', handleFormSubmit);
+    document.getElementById('show-raw').addEventListener('click', handleShowRawClick);
   </script>
 </body>
-
 </html>
