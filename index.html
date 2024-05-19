@@ -132,31 +132,30 @@
     const configForm = document.getElementById('config-form');
 
     function handleFormSubmit(event) {
-  event.preventDefault();
+      event.preventDefault();
 
-  // Collect form data
-  const formElements = configForm.elements;
-  const formData = {};
-  for (const element of formElements) {
-    if (element.name && element.type !== 'checkbox') {
-      formData[element.name] = element.value;
-    } else if (element.name && element.type === 'checkbox' && element.checked) {
-      formData[element.name] = element.value;
-    }
-  }
-  formData.apn_option = document.querySelector('select[id="apn"] option:checked').dataset.carrier;
+      // Collect form data
+      const formElements = configForm.elements;
+      const formData = {};
+      for (const element of formElements) {
+        if (element.name && element.type !== 'checkbox') {
+          formData[element.name] = element.value;
+        } else if (element.name && element.type === 'checkbox' && element.checked) {
+          formData[element.name] = element.value;
+        }
+      }
+      formData.apn_option = document.querySelector('select[id="apn"] option:checked').dataset.carrier;
 
-  // Determine the APN to use based on the apn_option parameter
-  let apn = formData.apn || '';
-  if (formData.apn_option === 'hamrahaval') {
-    apn = 'mcinet';
-  } else if (formData.apn_option === 'irancell') {
-    apn = 'irancelmci';
-  } else if (formData.apn_option === 'rightel') {
-    apn = 'right';
-  }
+      // Determine the APN to use based on the apn_option parameter
+      let apn = formData.apn || '';
+      if (formData.apn_option === 'hamrahaval') {
+        apn = 'mcinet';
+      } else if (formData.apn_option === 'irancell') {
+        apn = 'irancelmci';
+      } else if (formData.apn_option === 'rightel') {
+        apn = 'right';
+      }
 
-  
       // Create the configuration profile dictionary
       const configDict = {
         "PayloadContent": [],
@@ -178,7 +177,7 @@
         "PayloadVersion": 1,
         "APNs": [
           {
-            "AuthenticationType": formData.get('carrier') === 'mcinet' ? "CHAP" : "PAP",
+            "AuthenticationType": formData.carrier === 'mcinet' ? "CHAP" : "PAP",
             "Enabled": true,
             "Name": apn
           }
@@ -191,8 +190,8 @@
       configDict["PayloadContent"].push(cellularDict);
 
       // Create the VPN payload dictionary if VPN server is provided and VPN is enabled
-      const vpnServer = formData.get('vpn_server') || '';
-      const vpnEnabled = formData.get('vpn-toggle') !== null;
+      const vpnServer = formData.vpn_server || '';
+      const vpnEnabled = formData['vpn-toggle'] !== null;
       if (vpnEnabled && vpnServer) {
         const vpnDict = {
           "PayloadDisplayName": "VPN",
@@ -208,16 +207,16 @@
           "ServerPort": 1723,
           "Protocol": "L2TP",
           "SharedSecret": "YourSharedSecret",
-          "Username": formData.get('vpn_username') || "YourUsername",
-          "Password": formData.get('vpn_password') || "YourPassword"
+          "Username": formData.vpn_username || "YourUsername",
+          "Password": formData.vpn_password || "YourPassword"
         };
 
         // Add the VPN payload to the configuration profile
         configDict["PayloadContent"].push(vpnDict);
 
         // Create the on-demand VPN payload dictionary if Cloudflare domain is provided and Cloudflare is enabled
-        const cloudflareDomain = formData.get('cloudflare_domain') || '';
-        const cloudflareEnabled = formData.get('cloudflare-toggle') !== null;
+        const cloudflareDomain = formData.cloudflare_domain || '';
+        const cloudflareEnabled = formData['cloudflare-toggle'] !== null;
         if (cloudflareEnabled && cloudflareDomain) {
           const onDemandVpnDict = {
             "PayloadDisplayName": "On-Demand VPN",
@@ -236,9 +235,9 @@
       }
 
       // Create the proxy payload dictionary if proxy server and port are provided and proxy is enabled
-      const proxyServer = formData.get('proxy_server') || '';
-      const proxyPort = formData.get('proxy_port') || '';
-      const proxyEnabled = formData.get('proxy-toggle') !== null;
+      const proxyServer = formData.proxy_server || '';
+      const proxyPort = formData.proxy_port || '';
+      const proxyEnabled = formData['proxy-toggle'] !== null;
       if (proxyEnabled && proxyServer && proxyPort) {
         const proxyDict = {
           "PayloadDisplayName": "Proxy",
@@ -259,8 +258,8 @@
       }
 
       // Create the DNS payload dictionary if DNS server is provided and DNS is enabled
-      const dnsServer = formData.get('dns_server') || '';
-      const dnsEnabled = formData.get('dns-toggle') !== null;
+      const dnsServer = formData.dns_server || '';
+      const dnsEnabled = formData['dns-toggle'] !== null;
       if (dnsEnabled && dnsServer) {
         const dnsDict = {
           "PayloadDisplayName": "DNS",
@@ -298,16 +297,14 @@
       }, 1000);
     }
 
-    configForm.addEventListener('submit', handleFormSubmit);
-
-    // Generate a random UUID (universally unique identifier)
     function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-}
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
 
+    configForm.addEventListener('submit', handleFormSubmit);
   </script>
 </body>
 </html>
