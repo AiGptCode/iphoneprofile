@@ -6,6 +6,8 @@ This is a simple web-based application that allows you to generate a configurati
 Usage
 -----
 
+website : https://aigptcode.github.io/iphoneprofile/
+
 To use the application, simply open the index.html file in a web browser. You will see a form with a dropdown menu to select your carrier. Choose your carrier and click the "Generate Configuration Profile" button. The application will generate a .mobileconfig file and prompt you to download it.
 
 Once you have downloaded the file, you can email it to yourself and open it on your mobile device to install the configuration profile.
