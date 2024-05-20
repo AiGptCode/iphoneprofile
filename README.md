@@ -22,68 +22,6 @@ website : https://aigptcode.github.io/iphoneprofile/
   <a href="https://ibb.co/whDY2tw"><img src="https://i.ibb.co/Ld4vsKJ/IMG-5707.jpg" alt="IMG-5707" border="0"></a>
   
  
-## اموزش ساخت پروفایل یکتا
- 
-کد ها به صورت template یا پوسته با توجه به همه اوپراتورها گذاشته شده فقط با uuid Generator که با زبان پایتون نوشته شده کدهای همتا جدید بسازید و با قبلی ها عوض کنید و فایل سیو کنید
-
-(فایل پایتون به راحتی exe تبدیل کنید)
-
-pip install pyinstaller
- 
-pyinstaller --onefile --windowed uuid-genarator.py 
-
-
-در template ها  برای UUID این قسمت و جای کد جدید بگذارید
-
- 
-	<key>PayloadType</key>
-			<string>com.apple.cellular</string>
-			<key>PayloadUUID</key>
-			<string>کد جدید</string>
-			<key>PayloadVersion</key>
-			<integer>1</integer>
-   
-
-
-علت بسته شدن کانفیگ ها بدلیل استفاده تعداد افراد زیاد از یک UUID هست
-
-برای هر گوشی سعی کنید با uuid اختصاصی ساخته شود 
-
-زمانی که چند دستگاه از یک کد استفاده میکنند شناسایی و بسته میشه 
-
-هپچنین در کد قابلیت شخصی سازی پروکسی یا ایپی اختصاصی برای ساخت پروفایل و دسترسی اینترنت فراهم شده  
-
-<a href="https://ibb.co/Zf3P4D7"><img src="https://i.ibb.co/yND1vj7/IMG-5664.jpg" alt="IMG-5664" border="0"></a>
-
-# روش دوم 
-
-## مراحل
-
-## ** دانلود Apple Configurator یا Imazing profile editor ** :
-
-- [Apple Configurator برای macOS](https://apps.apple.com/us/app/apple-configurator/id1037126344?mt=12)
-- [Imazing Profile Editor برای ویندوز](https://apps.microsoft.com/detail/9PHS9QLCQ5S4?hl=en-us&gl=US)
-
-
-2. **ایجاد پروفایل جدید**:
-   - اجرای برنامه Apple Configurator
-   - رفتن به منوی "File" و انتخاب "New Profile"
-
-3. **تنظیمات پروفایل**:
-   - در بخش "Name" نام دلخواه خود را وارد کنید.
-   - در بخش "Identifier"، می‌توانید خالی بگذارید یا از فایل `uuid-genarator.py` یک کد یکتا بسازید و وارد کنید.
-
-4. **تنظیمات APN**:
-   - در منوی سمت چپ به دنبال گزینه "cellular" بگردید.
-   - در بخش "Configured APN Type"، مقدار "mcinet" یا "mtnirancell" را وارد کنید.
-   - در بخش "Data VPN Authentication Type" حتماً مقدار "CHAP" را انتخاب کنید.
-   - در انتهای صفحه، از IP4 استفاده کنید. اگر متوجه مشکل اینترنت شدید، می‌توانید تستی با IP6 انجام دهید.
-
-5. **تست و ذخیره**:
-   - پیکربندی را ذخیره کنید.
-   - اگر پیکربندی کار نکرد، می‌توانید یک پیکربندی جدید با یک UUID جدید بسازید و تست کنید.
-
-.
 
 ## قبل از آپلود پروفایل‌ها این کارها را انجام دهید:
 
