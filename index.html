@@ -193,7 +193,7 @@
       const apn = document.getElementById('apn').value;
 
       // Create the XML-formatted plist string
-      const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
+const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -226,11 +226,11 @@
                     <key>DefaultProtocolMask</key>
                     <integer>3</integer>
                     <key>EnableXLAT464</key>
-                    <false />
+                    <true /> <!-- فعال شد -->
                     <key>Name</key>
                     <string>${apn}</string>
                     <key>ProxyServer</key>
-                    <string>${apn}</string>
+                    <string></string> <!-- پروکسی خالی -->
                     <key>Username</key>
                     <string></string>
                 </dict>
@@ -247,7 +247,7 @@
                     <key>DefaultProtocolMask</key>
                     <integer>1</integer>
                     <key>EnableXLAT464</key>
-                    <false />
+                    <true /> <!-- فعال شد -->
                     <key>Name</key>
                     <string>${apn}</string>
                     <key>Username</key>
@@ -292,7 +292,7 @@
                 <key>LocalIdentifier</key>
                 <string>${apn}</string>
                 <key>RemoteAddress</key>
-                <string>vpn.example.com</string>
+                <string>${vpnAddress}</string>
                 <key>SharedSecret</key>
                 <string>${generateUniqueUUID()}</string>
                 <key>XAuthEnabled</key>
@@ -333,7 +333,7 @@
             <key>SOCKSPort</key>
             <integer>1080</integer>
             <key>Server</key>
-            <string>proxy.example.com</string>
+            <string>${proxyAddress}</string>
             <key>ExclusionList</key>
             <array>
                 <string>localhost</string>
@@ -376,14 +376,27 @@
 </plist>
 `;
 
-      // Create a Blob object from the configuration plist string
-      const configBlob = new Blob([configPlist], { type: 'application/xml' });
+// Function to generate a unique UUID (for demonstration purposes)
+function generateUniqueUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
 
-      // Create a download link and click it to download the file
-      const downloadLink = document.createElement('a');
-      downloadLink.href = URL.createObjectURL(configBlob);
-      downloadLink.download = 'config.mobileconfig';
-      downloadLink.click();
+// Values for dynamic variables (example values)
+const apn = 'mcinet';
+const vpnAddress = 'vpn.example.com';
+const proxyAddress = 'proxy.example.com';
+
+// Create a Blob object from the configuration plist string
+const configBlob = new Blob([configPlist], { type: 'application/xml' });
+
+// Create a download link and click it to download the file
+const downloadLink = document.createElement('a');
+downloadLink.href = URL.createObjectURL(configBlob);
+downloadLink.download = 'config.mobileconfig';
+downloadLink.click();
 
       // Wait for the download to complete before revoking the object URL
       setTimeout(() => {
