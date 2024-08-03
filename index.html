@@ -1,6 +1,6 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
-<head> 
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Configuration Profile Generator with Unique Uuid</title>
@@ -124,19 +124,25 @@
   <div class="container">
     <h1>Configuration Profile Generator with Unique Uuid</h1>
     <a href="https://x.com/aigptcode" target="_blank">@AiGptCode اموزش تصویری</a>
+    <!-- Add form for configuration generator -->
     <form id="config-form">
+      <!-- APN -->
       <div class="mb-3">
         <label for="apn" class="form-label apn">APN:</label>
         <select id="apn" class="form-select">
           <option value="mcinet">MCI</option>
           <option value="mtnirancell">Irancell</option>
           <option value="RighTel">RighTel</option>
+          <option value="ApTel">ApTel</option>
+          <option value="samantel">samantel</option>
         </select>
         <div class="form-text">اپراتور خود را انتخاب کنید</div>
       </div>
+
       <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
     </form>
 
+    <!-- Message box -->
     <div class="alert mt-3" role="alert">
       <h4 class="alert-heading carrier">Signal Booster:</h4>
       <p>A signal booster, also known as a repeater, is a device that amplifies a wireless signal. It can be used to improve the signal strength and coverage in areas where the signal is weak or obstructed.</p>
@@ -146,6 +152,7 @@
       <p>A proxy server is an intermediary between a client and a server. It can be used to provide anonymity, filter content, or cache data to improve performance.</p>
       <h4 class="alert-heading dns">DNS:</h4>
       <p>DNS (Domain Name System) is a system that translates domain names into IP addresses. It can be used to block or redirect access to certain websites, or to improve the performance of a network.</p>
+
       <h4 class="alert-heading supporting"> SUPPORT حمایت </h4>
       <p> 💞️ Feel free to support my endeavors through donations at:</p>
       <p>Ethereum: 0xc177e861fD9a9F598236C7183e105b9CCec9cb3e</p>
@@ -154,9 +161,11 @@
     </div>
   </div>
 
+  <!-- Add Bootstrap JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
+  <!-- Add custom JavaScript -->
   <script>
     const configForm = document.getElementById('config-form');
 
@@ -170,8 +179,10 @@
     function handleFormSubmit(event) {
       event.preventDefault();
 
+      // Collect form data
       const apn = document.getElementById('apn').value;
 
+      // Create the XML-formatted plist string
       const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -192,159 +203,28 @@
             <integer>1</integer>
             <key>APNs</key>
             <array>
-                <!-- First APN -->
-                <dict>
-                    <key>AllowedProtocolMask</key>
-                    <integer>3</integer>
-                    <key>AllowedProtocolMaskInDomesticRoaming</key>
-                    <integer>3</integer>
-                    <key>AllowedProtocolMaskInRoaming</key>
-                    <integer>3</integer>
-                    <key>AuthenticationType</key>
-                    <string>PAP</string>
-                    <key>DefaultProtocolMask</key>
-                    <integer>3</integer>
-                    <key>EnableXLAT464</key>
-                    <true />
-                    <key>Name</key>
+                <!-- APN List -->
+                <dict >
+                    <key>PayloadDisplayName</key>
                     <string>${apn}</string>
-                    <key>ProxyServer</key>
-                    <string></string>
-                    <key>Username</key>
-                    <string></string>
-                </dict>
-                <!-- Second APN -->
-                <dict>
-                    <key>AllowedProtocolMask</key>
+                    <key>PayloadIdentifier</key>
+                    <string>com.apple.apn.${apn}</string>
+                    <key>PayloadType</key>
+                    <string>com.apple.apn</string>
+                    <key>PayloadUUID</key>
+                    <string>${generateUniqueUUID()}</string>
+                    <key>PayloadVersion</key>
                     <integer>1</integer>
-                    <key>AllowedProtocolMaskInDomesticRoaming</key>
-                    <integer>1</integer>
-                    <key>AllowedProtocolMaskInRoaming</key>
-                    <integer>1</integer>
-                    <key>AuthenticationType</key>
-                    <string>CHAP</string>
-                    <key>DefaultProtocolMask</key>
-                    <integer>1</integer>
-                    <key>EnableXLAT464</key>
-                    <true />
-                    <key>Name</key>
+                    <key>APN</key>
                     <string>${apn}</string>
-                    <key>Username</key>
-                    <string></string>
                 </dict>
             </array>
-            <key>AttachAPN</key>
-            <dict>
-                <key>AllowedProtocolMask</key>
-                <integer>3</integer>
-                <key>AuthenticationType</key>
-                <string>PAP</string>
-                <key>Name</key>
-                <string>${apn}</string>
-                <key>Username</key>
-                <string></string>
-            </dict>
-        </dict>
-
-        <!-- VPN Settings -->
-        <dict>
-            <key>PayloadDisplayName</key>
-            <string>VPN</string>
-            <key>PayloadIdentifier</key>
-            <string>com.apple.vpn.managed.${generateUniqueUUID()}</string>
-            <key>PayloadType</key>
-            <string>com.apple.vpn.managed</string>
-            <key>PayloadUUID</key>
-            <string>${generateUniqueUUID()}</string>
-            <key>PayloadVersion</key>
-            <integer>1</integer>
-            <key>UserDefinedName</key>
-            <string>VPN Configuration</string>
-            <key>VPNType</key>
-            <string>IPSec</string>
-            <key>IPSec</key>
-            <dict>
-                <key>AuthenticationMethod</key>
-                <string>SharedSecret</string>
-                <key>ExtendedAuthEnabled</key>
-                <false/>
-                <key>LocalIdentifier</key>
-                <string>${apn}</string>
-                <key>RemoteAddress</key>
-                <string>vpn.example.com</string>
-                <key>SharedSecret</key>
-                <string>${generateUniqueUUID()}</string>
-                <key>XAuthEnabled</key>
-                <false/>
-                <key>XAuthName</key>
-                <string>${apn}</string>
-                <key>XAuthPassword</key>
-                <string>${apn}</string>
-            </dict>
-        </dict>
-
-        <!-- Proxy Settings -->
-        <dict>
-            <key>PayloadDisplayName</key>
-            <string>Proxy</string>
-            <key>PayloadIdentifier</key>
-            <string>com.apple.proxy.${generateUniqueUUID()}</string>
-            <key>PayloadType</key>
-            <string>com.apple.proxy</string>
-            <key>PayloadUUID</key>
-            <string>${generateUniqueUUID()}</string>
-            <key>PayloadVersion</key>
-            <integer>1</integer>
-            <key>HTTPEnable</key>
-            <true/>
-            <key>HTTPPort</key>
-            <integer>8080</integer>
-            <key>HTTPSEnable</key>
-            <true/>
-            <key>HTTPSPort</key>
-            <integer>8080</integer>
-            <key>FTPEnable</key>
-            <true/>
-            <key>FTPPort</key>
-            <integer>21</integer>
-            <key>SOCKSEnable</key>
-            <true/>
-            <key>SOCKSPort</key>
-            <integer>1080</integer>
-            <key>Server</key>
-            <string>proxy.example.com</string>
-            <key>ExclusionList</key>
-            <array>
-                <string>localhost</string>
-                <string>127.0.0.1</string>
-                <string>169.254.0.0/16</string>
-            </array>
-        </dict>
-
-        <!-- Additional Settings -->
-        <dict>
-            <key>PayloadDisplayName</key>
-            <string>Additional Settings</string>
-            <key>PayloadIdentifier</key>
-            <string>com.example.additionalsettings.${generateUniqueUUID()}</string>
-            <key>PayloadType</key>
-            <string>Configuration</string>
-            <key>PayloadUUID</key>
-            <string>${generateUniqueUUID()}</string>
-            <key>PayloadVersion</key>
-            <integer>1</integer>
-            <key>PayloadOrganization</key>
-            <string>Github:AiGptCode</string>
-            <key>PayloadRemovalDisallowed</key>
-            <false/>
         </dict>
     </array>
     <key>PayloadDisplayName</key>
     <string>Configuration Profile</string>
     <key>PayloadIdentifier</key>
-    <string>com.example.profile</string>
-    <key>PayloadRemovalDisallowed</key>
-    <false/>
+    <string>com.example.configprofile</string>
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
@@ -352,17 +232,16 @@
     <key>PayloadVersion</key>
     <integer>1</integer>
 </dict>
-</plist>
-`;
+</plist>`;
 
-      const configBlob = new Blob([configPlist], { type: 'application/xml' });
-      const downloadLink = document.createElement('a');
-      downloadLink.href = URL.createObjectURL(configBlob);
-      downloadLink.download = 'config.mobileconfig';
-      downloadLink.click();
-      setTimeout(() => {
-          URL.revokeObjectURL(downloadLink.href);
-      }, 1000);
+      // Create a Blob and download link
+      const blob = new Blob([configPlist], { type: 'application/xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'ConfigurationProfile.mobileconfig';
+      a.click();
+      URL.revokeObjectURL(url);
     }
 
     configForm.addEventListener('submit', handleFormSubmit);
