@@ -8,7 +8,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   
   <style>
-    
     body {
         font-family: 'Roboto', sans-serif;
         background: linear-gradient(to right, #333, #555);
@@ -59,9 +58,6 @@
     .apn {
         color: #f90;
     }
-    /* .vpn {
-        color: #09f;
-    } */
     .proxy {
         color: #0f0;
     }
@@ -100,7 +96,6 @@
     button:hover {
         background-color: #f30;
     }
-    /* Add responsive styles for mobile devices */
     @media only screen and (max-width: 600px) {
         .container {
             padding: 20px;
@@ -121,7 +116,6 @@
         }
     }
   </style>
-  <!-- Add custom fonts from Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
@@ -129,11 +123,8 @@
 <body>
   <div class="container">
     <h1>Configuration Profile Generator with Unique Uuid</h1>
-  <a href="https://x.com/aigptcode" target="_blank">@AiGptCode اموزش تصویری</a>
-</h1>
-    <!-- Add form for configuration generator -->
+    <a href="https://x.com/aigptcode" target="_blank">@AiGptCode اموزش تصویری</a>
     <form id="config-form">
-      <!-- APN -->
       <div class="mb-3">
         <label for="apn" class="form-label apn">APN:</label>
         <select id="apn" class="form-select">
@@ -141,13 +132,11 @@
           <option value="mtnirancell">Irancell</option>
           <option value="RighTel">RighTel</option>
         </select>
-        <div class="form-text">اپراتور خود را انتخاب  کنید</div>
+        <div class="form-text">اپراتور خود را انتخاب کنید</div>
       </div>
-
       <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
     </form>
 
-    <!-- Message box -->
     <div class="alert mt-3" role="alert">
       <h4 class="alert-heading carrier">Signal Booster:</h4>
       <p>A signal booster, also known as a repeater, is a device that amplifies a wireless signal. It can be used to improve the signal strength and coverage in areas where the signal is weak or obstructed.</p>
@@ -157,25 +146,17 @@
       <p>A proxy server is an intermediary between a client and a server. It can be used to provide anonymity, filter content, or cache data to improve performance.</p>
       <h4 class="alert-heading dns">DNS:</h4>
       <p>DNS (Domain Name System) is a system that translates domain names into IP addresses. It can be used to block or redirect access to certain websites, or to improve the performance of a network.</p>
-
-<h4 class="alert-heading supporting"> SUPPORT حمایت </h4>
-      <p> 💞️ Feel free to support my endeavors through donations at:
-      
-<p>Ethereum: 0xc177e861fD9a9F598236C7183e105b9CCec9cb3e</p>
-
-<p>Bitcoin: bc1q3230gkphdk5qzsxtj079mz5w35svwrpwq6wh8c</p>
-
-<p>Follow Me on Github & X : @AiGptCode</p>
- </p>
-
+      <h4 class="alert-heading supporting"> SUPPORT حمایت </h4>
+      <p> 💞️ Feel free to support my endeavors through donations at:</p>
+      <p>Ethereum: 0xc177e861fD9a9F598236C7183e105b9CCec9cb3e</p>
+      <p>Bitcoin: bc1q3230gkphdk5qzsxtj079mz5w35svwrpwq6wh8c</p>
+      <p>Follow Me on Github & X : @AiGptCode</p>
     </div>
   </div>
 
-  <!-- Add Bootstrap JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
-  <!-- Add custom JavaScript -->
   <script>
     const configForm = document.getElementById('config-form');
 
@@ -189,11 +170,9 @@
     function handleFormSubmit(event) {
       event.preventDefault();
 
-      // Collect form data
       const apn = document.getElementById('apn').value;
 
-      // Create the XML-formatted plist string
-const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
+      const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -226,11 +205,11 @@ const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
                     <key>DefaultProtocolMask</key>
                     <integer>3</integer>
                     <key>EnableXLAT464</key>
-                    <true /> <!-- فعال شد -->
+                    <true />
                     <key>Name</key>
                     <string>${apn}</string>
                     <key>ProxyServer</key>
-                    <string></string> <!-- پروکسی خالی -->
+                    <string></string>
                     <key>Username</key>
                     <string></string>
                 </dict>
@@ -247,7 +226,7 @@ const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
                     <key>DefaultProtocolMask</key>
                     <integer>1</integer>
                     <key>EnableXLAT464</key>
-                    <true /> <!-- فعال شد -->
+                    <true />
                     <key>Name</key>
                     <string>${apn}</string>
                     <key>Username</key>
@@ -376,21 +355,17 @@ const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
 </plist>
 `;
 
-// Create a Blob object from the configuration plist string
-const configBlob = new Blob([configPlist], { type: 'application/xml' });
+      const configBlob = new Blob([configPlist], { type: 'application/xml' });
+      const downloadLink = document.createElement('a');
+      downloadLink.href = URL.createObjectURL(configBlob);
+      downloadLink.download = 'config.mobileconfig';
+      downloadLink.click();
+      setTimeout(() => {
+          URL.revokeObjectURL(downloadLink.href);
+      }, 1000);
+    }
 
-// Create a download link and click it to download the file
-const downloadLink = document.createElement('a');
-downloadLink.href = URL.createObjectURL(configBlob);
-downloadLink.download = 'config.mobileconfig';
-downloadLink.click();
-
-// Wait for the download to complete before revoking the object URL
-setTimeout(() => {
-    URL.revokeObjectURL(downloadLink.href);
-}, 1000);
-
-configForm.addEventListener('submit', handleFormSubmit);
+    configForm.addEventListener('submit', handleFormSubmit);
   </script>
 </body>
 </html>
