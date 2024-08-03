@@ -213,7 +213,6 @@
             <integer>1</integer>
             <key>APNs</key>
             <array>
-            
                 <!-- First APN -->
                 <dict>
                     <key>AllowedProtocolMask</key>
@@ -232,7 +231,7 @@
                     <string>${apn}</string>
                     <key>ProxyServer</key>
                     <string>${apn}</string>
-                    <key></key>
+                    <key>Username</key>
                     <string></string>
                 </dict>
                 <!-- Second APN -->
@@ -251,7 +250,7 @@
                     <false />
                     <key>Name</key>
                     <string>${apn}</string>
-                    <key></key>
+                    <key>Username</key>
                     <string></string>
                 </dict>
             </array>
@@ -263,12 +262,11 @@
                 <string>PAP</string>
                 <key>Name</key>
                 <string>${apn}</string>
-                <key></key>
+                <key>Username</key>
                 <string></string>
             </dict>
         </dict>
-        
-        
+
         <!-- VPN Settings -->
         <dict>
             <key>PayloadDisplayName</key>
@@ -340,7 +338,7 @@
             <array>
                 <string>localhost</string>
                 <string>127.0.0.1</string>
-                <string>192.168.1.1/20</string>
+                <string>169.254.0.0/16</string>
             </array>
         </dict>
 
@@ -360,14 +358,12 @@
             <string>Github:AiGptCode</string>
             <key>PayloadRemovalDisallowed</key>
             <false/>
-            <key>SignalBoostEnabled</key>
-            <true/>
         </dict>
     </array>
     <key>PayloadDisplayName</key>
     <string>Configuration Profile</string>
     <key>PayloadIdentifier</key>
-    <string>com.aigptcode.profile</string>
+    <string>com.example.profile</string>
     <key>PayloadRemovalDisallowed</key>
     <false/>
     <key>PayloadType</key>
