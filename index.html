@@ -1,395 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
+ 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Configuration Profile Generator with Unique Uuid</title>
-  
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    /* Default theme (Dark) */
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-        color: #e0e0e0;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-
-    .content {
-        flex: 1; 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-    }
-
-    .container {
-        max-width: 600px;
-        padding: 30px;
-        background-color: #121212;
-        border-radius: 16px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #ffffff;
-        font-weight: 700;
-        font-size: 24px;
-    }
-
-    label {
-        font-weight: 600;
-        margin-bottom: 8px;
-        display: block;
-        color: #cccccc;
-    }
-
-    .form-text {
-        color: #aaaaaa;
-        margin-top: 5px;
-        font-size: 14px;
-    }
-
-    input, select, textarea {
-        border-radius: 8px;
-        padding: 12px;
-        font-size: 15px;
-        margin-bottom: 20px;
-        border: 1px solid #333;
-        background-color: #1f1f1f;
-        color: #e0e0e0;
-        transition: border-color 0.3s;
-    }
-
-    input:focus, select:focus, textarea:focus {
-        border-color: #8ab4f8;
-        outline: none;
-    }
-
-    button {
-        background-color: #333;
-        color: #ffffff;
-        border-radius: 8px;
-        padding: 14px;
-        border: none;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: 600;
-        width: 100%;
-        transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-        background-color: #555;
-    }
-
-    footer {
-        width: 100%;
-        padding: 20px;
-        border-top: 5px solid #8ab4f8;
-        border-radius: 0 0 16px 16px;
-        box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        background-color: #121212;
-        color: #e0e0e0;
-    }
-
-    .support {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: #1f1f1f;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        color: #e0e0e0;
-        max-width: 500px;
-        margin: 0 auto;
-        border: 1px solid #444;
-    }
-
-    .support h4 {
-        font-weight: 700;
-        color: #ffffff;
-        margin-bottom: 10px;
-    }
-
-    .support p {
-        margin: 0;
-        font-size: 14px;
-        color: #cccccc;
-    }
-
-    .support a {
-        text-decoration: none;
-        color: #121212;
-        background-color: #8ab4f8;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-weight: 600;
-        transition: background-color 0.3s ease;
-        display: flex;
-        align-items: center;
-    }
-
-    .support a:hover {
-        background-color: #a6c8ff;
-    }
-
-    .coffee-icon {
-        font-size: 24px;
-        margin-right: 8px;
-    }
-
-    .alert {
-        background-color: #1f1f1f;
-        color: #e0e0e0;
-        border: 1px solid #444;
-    }
-
-    /* Light theme styles */
-    body.light-theme {
-        background: #ffffff;
-        color: #000000;
-    }
-
-    body.light-theme .container {
-        background-color: #ffffff;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-    }
-
-    body.light-theme h1, 
-    body.light-theme label, 
-    body.light-theme .support h4 {
-        color: #000000;
-    }
-
-    body.light-theme .form-text, 
-    body.light-theme .support p {
-        color: #333333;
-    }
-
-    body.light-theme input, 
-    body.light-theme select, 
-    body.light-theme textarea {
-        background-color: #ffffff;
-        color: #000000;
-        border-color: #cccccc;
-    }
-
-    body.light-theme input:focus, 
-    body.light-theme select:focus, 
-    body.light-theme textarea:focus {
-        border-color: #6E85B7;
-        outline: none;
-    }
-
-    body.light-theme button {
-        background-color: #6E85B7;
-        color: #ffffff;
-    }
-
-    body.light-theme button:hover {
-        background-color: #4A6FA5;
-    }
-
-    body.light-theme .alert {
-        background-color: #ffffff;
-        color: #000000;
-        border: 1px solid #dddddd;
-    }
-
-    body.light-theme footer {
-        background-color: #ffffff;
-        color: #000000;
-    }
-
-    body.light-theme .support {
-        background-color: #ffffff;
-        border: 1px solid #e0e0e0;
-    }
-
-    body.light-theme .support a {
-        background-color: #6E85B7;
-        color: #ffffff;
-    }
-
-    body.light-theme .support a:hover {
-        background-color: #4A6FA5;
-    }
-
-
-
-
-    .theme-toggle-container {
-        display: flex;
-        align-items: center;
-        justify-content: center; 
-        padding: 10px 0; 
-        margin-bottom: 20px; 
-        background-color: rgba(0, 0, 0, 0.05); 
-        border-bottom: 1px solid #ddd; 
-    }
-
-    /* Styling for the toggle switch */
-    .theme-switch {
-        position: relative;
-        display: inline-block;
-        width: 80px; 
-        height: 40px; 
-        margin-right: 15px; 
-    }
-
-    .theme-switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        transition: .4s;
-        border-radius: 34px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 30px; 
-        width: 30px; 
-        left: 5px;
-        bottom: 5px;
-        background-color: white;
-        transition: .4s;
-        border-radius: 50%;
-    }
-
-    input:checked + .slider {
-        background-color: #6E85B7; 
-    }
-
-    input:checked + .slider:before {
-        transform: translateX(40px);
-    }
-
-    /* Text label for the toggle */
-    .theme-label {
-        color: #333;
-        font-size: 18px; 
-        font-weight: 700; 
-    }
-
-    body.light-theme .theme-label {
-        color: #000000;
-    }
-</style>
-
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Configuration Profile Generator with Unique Uuid</title>
+ 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+ 
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #333, #555);
+            color: #fff;
+        }
+ 
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        }
+ 
+        h1 {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #fff;
+            font-weight: 300;
+            text-shadow: 2px 2px #000;
+        }
+ 
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
+            position: relative;
+        }
+ 
+        label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #fff;
+            transform: scaleX(0);
+            transition: transform 0.3s ease-out;
+        }
+ 
+        label:hover::before,
+        input:focus+label::before,
+        select:focus+label::before,
+        textarea:focus+label::before {
+            transform: scaleX(1);
+        }
+ 
+        .form-text {
+            color: #888;
+            margin-top: 5px;
+        }
+ 
+        .carrier {
+            color: #f00;
+        }
+ 
+        .apn {
+            color: #f90;
+        }
+ 
+        .proxy {
+            color: #0f0;
+        }
+ 
+        .dns {
+            color: #00f;
+        }
+ 
+        .supporting {
+            color: #f0f;
+        }
+ 
+        input,
+        select,
+        textarea {
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            font-size: 14px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            border: none;
+            margin-bottom: 20px;
+        }
+ 
+        button {
+            background-color: #f00;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 20px;
+            display: block;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+ 
+        button:hover {
+            background-color: #f30;
+        }
+ 
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+ 
+            h1 {
+                font-size: 24px;
+            }
+ 
+            label {
+                font-size: 14px;
+            }
+ 
+            input,
+            select,
+            textarea {
+                font-size: 14px;
+            }
+ 
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
+ 
 <body>
-
-     <!-- Toggle switch for theme at the top -->
-     <div class="theme-toggle-container">
-        <label class="theme-switch">
-            <input type="checkbox" id="theme-toggle">
-            <span class="slider"></span>
-        </label>
-        <span class="theme-label">Dark Mode</span>
-    </div>
-
-    <div class="content"></div>
-        <div class="container">
-            <h1>Modern Configuration Profile Generator</h1>
-            <form id="config-form">
-              <div class="mb-3">
-                <label for="apn" class="form-label">APN:</label>
+    <div class="container" style="text-align: center; padding: 20px;">
+        <h1 style="font-size: 24px; color: #FF0000;">Configuration Profile Generator with Unique Uuid</h1>
+        <a href="https://x.com/aigptcode" target="_blank" style="display: inline-block; margin-top: 10px; font-size: 18px; color: #007BFF; text-decoration: none; font-weight: bold;">@AiGptCode آموزش تصویری</a>
+        <form id="config-form">
+            <!-- APN -->
+            <div class="mb-3">
+                <label for="apn" class="form-label apn">APN:</label>
                 <select id="apn" class="form-select">
-                  <option value="mcinet">MCI</option>
-                  <option value="mtnirancell">Irancell</option>
-                  <option value="RighTel">RighTel</option>
-                  <option value="ApTel">ApTel</option>
-                  <option value="samantel">Samantel</option>
+                    <option value="mcinet">MCI</option>
+                    <option value="mtnirancell">Irancell</option>
+                    <option value="RighTel">RighTel</option>
+                    <option value="ApTel">ApTel</option>
+                    <option value="samantel">samantel</option>
                 </select>
-                <div class="form-text">Select your carrier</div>
-              </div>
-              <button type="submit">Generate Configuration Profile</button>
-            </form>
-
-           
-        
-
-            <!-- Existing alert content -->
-            <div class="alert mt-3" role="alert">
-              <h4 class="alert-heading carrier">Signal Booster:</h4>
-              <p>A signal booster, also known as a repeater, is a device that amplifies a wireless signal. It can be used to improve the signal strength and coverage in areas where the signal is weak or obstructed.</p>
-              
-              <h4 class="alert-heading apn">APN:</h4>
-              <p>APN (Access Point Name) is a gateway between a cellular network and the public internet. It is used to set up a data connection on a mobile device, and different carriers may have different APN settings.</p>
-              
-              <h4 class="alert-heading proxy">Proxy:</h4>
-              <p>A proxy server is an intermediary between a client and a server. It can be used to provide anonymity, filter content, or cache data to improve performance.</p>
-              
-              <h4 class="alert-heading dns">DNS:</h4>
-              <p>DNS (Domain Name System) is a system that translates domain names into IP addresses. It can be used to block or redirect access to certain websites, or to improve the performance of a network.</p>
-
-              <h4 class="alert-heading supporting"> SUPPORT حمایت </h4>
-              <p> 💞️ Feel free to support my endeavors through donations at:</p>
-              <p>Bitcoin: bc1q3230gkphdk5qzsxtj079mz5w35svwrpwq6wh8c</p>
-              <p>Follow Me on Github & X : @AiGptCode</p>
+                <div class="form-text">اپراتور خود را انتخاب کنید</div>
             </div>
+ 
+            <button type="submit" class="btn btn-primary">Generate Configuration Profile</button>
+        </form>
+ 
+        <!-- Message box -->
+        <div class="alert mt-3" role="alert">
+            <h4 class="alert-heading carrier">Signal Booster:</h4>
+            <p>A signal booster, also known as a repeater, is a device that amplifies a wireless signal. It can be used to improve the signal strength and coverage in areas where the signal is weak or obstructed.</p>
+            <h4 class="alert-heading apn">APN:</h4>
+            <p>APN (Access Point Name) is a gateway between a cellular network and the public internet. It is used to set up a data connection on a mobile device, and different carriers may have different APN settings.</p>
+            <h4 class="alert-heading proxy">Proxy:</h4>
+            <p>A proxy server is an intermediary between a client and a server. It can be used to provide anonymity, filter content, or cache data to improve performance.</p>
+            <h4 class="alert-heading dns">DNS:</h4>
+            <p>DNS (Domain Name System) is a system that translates domain names into IP addresses. It can be used to block or redirect access to certain websites, or to improve the performance of a network.</p>
+ 
+            <h4 class="alert-heading supporting"> SUPPORT حمایت </h4>
+            <p> 💞️ Feel free to support my endeavors through donations at:</p>
+            <p>Bitcoin: bc1q3230gkphdk5qzsxtj079mz5w35svwrpwq6wh8c</p>
+            <p>Follow Me on Github & X : @AiGptCode</p>
         </div>
     </div>
-
+ 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
-  <script>
-const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-
-    themeToggle.addEventListener('change', () => {
-        if (themeToggle.checked) {
-            body.classList.add('light-theme');
-            document.querySelector('.theme-label').textContent = 'Light Mode';
-        } else {
-            body.classList.remove('light-theme');
-            document.querySelector('.theme-label').textContent = 'Dark Mode';
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+ 
+    <script>
+        const configForm = document.getElementById('config-form');
+ 
+        function generateUniqueUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0,
+                    v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
         }
-    });
-
-
-
-    const configForm = document.getElementById('config-form');
-
-    function generateUniqueUUID() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
-
-    function handleFormSubmit(event) {
-      event.preventDefault();
-
-      const apn = document.getElementById('apn').value;
-
-      const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
+ 
+        function handleFormSubmit(event) {
+            event.preventDefault();
+ 
+            const apn = document.getElementById('apn').value;
+ 
+            const configPlist = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -398,13 +213,13 @@ const themeToggle = document.getElementById('theme-toggle');
         <!-- Cellular Settings -->
         <dict>
             <key>PayloadDisplayName</key>
-            <string>Cellular</string>
+            <___endoperatoroperator___>Cellular</___endoperatoroperator___>
             <key>PayloadIdentifier</key>
-            <string>com.apple.cellular</string>
+            <___endoperatoroperator___>com.apple.cellular</___endoperatoroperator___>
             <key>PayloadType</key>
-            <string>com.apple.cellular</string>
+            <___endoperatoroperator___>com.apple.cellular</___endoperatoroperator___>
             <key>PayloadUUID</key>
-            <string>${generateUniqueUUID()}</string>
+            <___endoperatoroperator___>${generateUniqueUUID()}</___endoperatoroperator___>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>APNs</key>
@@ -418,17 +233,17 @@ const themeToggle = document.getElementById('theme-toggle');
                     <key>AllowedProtocolMaskInRoaming</key>
                     <integer>3</integer>
                     <key>AuthenticationType</key>
-                    <string>PAP</string>
+                    <___endoperatoroperator___>PAP</___endoperatoroperator___>
                     <key>DefaultProtocolMask</key>
                     <integer>3</integer>
                     <key>EnableXLAT464</key>
                     <true />
                     <key>Name</key>
-                    <string>${apn}</string>
+                    <___endoperatoroperator___>${apn}</___endoperatoroperator___>
                     <key>ProxyServer</key>
-                    <string></string>
+                    <___endoperatoroperator___></___endoperatoroperator___>
                     <key>Username</key>
-                    <string></string>
+                    <___endoperatoroperator___></___endoperatoroperator___>
                 </dict>
                 <!-- Second APN -->
                 <dict>
@@ -439,15 +254,15 @@ const themeToggle = document.getElementById('theme-toggle');
                     <key>AllowedProtocolMaskInRoaming</key>
                     <integer>1</integer>
                     <key>AuthenticationType</key>
-                    <string>CHAP</string>
+                    <___endoperatoroperator___>CHAP</___endoperatoroperator___>
                     <key>DefaultProtocolMask</key>
                     <integer>1</integer>
                     <key>EnableXLAT464</key>
                     <true />
                     <key>Name</key>
-                    <string>${apn}</string>
+                    <___endoperatoroperator___>${apn}</___endoperatoroperator___>
                     <key>Username</key>
-                    <string></string>
+                    <___endoperatoroperator___></___endoperatoroperator___>
                 </dict>
             </array>
             <key>AttachAPN</key>
@@ -455,61 +270,61 @@ const themeToggle = document.getElementById('theme-toggle');
                 <key>AllowedProtocolMask</key>
                 <integer>3</integer>
                 <key>AuthenticationType</key>
-                <string>PAP</string>
+                <___endoperatoroperator___>PAP</___endoperatoroperator___>
                 <key>Name</key>
-                <string>${apn}</string>
+                <___endoperatoroperator___>${apn}</___endoperatoroperator___>
                 <key>Username</key>
-                <string></string>
+                <___endoperatoroperator___></___endoperatoroperator___>
             </dict>
         </dict>
-
+ 
         <!-- VPN Settings -->
         <dict>
             <key>PayloadDisplayName</key>
-            <string>VPN</string>
+            <___endoperatoroperator___>VPN</___endoperatoroperator___>
             <key>PayloadIdentifier</key>
-            <string>com.apple.vpn.managed.${generateUniqueUUID()}</string>
+            <___endoperatoroperator___>com.apple.vpn.managed.${generateUniqueUUID()}</___endoperatoroperator___>
             <key>PayloadType</key>
-            <string>com.apple.vpn.managed</string>
+            <___endoperatoroperator___>com.apple.vpn.managed</___endoperatoroperator___>
             <key>PayloadUUID</key>
-            <string>${generateUniqueUUID()}</string>
+            <___endoperatoroperator___>${generateUniqueUUID()}</___endoperatoroperator___>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>UserDefinedName</key>
-            <string>VPN Configuration</string>
+            <___endoperatoroperator___>VPN Configuration</___endoperatoroperator___>
             <key>VPNType</key>
-            <string>IPSec</string>
+            <___endoperatoroperator___>IPSec</___endoperatoroperator___>
             <key>IPSec</key>
-            <dict> 
+            <dict>
                 <key>AuthenticationMethod</key>
-                <string>SharedSecret</string>
+                <___endoperatoroperator___>SharedSecret</___endoperatoroperator___>
                 <key>ExtendedAuthEnabled</key>
                 <false/>
                 <key>LocalIdentifier</key>
-                <string>${apn}</string>
+                <___endoperatoroperator___>${apn}</___endoperatoroperator___>
                 <key>RemoteAddress</key>
-                <string>vpn.example.com</string>
+                <___endoperatoroperator___>vpn.example.com</___endoperatoroperator___>
                 <key>SharedSecret</key>
-                <string>${generateUniqueUUID()}</string>
+                <___endoperatoroperator___>${generateUniqueUUID()}</___endoperatoroperator___>
                 <key>XAuthEnabled</key>
                 <false/>
                 <key>XAuthName</key>
-                <string>${apn}</string>
+                <___endoperatoroperator___>${apn}</___endoperatoroperator___>
                 <key>XAuthPassword</key>
-                <string>${apn}</string>
+                <___endoperatoroperator___>${apn}</___endoperatoroperator___>
             </dict>
         </dict>
-
+ 
         <!-- Proxy Settings -->
         <dict>
             <key>PayloadDisplayName</key>
-            <string>Proxy</string>
+            <___endoperatoroperator___>Proxy</___endoperatoroperator___>
             <key>PayloadIdentifier</key>
-            <string>com.apple.proxy.${generateUniqueUUID()}</string>
+            <___endoperatoroperator___>com.apple.proxy.${generateUniqueUUID()}</___endoperatoroperator___>
             <key>PayloadType</key>
-            <string>com.apple.proxy</string>
+            <___endoperatoroperator___>com.apple.proxy</___endoperatoroperator___>
             <key>PayloadUUID</key>
-            <string>${generateUniqueUUID()}</string>
+            <___endoperatoroperator___>${generateUniqueUUID()}</___endoperatoroperator___>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>HTTPEnable</key>
@@ -529,29 +344,29 @@ const themeToggle = document.getElementById('theme-toggle');
             <key>SOCKSPort</key>
             <integer>1080</integer>
             <key>Server</key>
-            <string></string>
+            <___endoperatoroperator___></___endoperatoroperator___>
             <key>ExclusionList</key>
             <array>
-                <string>localhost</string>
-                <string>127.0.0.1</string>
-                <string>169.254.0.0/16</string>
+                <___endoperatoroperator___>localhost</___endoperatoroperator___>
+                <___endoperatoroperator___>127.0.0.1</___endoperatoroperator___>
+                <___endoperatoroperator___>169.254.0.0/16</___endoperatoroperator___>
             </array>
         </dict>
-
+ 
         <!-- Additional Settings -->
         <dict>
             <key>PayloadDisplayName</key>
-            <string>Additional Settings</string>
+            <___endoperatoroperator___>Additional Settings</___endoperatoroperator___>
             <key>PayloadIdentifier</key>
-            <string>com.example.additionalsettings.${generateUniqueUUID()}</string>
+            <___endoperatoroperator___>com.example.additionalsettings.${generateUniqueUUID()}</___endoperatoroperator___>
             <key>PayloadType</key>
-            <string>Configuration</string>
+            <___endoperatoroperator___>Configuration</___endoperatoroperator___>
             <key>PayloadUUID</key>
-            <string>${generateUniqueUUID()}</string>
+            <___endoperatoroperator___>${generateUniqueUUID()}</___endoperatoroperator___>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>PayloadOrganization</key>
-            <string>Github:AiGptCode</string>
+            <___endoperatoroperator___>Github:AiGptCode</___endoperatoroperator___>
             <key>PayloadRemovalDisallowed</key>
             <false/>
             <key>SignalBoostEnabled</key>
@@ -559,32 +374,35 @@ const themeToggle = document.getElementById('theme-toggle');
         </dict>
     </array>
     <key>PayloadDisplayName</key>
-    <string>Configuration Profile</string>
+    <___endoperatoroperator___>Configuration Profile</___endoperatoroperator___>
     <key>PayloadIdentifier</key>
-    <string>com.example.profile</string>
+    <___endoperatoroperator___>com.example.profile</___endoperatoroperator___>
     <key>PayloadRemovalDisallowed</key>
     <false/>
     <key>PayloadType</key>
-    <string>Configuration</string>
+    <___endoperatoroperator___>Configuration</___endoperatoroperator___>
     <key>PayloadUUID</key>
-    <string>${generateUniqueUUID()}</string>
+    <___endoperatoroperator___>${generateUniqueUUID()}</___endoperatoroperator___>
     <key>PayloadVersion</key>
     <integer>1</integer>
 </dict>
 </plist>
 `;
-
-      const configBlob = new Blob([configPlist], { type: 'application/xml' });
-      const downloadLink = document.createElement('a');
-      downloadLink.href = URL.createObjectURL(configBlob);
-      downloadLink.download = 'config.mobileconfig';
-      downloadLink.click();
-      setTimeout(() => {
-          URL.revokeObjectURL(downloadLink.href);
-      }, 1000);
-    }
-
-    configForm.addEventListener('submit', handleFormSubmit);
-  </script>
+ 
+            const configBlob = new Blob([configPlist], {
+                type: 'application/xml'
+            });
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(configBlob);
+            downloadLink.download = 'config.mobileconfig';
+            downloadLink.click();
+            setTimeout(() => {
+                URL.revokeObjectURL(downloadLink.href);
+            }, 1000);
+        }
+ 
+        configForm.addEventListener('submit', handleFormSubmit);
+    </script>
 </body>
+ 
 </html>
